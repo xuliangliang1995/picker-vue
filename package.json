@@ -12,8 +12,9 @@
     "core-js": "^2.6.5",
     "less": "^2.7.2",
     "less-loader": "^5.0.0",
+    "moment": "latest",
     "vue": "^2.6.10",
-    "moment": "latest"
+    "vue-router": "^3.1.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",

@@ -1,26 +1,30 @@
 <template>
   <div id="app">
     <a-locale-provider :locale="locale">
-      <Boot>
+      <Lay>
+        <!-- 页面头 -->
         <a-row :gutter="24" slot="header" type="flex" justify="space-around">
           <a-col :span="2">
             <div id="logo">
-              <img height="100%" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
+              <img class="logo-img" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
             </div>
           </a-col>
           <a-col :span="16">
             <MenuTop/>
           </a-col>
           <a-col :span="4">
-            <a-avatar size="large" icon="user"/>
+            <a-avatar v-if="loggingIn" size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"
+                      @click="loggingIn=false"
+            />
+            <a-button v-if="! loggingIn" type="primary" class="header-btn" ghost @click="loggingIn=true">登录</a-button>
+            <a-button v-if="! loggingIn" type="primary" class="header-btn">注册</a-button>
           </a-col>
         </a-row>
 
         <MenuLeft slot="sider"/>
-        <ContentDemo slot="content"/>
-      </Boot>
-      <!--<img src="./assets/logo.png">
-      <a-button type="primary">Button></a-button>-->
+        <FirstPage slot="content"/>
+      </Lay>
+
     </a-locale-provider>
   </div>
 </template>
@@ -31,21 +35,22 @@
   import 'moment/locale/zh-cn';
   moment.locale('zh-cn');
 
-  import Boot from "@/components/Boot";
+  import Lay from "@/components/layout/Lay";
   import MenuTop from "@/components/menu/MenuTop";
   import MenuLeft from "@/components/menu/MenuLeft";
-  import ContentDemo from "@/components/content/ContentDemo";
+  import FirstPage from "@/components/content/FirstPage";
 
   export default {
     name: 'app',
     components: {
-      Boot,
+      Lay,
       MenuTop,
       MenuLeft,
-      ContentDemo
+      FirstPage
     },
     data() {
       return {
+        loggingIn: false,
         locale: zh_CN
       }
     }
@@ -55,6 +60,12 @@
   #logo {
     height: 40px;
     text-align: center;
+  }
+  .logo-img {
+    height: 100%;
+  }
+  .header-btn {
+    margin-left: 5px;
   }
 </style>
 
