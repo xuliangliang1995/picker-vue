@@ -1,12 +1,16 @@
 <template>
-    <div>
-        <template v-for="(value, key, index) in 5">
+    <Main>
+        <template slot="content" v-for="(value, key) in 5">
             <a-skeleton v-bind:key="key" avatar :paragraph="{rows: 4}" />
         </template>
-    </div>
+    </Main>
 </template>
 <script>
+    import Main from "@/components/layout/Main";
     export default {
+        components: {
+            Main
+        },
         data() {
             return {
             }

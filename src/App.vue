@@ -3,7 +3,7 @@
     <a-locale-provider :locale="locale">
       <Lay>
         <!-- 页面头 -->
-        <a-row :gutter="24" slot="header" type="flex" justify="space-around">
+        <a-row slot="header" type="flex" justify="space-around">
           <a-col :span="2">
             <div id="logo">
               <img class="logo-img" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
@@ -16,8 +16,8 @@
             <a-avatar v-if="loggingIn" size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"
                       @click="loggingIn=false"
             />
-            <a-button v-if="! loggingIn" type="primary" class="header-btn" ghost @click="loggingIn=true">登录</a-button>
-            <a-button v-if="! loggingIn" type="primary" class="header-btn">注册</a-button>
+            <a-button v-if="! loggingIn" type="primary" class="header-btn" ghost @click="toSignIn">登录</a-button>
+            <a-button v-if="! loggingIn" type="primary" class="header-btn" @click="toSignUp">注册</a-button>
           </a-col>
         </a-row>
 
@@ -52,6 +52,14 @@
       return {
         loggingIn: false,
         locale: zh_CN
+      }
+    },
+    methods: {
+      toSignUp: function () {
+        this.$router.push("/signUp");
+      },
+      toSignIn: function () {
+        this.$router.push("/signIn")
       }
     }
   }

@@ -3,23 +3,13 @@
 
     <a-layout>
       <!-- 头部 -->
-      <a-layout-header id="header"><slot name="header"></slot></a-layout-header>
+      <a-layout-header :style="{'minHeight':headerHeight}" id="header"><slot name="header"></slot></a-layout-header>
 
-      <a-layout class="main-wrapper">
-        <a-row :gutter="24" type="flex" justify="start">
-          <a-col class="gutter-row" :span="4">
-            <slot name="sider"></slot>
-          </a-col>
-          <a-col class="gutter-row" :span="16">
-            <div class="content-wrapper">
-              <slot name="content"></slot>
+      <router-view :style="{'minHeight':contentHeight}">
 
-            </div>
-          </a-col>
-        </a-row>
-      </a-layout>
+      </router-view>
       <!-- Footer  -->
-      <a-layout-footer>
+      <a-layout-footer :style="{'minHeight':footerHeight}">
         <a-row type="flex" justify="space-around">
           <a-col>
             <span id="footer-info">
@@ -37,6 +27,9 @@
   export default {
     data () {
       return {
+        headerHeight: (window.screen.height * 5 / 100) + "px",
+        contentHeight: (window.screen.height * 95 / 100) + "px",
+        footerHeight: (window.screen.height * 10 / 100) + "px"
       }
     },
   }
@@ -48,13 +41,7 @@
     z-index: 10;
     background: #fff;
   }
-  .main-wrapper {
-    padding: 40px 40px 0 0;
-    min-height: 80%;
-  }
-  .content-wrapper {
-    padding: 0px 40px 0 40px;
-  }
+
   #footer-info {
     color: #fff;
     text-align: center;
