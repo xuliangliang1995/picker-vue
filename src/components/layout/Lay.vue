@@ -21,9 +21,23 @@
       </a-layout-footer>
     </a-layout>
 
+    <!-- 全局提权框 -->
+    <a-drawer
+            title="账户安全"
+            placement="top"
+            :closable="true"
+            @close="onClose"
+            :visible="visible"
+            height="200px"
+    >
+      <PrivilegeForm/>
+    </a-drawer>
   </div>
 </template>
 <script>
+  import { mapState, mapMutations } from 'vuex';
+  import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
+  import PrivilegeForm from "@/components/form/PrivilegeForm";
   export default {
     data () {
       return {
@@ -32,6 +46,26 @@
         footerHeight: (window.screen.height * 10 / 100) + "px"
       }
     },
+    components: {
+      PrivilegeForm
+    },
+    methods: {
+      onClose() {
+        this.upgradePrivilege(false);
+      },
+      ...mapMutations({
+        upgradePrivilege: UPGRADE_PRIVILEGE
+      })
+    },
+    computed: {
+      visible() {
+        return this.upgrade_privilege && ! this.privilege ;
+      },
+      ...mapState([
+        'upgrade_privilege',
+        'privilege'
+      ])
+    }
   }
 </script>
 <style>

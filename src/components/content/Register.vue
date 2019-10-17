@@ -12,7 +12,7 @@
                     <template v-if="currentStep == 1" class="activate-tip">
                         系统已经向您的邮箱（<span style="color: green">{{ email }}</span>）发送了账户激活邮件，
                         请打开您的邮箱对账号进行激活。
-                        <a-button>发送激活邮件</a-button><br/>
+                        <a-button @click="sendActivateEmail">发送激活邮件</a-button><br/>
                     </template>
                 </div>
             </a-col>
@@ -33,11 +33,13 @@
 </template>
 
 <script>
+    import {SEND_ACTIVATE_EMAIL_POST} from "@/components/constant/url_path";
     import SignUpForm from "@/components/form/SignUpForm";
     export default {
         data() {
             return {
                 currentStep: 0,
+                username: '',
                 email: ''
             }
         },
@@ -45,9 +47,28 @@
             SignUpForm
         },
         methods: {
-            registerSuccess(email) {
-                this.currentStep = 1;
-                this.email = email;
+            registerSuccess(username, email) {
+                let _this = this;
+                _this.username = username;
+                _this.email = email;
+                _this.currentStep = 1;
+            },
+            sendActivateEmail() {
+                let _this = this;
+                this.$axios.post([SEND_ACTIVATE_EMAIL_POST], {
+                    'username': _this.username
+                }).then(function (response) {
+                    let code = response.data.code;
+                    let message = response.data.message;
+                    if (code == 200) {
+                        _this.$message.info(message);
+                    } else {
+                        _this.$message.error(message);
+                    }
+                }).catch(function(error) {
+                    // eslint-disable-next-line no-console
+                    console.log(error);
+                })
             }
         }
     }

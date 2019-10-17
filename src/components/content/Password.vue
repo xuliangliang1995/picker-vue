@@ -2,34 +2,27 @@
     <div>
         <a-row type="flex" justify="center" align="middle" style="margin:50px">
             <a-col :span="18">
-                <a-divider style="font-size:30px">登录</a-divider>
+                <a-divider style="font-size:30px"><a-icon type="lock" /></a-divider>
             </a-col>
         </a-row>
         <a-row type="flex" justify="center" align="middle">
             <a-col :span="5">
-                <SignInForm/>
+                <ChangePwdForm/>
             </a-col>
         </a-row>
     </div>
 </template>
 
 <script>
-    import SignInForm from "@/components/form/SignInForm";
-
+    import ChangePwdForm from "@/components/form/ChangePwdForm";
     export default {
-        data() {
-            return {
-            }
-        },
+        name: "Password",
         components: {
-            SignInForm
+            ChangePwdForm
         }
     }
 </script>
 
 <style scoped>
-    .activate-tip {
-        padding-top: 100px;
-        font-size: 16px;
-    }
+
 </style>

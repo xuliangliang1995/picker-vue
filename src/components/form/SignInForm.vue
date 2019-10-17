@@ -58,6 +58,8 @@
 </template>
 
 <script>
+    import { SIGN_IN_POST } from "@/components/constant/url_path";
+
     export default {
         data () {
             return {
@@ -69,15 +71,24 @@
         methods: {
             handleSubmit (e) {
                 e.preventDefault();
-                this.form.validateFields((err, values) => {
+                let _this = this;
+                _this.form.validateFields((err, values) => {
                     if (!err) {
-                        // eslint-disable-next-line no-console
-                        console.log('Received values of form: ', values);
-                        this.$emit("success", "835***206@qq.com");
+                        _this.$axios.post([SIGN_IN_POST], values)
+                            .then(function (response) {
+                                let code = response.data.code;
+                                let message = response.data.message;
+                                if (code == 200) {
+                                    _this.$message.success(message);
+                                    _this.$router.push('/');
+                                } else {
+                                    _this.$message.info(message);
+                                }
+                            })
                     }
                 });
             }
-        },
+        }
     };
 </script>
 

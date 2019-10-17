@@ -5,8 +5,9 @@
                 <slot name="sider"></slot>
             </a-col>
             <a-col class="gutter-row" :span="16">
-                <div class="content-wrapper">
+                <div class="content-wrapper" id="picker-content">
                     <slot name="content"></slot>
+
                 </div>
             </a-col>
         </a-row>
@@ -15,7 +16,10 @@
 
 <script>
     export default {
-        name: "Main.vue"
+        data() {
+            return {
+            }
+        }
     }
 </script>
 

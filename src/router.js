@@ -4,7 +4,7 @@ Vue.use(VueRouter);
 import FirstPage from "@/components/content/FirstPage";
 import Register from "@/components/content/Register";
 import Login from "@/components/content/Login";
-
+import Password from "@/components/content/Password";
 const routes = [
     {
         path: '/',
@@ -17,6 +17,10 @@ const routes = [
     {
         path: '/signIn',
         component: Login
+    },
+    {
+        path: '/pwd',
+        component: Password
     }
 ];
 

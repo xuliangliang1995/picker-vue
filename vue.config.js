@@ -10,5 +10,8 @@ module.exports = {
                 javascriptEnabled: true
             }
         }
+    },
+    devServer:{
+        proxy: "https://picker.grasswort.com"
     }
 }

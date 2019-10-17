@@ -13,11 +13,14 @@
             <MenuTop/>
           </a-col>
           <a-col :span="4">
-            <a-avatar v-if="loggingIn" size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"
-                      @click="loggingIn=false"
-            />
-            <a-button v-if="! loggingIn" type="primary" class="header-btn" ghost @click="toSignIn">登录</a-button>
-            <a-button v-if="! loggingIn" type="primary" class="header-btn" @click="toSignUp">注册</a-button>
+            <template v-if="isLoggingIn">
+              <a-dropdown>
+                <a-avatar size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"/>
+                <MenuAvator slot="overlay"/>
+              </a-dropdown>
+            </template>
+            <a-button v-if="! isLoggingIn" type="primary" class="header-btn" ghost @click="toSignIn">登录</a-button>
+            <a-button v-if="! isLoggingIn" type="primary" class="header-btn" @click="toSignUp">注册</a-button>
           </a-col>
         </a-row>
 
@@ -39,6 +42,8 @@
   import MenuTop from "@/components/menu/MenuTop";
   import MenuLeft from "@/components/menu/MenuLeft";
   import FirstPage from "@/components/content/FirstPage";
+  import MenuAvator from "@/components/menu/MenuAvator";
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'app',
@@ -46,7 +51,8 @@
       Lay,
       MenuTop,
       MenuLeft,
-      FirstPage
+      FirstPage,
+      MenuAvator
     },
     data() {
       return {
@@ -61,7 +67,10 @@
       toSignIn: function () {
         this.$router.push("/signIn")
       }
-    }
+    },
+    computed: mapGetters([
+      'isLoggingIn'
+    ])
   }
 </script>
 <style>
