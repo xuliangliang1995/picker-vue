@@ -9,7 +9,10 @@ import store from "@/store";
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN } from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import moment from 'moment';
-
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
 Vue.use(VueRouter);
 Vue.use(LocaleProvider);
 Vue.use(Layout);

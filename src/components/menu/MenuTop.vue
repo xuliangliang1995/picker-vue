@@ -7,8 +7,8 @@
             <a-menu-item key="mail">
                 <a-icon type="mail" />Navigation One
             </a-menu-item>
-            <a-menu-item key="app" disabled>
-                <a-icon type="appstore" />Navigation Two
+            <a-menu-item key="markdown" @click="openMarkdown">
+                <a-icon type="appstore" />Markdown
             </a-menu-item>
             <a-sub-menu>
                 <span slot="title" class="submenu-title-wrapper">
@@ -35,6 +35,11 @@
         data () {
             return {
                 current: ['mail']
+            }
+        },
+        methods: {
+            openMarkdown(){
+                this.$router.push('/drafts');
             }
         }
     }

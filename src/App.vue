@@ -12,13 +12,17 @@
           <a-col :span="16">
             <MenuTop/>
           </a-col>
-          <a-col :span="4">
+          <a-col :span="2" v-if="isLoggingIn">
+            <a-button type="primary" class="header-btn" ghost @click="toDrafts"><a-icon type="edit" />写文章</a-button>
+          </a-col>
+          <a-col :span="isLoggingIn ? 2 : 4">
             <template v-if="isLoggingIn">
               <a-dropdown>
                 <a-avatar size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"/>
                 <MenuAvator slot="overlay"/>
               </a-dropdown>
             </template>
+
             <a-button v-if="! isLoggingIn" type="primary" class="header-btn" ghost @click="toSignIn">登录</a-button>
             <a-button v-if="! isLoggingIn" type="primary" class="header-btn" @click="toSignUp">注册</a-button>
           </a-col>
@@ -66,6 +70,9 @@
       },
       toSignIn: function () {
         this.$router.push("/signIn")
+      },
+      toDrafts: function () {
+        this.$router.push('/drafts');
       }
     },
     computed: mapGetters([

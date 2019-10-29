@@ -5,6 +5,7 @@ import FirstPage from "@/components/content/FirstPage";
 import Register from "@/components/content/Register";
 import Login from "@/components/content/Login";
 import Password from "@/components/content/Password";
+import DraftsMd from "@/components/content/DraftsMd";
 const routes = [
     {
         path: '/',
@@ -21,6 +22,10 @@ const routes = [
     {
         path: '/pwd',
         component: Password
+    },
+    {
+        path: '/drafts',
+        component: DraftsMd
     }
 ];
 

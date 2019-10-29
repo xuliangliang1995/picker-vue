@@ -3,21 +3,19 @@
         <a-menu
                 @click="handleClick"
                 style="width: 100%"
-                :defaultSelectedKeys="['1']"
+                :defaultSelectedKeys="['4']"
                 :openKeys.sync="openKeys"
                 mode="inline"
         >
-            <a-sub-menu key="sub1" @titleClick="titleClick">
-                <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
+            <a-sub-menu key="blog" @titleClick="titleClick">
+                <span slot="title"><a-icon type="mail" /><span>博客管理</span></span>
+                <a-menu-item key="1">我的博客</a-menu-item>
                 <a-menu-item-group key="g1">
-                    <template slot="title"><a-icon type="qq" /><span>Item 1</span></template>
-                    <a-menu-item key="1">Option 1</a-menu-item>
-                    <a-menu-item key="2">Option 2</a-menu-item>
+                    <template slot="title"><a-icon type="qq" /><span>博客分类</span></template>
+                    <a-menu-item key="2">Option 1</a-menu-item>
+                    <a-menu-item key="3">Option 2</a-menu-item>
                 </a-menu-item-group>
-                <a-menu-item-group key="g2" title="Item 2">
-                    <a-menu-item key="3">Option 3</a-menu-item>
-                    <a-menu-item key="4">Option 4</a-menu-item>
-                </a-menu-item-group>
+                <a-menu-item key="4">草稿箱</a-menu-item>
             </a-sub-menu>
             <a-sub-menu key="sub2" @titleClick="titleClick">
                 <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
@@ -44,8 +42,8 @@
         name: "MenuLeft",
         data () {
             return {
-                current: ['mail'],
-                openKeys: ['sub1'],
+                current: ['4'],
+                openKeys: ['blog'],
             }
         },
         methods: {

@@ -16,3 +16,9 @@ export const USER_PRIVILEGE_GET = "/api/user/privilege";
 export const USER_CAPTCHA_GET = "/api/user/captcha/email"
 /*提权*/
 export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
+
+/*上传图片*/
+export const OSS_UPLOAD = "/api/oss/upload";
+
+/*创建博客*/
+export const BLOG_CREATE_POST = "/api/blog";
