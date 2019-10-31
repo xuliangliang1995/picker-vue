@@ -21,4 +21,4 @@ export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
 export const OSS_UPLOAD = "/api/oss/upload";
 
 /*创建博客*/
-export const BLOG_CREATE_POST = "/api/blog";
+export const BLOG_CREATE_POST = "/api/blog/";

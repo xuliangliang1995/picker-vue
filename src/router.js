@@ -2,10 +2,10 @@ import Vue from 'vue';
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 import FirstPage from "@/components/content/FirstPage";
-import Register from "@/components/content/Register";
-import Login from "@/components/content/Login";
-import Password from "@/components/content/Password";
-import DraftsMd from "@/components/content/DraftsMd";
+import Register from "@/components/content/RegisterPage";
+import Login from "@/components/content/LoginPage";
+import Password from "@/components/content/PasswordPage";
+import DraftsMd from "@/components/content/DraftsMdPage";
 const routes = [
     {
         path: '/',
