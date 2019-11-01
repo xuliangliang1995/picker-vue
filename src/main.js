@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import {LocaleProvider, Layout, Menu, Row, Col, Button, Icon, Skeleton, Avatar, Divider, Input, Form, AutoComplete, Steps, Message,
-Dropdown, Drawer, Radio, notification} from 'ant-design-vue';
+Dropdown, Drawer, Radio, notification, List, Spin, Upload, Select, Tag } from 'ant-design-vue';
 import App from "./App";
 import router from "./router";
 import axios from 'axios';
@@ -9,8 +9,9 @@ import store from "@/store";
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN } from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import moment from 'moment';
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+
 // use
 Vue.use(mavonEditor)
 Vue.use(VueRouter);
@@ -32,6 +33,11 @@ Vue.use(Message);
 Vue.use(Dropdown);
 Vue.use(Drawer);
 Vue.use(Radio);
+Vue.use(List);
+Vue.use(Spin);
+Vue.use(Upload);
+Vue.use(Select);
+Vue.use(Tag);
 
 Vue.prototype.$moment = moment;
 Vue.prototype.$message = Message;

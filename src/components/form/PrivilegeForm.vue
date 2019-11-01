@@ -9,6 +9,7 @@
                 <a-input
                         v-model="captcha"
                         class="input-captcha"
+                        size="large"
                         @change="captchaChange"
                         placeholder="验证码"
                 >
@@ -135,16 +136,16 @@
     };
 </script>
 
-<style scoped>
+<style>
     .sign-in-form {
         max-width: 420px;
         text-align: center;
     }
-    .ant-input,.ant-select-auto-complete.ant-select .ant-input {
-        height: 40px;
-    }
     .privilege-form-button {
         width: 100%;
         height: 40px;
+    }
+    .ant-input-affix-wrapper .ant-input-suffix {
+        right: 5px;
     }
 </style>

@@ -6,6 +6,9 @@ import Register from "@/components/content/RegisterPage";
 import Login from "@/components/content/LoginPage";
 import Password from "@/components/content/PasswordPage";
 import DraftsMd from "@/components/content/DraftsMdPage";
+import MyBlogPage from "@/components/content/MyBlogPage";
+import BlogListPage from "@/components/content/BlogListPage";
+import BlogViewPage from "@/components/content/BlogViewPage";
 const routes = [
     {
         path: '/',
@@ -24,8 +27,22 @@ const routes = [
         component: Password
     },
     {
-        path: '/drafts',
-        component: DraftsMd
+        path: '/blog',
+        component: MyBlogPage,
+        children: [
+            {
+                path: '/blog/drafts',
+                component: DraftsMd
+            },
+            {
+                path: '/blog/list',
+                component: BlogListPage
+            },
+            {
+                path: '/blog/:blogId',
+                component: BlogViewPage
+            }
+        ]
     }
 ];
 

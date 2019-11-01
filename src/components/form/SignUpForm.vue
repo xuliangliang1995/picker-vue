@@ -7,6 +7,7 @@
         <a-form-item>
             <a-input
                     class="input-sign-up"
+                    size="large"
                     v-decorator="[
                       'username',
                       {rules: [
@@ -26,6 +27,7 @@
 
         <a-form-item>
             <a-auto-complete
+                    size="large"
                     :dataSource="dataSource"
                     @change="handleChange"
                     v-decorator="[
@@ -38,7 +40,8 @@
             >
                 <a-input
                         class="input-sign-up"
-                        placeholder="邮箱（必填。激活账号，修改密码等敏感操作需要。）"
+                        size="large"
+                        placeholder="邮箱（必填。激活账号等敏感操作需要。）"
                 >
                     <a-icon
                             slot="prefix"
@@ -52,6 +55,7 @@
         <a-form-item>
             <a-input
                     class="input-sign-up"
+                    size="large"
                     v-decorator="[
                       'password',
                       { rules: [
@@ -73,6 +77,7 @@
         <a-form-item>
             <a-input
                     class="input-sign-up"
+                    size="large"
                     v-decorator="[
                       'rePassword',
                       { rules: [
@@ -155,13 +160,10 @@
         }
     };
 </script>
-<style>
+<style scoped>
     .sign-up-form {
         max-width: 420px;
         text-align: center;
-    }
-    .ant-input,.ant-select-auto-complete.ant-select .ant-input {
-        height: 40px;
     }
     .sign-up-form-button {
         width: 100%;

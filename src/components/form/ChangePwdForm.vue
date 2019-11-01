@@ -7,6 +7,7 @@
         <a-form-item>
             <a-input
                     class="input-change-pwd"
+                    size="large"
                     v-decorator="[
                       'password',
                       { rules: [
@@ -27,6 +28,7 @@
         <a-form-item>
             <a-input
                     class="input-change-pwd"
+                    size="large"
                     v-decorator="[
                       'rePassword',
                       { rules: [
@@ -104,9 +106,6 @@
     .change-pwd-form {
         max-width: 420px;
         text-align: center;
-    }
-    .ant-input,.ant-select-auto-complete.ant-select .ant-input {
-        height: 40px;
     }
     .change-pwd-form-button {
         width: 100%;

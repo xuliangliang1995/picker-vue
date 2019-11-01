@@ -1,38 +1,47 @@
 <template>
     <div>
         <a-menu
-                @click="handleClick"
                 style="width: 100%"
-                :defaultSelectedKeys="['4']"
+                :defaultSelectedKeys="['blog-list']"
                 :openKeys.sync="openKeys"
                 mode="inline"
         >
-            <a-sub-menu key="blog" @titleClick="titleClick">
+            <template v-for="item in menu">
+                <a-menu-item v-if="! item.children" :key="item.key">
+                    <router-link :to="item.route">
+                        <a-icon v-if="item.icon" :type="item.icon" />
+                        {{item.title}}
+                    </router-link>
+                </a-menu-item>
+                <a-sub-menu v-else :key="item.key">
+                    <span slot="title">
+                        <a-icon v-if="item.icon" :type="item.icon" />
+                        <span>{{item.title}}</span>
+                    </span>
+                    <template v-for="lv2Menu in item.children">
+                        <a-menu-item  :key="lv2Menu.key">
+                            <router-link :to="lv2Menu.route">
+                                <a-icon v-if="lv2Menu.icon" :type="lv2Menu.icon" />
+                                {{lv2Menu.title}}
+                            </router-link>
+                        </a-menu-item>
+                    </template>
+                </a-sub-menu>
+            </template>
+            <!--<a-sub-menu key="blog">
                 <span slot="title"><a-icon type="mail" /><span>博客管理</span></span>
-                <a-menu-item key="1">我的博客</a-menu-item>
+                <a-menu-item key="1">
+                    <router-link to="/blog/list">我的博客</router-link>
+                </a-menu-item>
                 <a-menu-item-group key="g1">
                     <template slot="title"><a-icon type="qq" /><span>博客分类</span></template>
                     <a-menu-item key="2">Option 1</a-menu-item>
                     <a-menu-item key="3">Option 2</a-menu-item>
                 </a-menu-item-group>
-                <a-menu-item key="4">草稿箱</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="sub2" @titleClick="titleClick">
-                <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
-                <a-menu-item key="5">Option 5</a-menu-item>
-                <a-menu-item key="6">Option 6</a-menu-item>
-                <a-sub-menu key="sub3" title="Submenu">
-                    <a-menu-item key="7">Option 7</a-menu-item>
-                    <a-menu-item key="8">Option 8</a-menu-item>
-                </a-sub-menu>
-            </a-sub-menu>
-            <a-sub-menu key="sub4">
-                <span slot="title"><a-icon type="setting" /><span>Navigation Three</span></span>
-                <a-menu-item key="9">Option 9</a-menu-item>
-                <a-menu-item key="10">Option 10</a-menu-item>
-                <a-menu-item key="11">Option 11</a-menu-item>
-                <a-menu-item key="12">Option 12</a-menu-item>
-            </a-sub-menu>
+                <a-menu-item key="4">
+                    <router-link to="/blog/drafts">草稿箱</router-link>
+                </a-menu-item>
+            </a-sub-menu>-->
         </a-menu>
     </div>
 </template>
@@ -42,23 +51,34 @@
         name: "MenuLeft",
         data () {
             return {
-                current: ['4'],
+                menu: [
+                    {
+                        key: 'blog',
+                        title: '博客管理',
+                        icon: 'book',
+                        children: [
+                            {
+                                key:'blog-list',
+                                title: '我的博客',
+                                route: '/blog/list',
+                                icon: 'bars'
+                            },
+                            {
+                                key:'blog-draft',
+                                title: '草稿箱',
+                                route: '/blog/drafts',
+                                icon: 'file'
+                            }
+                        ]
+                    }
+                ],
+                current: ['blog-list'],
                 openKeys: ['blog'],
             }
         },
         methods: {
-            handleClick (e) {
-                //console.log('click', e)
-            },
-            titleClick (e) {
-                //console.log('titleClick', e)
-            },
-        },
-        watch: {
-            openKeys (val) {
-                //console.log('openKeys', val)
-            },
-        },
+
+        }
     }
 </script>
 

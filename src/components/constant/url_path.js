@@ -22,3 +22,7 @@ export const OSS_UPLOAD = "/api/oss/upload";
 
 /*创建博客*/
 export const BLOG_CREATE_POST = "/api/blog/";
+/*获取博客列表*/
+export const BLOG_LIST_GET = "/api/blog/";
+/*获取博客 markdown*/
+export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";

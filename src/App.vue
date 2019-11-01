@@ -72,7 +72,7 @@
         this.$router.push("/signIn")
       },
       toDrafts: function () {
-        this.$router.push('/drafts');
+        this.$router.push('/blog/drafts');
       }
     },
     computed: mapGetters([
@@ -90,6 +90,9 @@
   }
   .header-btn {
     margin-left: 5px;
+  }
+  .ant-dropdown {
+    z-index: 2000;
   }
 </style>
 

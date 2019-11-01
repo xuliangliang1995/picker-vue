@@ -39,7 +39,7 @@
         },
         methods: {
             openMarkdown(){
-                this.$router.push('/drafts');
+                this.$router.push('/blog/drafts');
             }
         }
     }

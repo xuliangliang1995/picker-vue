@@ -7,6 +7,7 @@
         <a-form-item>
             <a-input
                     class="input-sign-in"
+                    size="large"
                     v-decorator="[
                       'username',
                       {rules: [
@@ -27,6 +28,7 @@
         <a-form-item>
             <a-input
                     class="input-sign-in"
+                    size="large"
                     v-decorator="[
                       'password',
                       { rules: [
@@ -96,9 +98,6 @@
     .sign-in-form {
         max-width: 420px;
         text-align: center;
-    }
-    .ant-input,.ant-select-auto-complete.ant-select .ant-input {
-        height: 40px;
     }
     .sign-in-form-button {
         width: 100%;
