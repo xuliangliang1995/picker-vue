@@ -107,10 +107,11 @@
                         // 提示
                         let code = response.data.code;
                         if (code == 200) {
+                            let email = response.data.result;
                             _this.$notification['success']({
                                 message: '发送成功',
                                 description:
-                                    '验证码已发送至您的邮箱 835***206@qq.com 。如果没有收到，请稍后重试。',
+                                    '验证码已发送至您的邮箱 ' + email + ' ，如果没有收到，请稍后重试。',
                             });
                         } else {
                             let message = response.data.message;

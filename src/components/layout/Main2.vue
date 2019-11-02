@@ -7,7 +7,6 @@
             <a-col class="gutter-row" :span="20">
                 <div class="content-wrapper" id="picker-content">
                     <slot name="content"></slot>
-
                 </div>
             </a-col>
         </a-row>

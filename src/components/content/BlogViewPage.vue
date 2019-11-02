@@ -24,6 +24,7 @@
     import {BLOG_MARKDOWN_GET} from "@/components/constant/url_path";
 
     export default {
+        props: ['blogId'],
         data() {
             return {
                 spinning: true,
@@ -35,7 +36,7 @@
         },
         created: function () {
             let _this = this;
-            _this.url = BLOG_MARKDOWN_GET.replace("{blogId}", _this.$route.params.blogId);
+            _this.url = BLOG_MARKDOWN_GET.replace("{blogId}", _this.blogId);
             _this.$axios.get(_this.url)
                 .then(function (response) {
                     let code = response.data.code;

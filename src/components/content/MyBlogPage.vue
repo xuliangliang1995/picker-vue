@@ -1,6 +1,6 @@
 <template>
     <Main2 id="main">
-        <MenuLeft slot="sider"/>
+        <router-view slot="sider" name="sider"></router-view>
         <router-view :style="{'minHeight':contentHeight}" slot="content">
         </router-view>
     </Main2>
@@ -8,7 +8,7 @@
 
 <script>
     import Main2 from "@/components/layout/Main2";
-    import MenuLeft from "@/components/menu/MenuLeft";
+
     export default {
         data () {
             return {
@@ -16,8 +16,7 @@
             }
         },
         components: {
-            Main2,
-            MenuLeft
+            Main2
         }
     }
 </script>

@@ -9,6 +9,7 @@ import DraftsMd from "@/components/content/DraftsMdPage";
 import MyBlogPage from "@/components/content/MyBlogPage";
 import BlogListPage from "@/components/content/BlogListPage";
 import BlogViewPage from "@/components/content/BlogViewPage";
+import MenuLeft from "@/components/menu/MenuLeft";
 const routes = [
     {
         path: '/',
@@ -32,15 +33,43 @@ const routes = [
         children: [
             {
                 path: '/blog/drafts',
-                component: DraftsMd
+                components: {
+                    default: DraftsMd,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: false,
+                    sider: {
+                        selectKey: ['blog-draft']
+                    }
+                }
             },
             {
                 path: '/blog/list',
-                component: BlogListPage
+                name: 'draft',
+                components: {
+                    default: BlogListPage,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: false,
+                    sider: {
+                        selectKey: ['blog-list']
+                    }
+                }
             },
             {
                 path: '/blog/:blogId',
-                component: BlogViewPage
+                components: {
+                    default: BlogViewPage,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: true,
+                    sider: {
+                        selectKey: ['blog-list']
+                    }
+                }
             }
         ]
     }

@@ -2,8 +2,9 @@
     <div>
         <a-menu
                 style="width: 100%"
-                :defaultSelectedKeys="['blog-list']"
+                :defaultSelectedKeys="selectKey"
                 :openKeys.sync="openKeys"
+                v-model="selectedKeys"
                 mode="inline"
         >
             <template v-for="item in menu">
@@ -49,6 +50,12 @@
 <script>
     export default {
         name: "MenuLeft",
+        props: ['selectKey'],
+        watch:{
+            selectKey(){
+                this.selectedKeys = this.selectKey;
+            }
+        },
         data () {
             return {
                 menu: [
@@ -72,8 +79,8 @@
                         ]
                     }
                 ],
-                current: ['blog-list'],
                 openKeys: ['blog'],
+                selectedKeys: this.selectKey
             }
         },
         methods: {

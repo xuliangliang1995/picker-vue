@@ -149,7 +149,7 @@
                     categoryId: "0",
                     coverImg: '',
                     tags:[],
-                    tagColors:['red', 'orange', 'green', 'purple', 'blue', 'cyan', 'pink']
+                    tagColors:[  'red', 'purple', 'cyan', 'orange', 'blue',  'green', 'pink']
                 },
                 localItem: '',
                 contentHeight: (window.screen.height * 95 / 100) + "px",
@@ -178,11 +178,14 @@
             },
             showInput() {
                 this.drawer.inputVisible = true;
+                this.$nextTick(function() {
+                    this.$refs.input.focus();
+                });
             },
             tagChange() {
                 let tag = this.drawer.tagInputValue;
-                if (tag.length > 10) {
-                    this.drawer.tagInputValue = tag.substring(0, 10);
+                if (tag.length > 20) {
+                    this.drawer.tagInputValue = tag.substring(0, 20);
                 }
             },
             handleInputConfirm() {
