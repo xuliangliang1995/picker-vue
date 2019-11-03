@@ -274,7 +274,7 @@
                         if (code == 200) {
                             _this.$message.success(response.data.message);
                             localStorage.removeItem(_this.localItem);
-                            localStorage.removeItem(_this.localItem.concat(":title"));
+                            _this.$router.push("/blog/list");
                         } else {
                             _this.$message.info(response.data.message);
                         }
@@ -286,7 +286,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .v-note-wrapper {
         z-index: 0;
     }

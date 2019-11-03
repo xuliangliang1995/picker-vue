@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE } from "@/components/constant/mutation_types";
+import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR } from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
 import { IS_LOGGING_IN } from "@/components/constant/getter_types";
@@ -12,6 +12,8 @@ import axios from 'axios';
 const ACCESS_TOKEN = "access_token";
 /*refresh_token*/
 const REFRESH_TOKEN = "refresh_token";
+/*avatar*/
+const AVATAR = "avatar";
 
 let instance = axios.create({
     headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -57,9 +59,17 @@ const store = new Vuex.Store({
         access_token: localStorage.getItem(ACCESS_TOKEN),
         refresh_token: localStorage.getItem(REFRESH_TOKEN),
         upgrade_privilege: false,
-        privilege: false
+        privilege: false,
+        avatar: localStorage.getItem(AVATAR)
     },
     mutations: {
+        /**
+         * 更换头像
+         */
+        [UPDATE_AVATAR](state, avatar) {
+            state.avatar = avatar;
+            localStorage.setItem(AVATAR, avatar);
+        },
         /**
          * 更换 access_token
          * @param state

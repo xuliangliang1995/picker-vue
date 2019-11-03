@@ -2,14 +2,18 @@ import Vue from 'vue';
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 import FirstPage from "@/components/content/FirstPage";
-import Register from "@/components/content/RegisterPage";
-import Login from "@/components/content/LoginPage";
-import Password from "@/components/content/PasswordPage";
-import DraftsMd from "@/components/content/DraftsMdPage";
-import MyBlogPage from "@/components/content/MyBlogPage";
-import BlogListPage from "@/components/content/BlogListPage";
-import BlogViewPage from "@/components/content/BlogViewPage";
+import Register from "@/components/content/user/RegisterPage";
+import Login from "@/components/content/user/LoginPage";
+import Password from "@/components/content/user/PasswordPage";
+import DraftsMd from "@/components/content/blog/DraftsMdPage";
+import MyBlogPage from "@/components/content/blog/MyBlogPage";
+import BlogListPage from "@/components/content/blog/BlogListPage";
+import BlogViewPage from "@/components/content/blog/BlogViewPage";
 import MenuLeft from "@/components/menu/MenuLeft";
+import UserInfoPage from "@/components/content/user/UserInfoPage";
+import UserSettingPage from "@/components/content/user/UserSettingPage";
+import SettingPage from "@/components/content/user/SettingPage";
+import MenuSetting from "@/components/menu/MenuSetting";
 const routes = [
     {
         path: '/',
@@ -26,6 +30,36 @@ const routes = [
     {
         path: '/pwd',
         component: Password
+    },
+    {
+        path: '/user',
+        component: UserSettingPage,
+        children: [
+            {
+                path: '/user/info',
+                components: {
+                    default: MenuSetting,
+                    content: UserInfoPage
+                },
+                props: {
+                    default: {
+                        defaultIndex: 0
+                    }
+                }
+            },
+            {
+                path: '/user/setting',
+                components: {
+                    default: MenuSetting,
+                    content: SettingPage
+                },
+                props: {
+                    default: {
+                        defaultIndex: 1
+                    }
+                }
+            }
+        ]
     },
     {
         path: '/blog',

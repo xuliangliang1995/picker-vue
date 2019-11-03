@@ -21,7 +21,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .v-note-wrapper {
         z-index: 0;
     }

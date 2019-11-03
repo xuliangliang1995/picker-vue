@@ -17,7 +17,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .skeleton-demo {
         border: 1px solid #f4f4f4;
     }

@@ -1,10 +1,10 @@
 <template>
     <div>
         <a-menu>
-            <a-menu-item>
+            <a-menu-item @click="toUserInfo">
                 <a-icon type="user" />资料修改
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item @click="toSetting">
                 <a-icon type="setting" />账户设置
             </a-menu-item>
             <a-menu-item @click="changePwd">
@@ -25,6 +25,12 @@
         methods: {
             logOut() {
                 this.$store.commit(CLEAR_TOKEN);
+            },
+            toUserInfo() {
+                this.$router.push('/user/info');
+            },
+            toSetting() {
+                this.$router.push('/user/setting');
             },
             changePwd() {
                 this.$router.push('/pwd');

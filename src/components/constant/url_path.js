@@ -8,6 +8,8 @@ export const SIGN_IN_POST = "/api/user/signIn";
 export const USER_TOKEN_GET = "/api/user/token";
 /*获取用户信息*/
 export const USER_INFO_GET = "/api/user/info";
+/*修改用户信息*/
+export const USER_INFO_PUT = "/api/user/info";
 /*修改密码*/
 export const USER_PASSWORD_PATCH = "/api/user/info/password";
 /*查看当前 access_token 权限*/

@@ -18,7 +18,7 @@
           <a-col :span="isLoggingIn ? 2 : 4">
             <template v-if="isLoggingIn">
               <a-dropdown>
-                <a-avatar size="large" icon="user" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/girl.jpeg"/>
+                <a-avatar size="large" icon="user" :src="avatar"/>
                 <MenuAvator slot="overlay"/>
               </a-dropdown>
             </template>
@@ -38,6 +38,9 @@
 
 <script>
   import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
+  import { USER_INFO_GET } from "@/components/constant/url_path";
+  import { UPDATE_AVATAR} from "@/components/constant/mutation_types";
+  import { mapState, mapGetters, mapMutations } from 'vuex';
   import moment from 'moment';
   import 'moment/locale/zh-cn';
   moment.locale('zh-cn');
@@ -47,7 +50,6 @@
   import MenuLeft from "@/components/menu/MenuLeft";
   import FirstPage from "@/components/content/FirstPage";
   import MenuAvator from "@/components/menu/MenuAvator";
-  import { mapGetters } from 'vuex';
 
   export default {
     name: 'app',
@@ -64,6 +66,24 @@
         locale: zh_CN
       }
     },
+    created() {
+      let _this = this;
+      _this.$axios.get(USER_INFO_GET)
+              .then(function (response) {
+                let code = response.data.code;
+                if (code == 200) {
+                  _this.updateAvatar(response.data.result.avatar);
+                }
+              })
+    },
+    computed: {
+      ...mapGetters([
+        'isLoggingIn',
+      ]),
+      ...mapState([
+        'avatar'
+      ])
+    },
     methods: {
       toSignUp: function () {
         this.$router.push("/signUp");
@@ -73,11 +93,11 @@
       },
       toDrafts: function () {
         this.$router.push('/blog/drafts');
-      }
-    },
-    computed: mapGetters([
-      'isLoggingIn'
-    ])
+      },
+      ...mapMutations({
+        'updateAvatar': UPDATE_AVATAR
+      })
+    }
   }
 </script>
 <style>

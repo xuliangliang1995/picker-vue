@@ -137,7 +137,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .sign-in-form {
         max-width: 420px;
         text-align: center;
