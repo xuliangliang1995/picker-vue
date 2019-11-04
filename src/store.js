@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR } from "@/components/constant/mutation_types";
+import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE } from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
 import { IS_LOGGING_IN } from "@/components/constant/getter_types";
@@ -60,7 +60,8 @@ const store = new Vuex.Store({
         refresh_token: localStorage.getItem(REFRESH_TOKEN),
         upgrade_privilege: false,
         privilege: false,
-        avatar: localStorage.getItem(AVATAR)
+        avatar: localStorage.getItem(AVATAR),
+        sms_captcha_able: false
     },
     mutations: {
         /**
@@ -69,6 +70,14 @@ const store = new Vuex.Store({
         [UPDATE_AVATAR](state, avatar) {
             state.avatar = avatar;
             localStorage.setItem(AVATAR, avatar);
+        },
+        /**
+         * 是否开启短信校验身份方式
+         * @param state
+         * @param able
+         */
+        [UPDATE_SMS_CAPTCHA_ABLE](state, able) {
+            state.sms_captcha_able = able;
         },
         /**
          * 更换 access_token

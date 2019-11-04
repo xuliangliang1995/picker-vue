@@ -6,7 +6,7 @@
         <a-row slot="header" type="flex" justify="space-around">
           <a-col :span="2">
             <div id="logo">
-              <img class="logo-img" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
+              <img class="logo-img" @click="toFirstPage" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
             </div>
           </a-col>
           <a-col :span="16">
@@ -39,7 +39,7 @@
 <script>
   import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
   import { USER_INFO_GET } from "@/components/constant/url_path";
-  import { UPDATE_AVATAR} from "@/components/constant/mutation_types";
+  import { UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE} from "@/components/constant/mutation_types";
   import { mapState, mapGetters, mapMutations } from 'vuex';
   import moment from 'moment';
   import 'moment/locale/zh-cn';
@@ -73,6 +73,7 @@
                 let code = response.data.code;
                 if (code == 200) {
                   _this.updateAvatar(response.data.result.avatar);
+                  _this.updateSmsCaptchaAble(response.data.result.phone && response.data.result.phone.length > 0);
                 }
               })
     },
@@ -94,8 +95,12 @@
       toDrafts: function () {
         this.$router.push('/blog/drafts');
       },
+      toFirstPage: function () {
+        this.$router.push('/');
+      },
       ...mapMutations({
-        'updateAvatar': UPDATE_AVATAR
+        'updateAvatar': UPDATE_AVATAR,
+        'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE
       })
     }
   }

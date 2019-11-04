@@ -12,10 +12,16 @@ export const USER_INFO_GET = "/api/user/info";
 export const USER_INFO_PUT = "/api/user/info";
 /*修改密码*/
 export const USER_PASSWORD_PATCH = "/api/user/info/password";
+/*修改手机号*/
+export const USER_PHONE_PATCH = "/api/user/info/phone";
 /*查看当前 access_token 权限*/
 export const USER_PRIVILEGE_GET = "/api/user/privilege";
-/*获取验证码*/
-export const USER_CAPTCHA_GET = "/api/user/captcha/email"
+/*获取邮件验证码（登录状态）*/
+export const USER_EMAIL_CAPTCHA_GET = "/api/user/captcha/email";
+/*获取短信验证（登录状态）*/
+export const USER_SMS_CAPTCHA_GET = "/api/user/captcha/sms";
+/*获取手机验证码（允许非登录状态获取）*/
+export const USER_PHONE_CAPTCHA_POST = "/api/user/captcha/phone";
 /*提权*/
 export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
 

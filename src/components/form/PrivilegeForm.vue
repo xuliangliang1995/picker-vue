@@ -4,7 +4,7 @@
             <a-col :span="6">
                 <a-radio-group v-model="value">
                     <a-radio-button value="email"><a-icon type="mail" /> 邮箱</a-radio-button>
-                    <a-radio-button value="mobile" disabled=""><a-icon type="message" /> 短信</a-radio-button>
+                    <a-radio-button value="mobile" :disabled="! sms_captcha_able"><a-icon type="message"/> 短信</a-radio-button>
                 </a-radio-group>
                 <a-input
                         v-model="captcha"
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-    import { USER_CAPTCHA_GET, USER_PRIVILEGE_POST } from "@/components/constant/url_path";
-    import { mapMutations } from 'vuex';
+    import { USER_EMAIL_CAPTCHA_GET, USER_SMS_CAPTCHA_GET, USER_PRIVILEGE_POST } from "@/components/constant/url_path";
+    import { mapState, mapMutations } from 'vuex';
     import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
 
     export default {
@@ -47,6 +47,11 @@
                 totalSeconds: 0,
                 btnContent: '获取验证码'
             };
+        },
+        computed: {
+            ...mapState([
+                'sms_captcha_able'
+            ])
         },
         methods: {
             captchaChange () {
@@ -65,6 +70,7 @@
                                 description:
                                     '默认校验方式为邮箱。填写手机号码后，会激活短信校验，并且可以在账户设置里选择默认首选校验方式。',
                             });
+                            _this.captcha = '';
                             _this.upgradePrivilege(false);
                         } else {
                             let message = response.data.message;
@@ -88,7 +94,8 @@
             getCaptcha() {
                 let _this = this;
                 _this.disabled = true;
-                _this.$axios.get(USER_CAPTCHA_GET)
+                const URL = 'email' == _this.value ? USER_EMAIL_CAPTCHA_GET : USER_SMS_CAPTCHA_GET;
+                _this.$axios.get(URL)
                     .then(function (response) {
                         // 倒计时
                         _this.totalSeconds = 60;
@@ -107,11 +114,12 @@
                         // 提示
                         let code = response.data.code;
                         if (code == 200) {
-                            let email = response.data.result;
+                            let target = response.data.result;
+                            let targetText = 'email' == _this.value ? '邮箱' : '手机号码';
                             _this.$notification['success']({
                                 message: '发送成功',
                                 description:
-                                    '验证码已发送至您的邮箱 ' + email + ' ，如果没有收到，请稍后重试。',
+                                    '验证码已发送至您的' + targetText + ' ' + target + ' ，如果没有收到，请稍后重试。',
                             });
                         } else {
                             let message = response.data.message;
@@ -137,11 +145,7 @@
     };
 </script>
 
-<style scoped>
-    .sign-in-form {
-        max-width: 420px;
-        text-align: center;
-    }
+<style>
     .privilege-form-button {
         width: 100%;
         height: 40px;

@@ -29,10 +29,7 @@
                                     <a-tag :style="{'margin-left': '5px', 'margin-right': '-2px'}" :key="tag" :color="tagColors[index % tagColors.length]">{{ tag }}</a-tag>
                                 </template>
                             </a>
-                            <a-avatar
-                                    slot="avatar"
-                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                            />
+                            <a-avatar slot="avatar" :src="avatar"/>
                         </a-list-item-meta>
                     </a-skeleton>
                     <span v-if="! loading">
@@ -46,6 +43,7 @@
 
 <script>
     import { BLOG_LIST_GET } from "@/components/constant/url_path";
+    import { mapState } from 'vuex';
 
     const data = [
         {
@@ -86,8 +84,13 @@
                     _this.loading = false;
                 }
             }).catch(function () {
-
+                _this.$message.warn("当前网络不稳定，请稍后重试。");
             })
+        },
+        computed: {
+            ...mapState([
+                'avatar'
+            ])
         }
     };
 </script>
