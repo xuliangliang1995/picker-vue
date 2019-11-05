@@ -18,6 +18,7 @@ import NoContent from "@/components/content/NoContent";
 const routes = [
     {
         path: '/',
+        name: 'home',
         component: FirstPage
     },
     {
@@ -64,6 +65,7 @@ const routes = [
     },
     {
         path: '/blog',
+        name: 'blog',
         component: MyBlogPage,
         children: [
             // 默认。同 /blog/list
@@ -122,19 +124,23 @@ const routes = [
         ]
     },
     {
-        path: '/flag',
+        path: '/topic',
+        name: 'topic',
         component: NoContent
     },
     {
         path: '/schedule',
+        name: 'schedule',
         component: NoContent
     },
     {
         path: '/message',
+        name: 'message',
         component: NoContent
     },
     {
         path: '/main',
+        name: 'main',
         component: NoContent
     }
 ];

@@ -1,10 +1,10 @@
 <template>
     <div id="topMenu">
-        <a-menu mode="horizontal">
+        <a-menu mode="horizontal" :defaultSelectedKeys="defaultSelectedKeys">
             <a-menu-item key="home" @click="route('/')">
                 <a-icon type="home" />首页
             </a-menu-item>
-            <a-menu-item key="topic" @click="route('/flag')">
+            <a-menu-item key="topic" @click="route('/topic')">
                 <a-icon type="flag" />专题
             </a-menu-item>
             <a-menu-item key="blog" @click="routeIfLogin('/blog')">
@@ -16,7 +16,7 @@
             <a-menu-item key="message" @click="routeIfLogin('/message')">
                 <a-icon type="message" /> 消息
             </a-menu-item>
-            <a-menu-item key="self" @click="routeIfLogin('/main')">
+            <a-menu-item key="main" @click="routeIfLogin('/main')">
                 <a-icon type="idcard" />主页
             </a-menu-item>
         </a-menu>
@@ -26,6 +26,11 @@
     import { mapGetters } from 'vuex';
 
     export default {
+        data() {
+            return {
+                defaultSelectedKeys: this.$route.name != undefined ? [ this.$route.name ] : []
+            }
+        },
         computed: {
             ...mapGetters(['isLoggingIn'])
         },
