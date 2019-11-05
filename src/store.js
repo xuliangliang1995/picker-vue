@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE } from "@/components/constant/mutation_types";
+import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE,
+UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE} from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
-import { IS_LOGGING_IN } from "@/components/constant/getter_types";
+import { IS_LOGGING_IN, DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
 import jwt_decode from 'jwt-decode';
 import moment from "moment";
 import axios from 'axios';
@@ -14,6 +15,8 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 /*avatar*/
 const AVATAR = "avatar";
+/*markdown 主题*/
+const MARKDOWN_THEME = "markdown_theme";
 
 let instance = axios.create({
     headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -56,12 +59,20 @@ function refreshAccessToken(refreshToken) {
  */
 const store = new Vuex.Store({
     state: {
+        // 权限管理
         access_token: localStorage.getItem(ACCESS_TOKEN),
         refresh_token: localStorage.getItem(REFRESH_TOKEN),
         upgrade_privilege: false,
         privilege: false,
+        // 头像
         avatar: localStorage.getItem(AVATAR),
-        sms_captcha_able: false
+        // 是否可以通过短信校验身份
+        sms_captcha_able: false,
+        // 缺省校验身份方式
+        safety_check_mode: 0,
+        // markdown 主题
+        markdown_theme: localStorage.getItem(MARKDOWN_THEME)
+
     },
     mutations: {
         /**
@@ -72,12 +83,28 @@ const store = new Vuex.Store({
             localStorage.setItem(AVATAR, avatar);
         },
         /**
+         * 更改 markdown 主题
+         * @param state
+         * @param theme
+         */
+        [UPDATE_MARKDOWN_THEME](state, theme) {
+            state.markdown_theme = theme;
+        },
+        /**
          * 是否开启短信校验身份方式
          * @param state
          * @param able
          */
         [UPDATE_SMS_CAPTCHA_ABLE](state, able) {
             state.sms_captcha_able = able;
+        },
+        /**
+         * 更新安全校验方式
+         * @param state
+         * @param mode
+         */
+        [UPDATE_SAFETY_CHECK_MODE](state, mode) {
+            state.safety_check_mode = mode;
         },
         /**
          * 更换 access_token
@@ -134,6 +161,17 @@ const store = new Vuex.Store({
         [IS_LOGGING_IN]: state =>  {
             let refresh_token = state.refresh_token;
             return refresh_token != undefined && refresh_token.length > 0;
+        },
+        /**
+         * 缺省校验方式
+         * @param state
+         * @returns {number|number|*}
+         */
+        [DEFAULT_SAFETY_CHECK_MODE]: state => {
+            if (state.sms_captcha_able) {
+                return state.safety_check_mode;
+            }
+            return 0;
         }
     },
     actions:{

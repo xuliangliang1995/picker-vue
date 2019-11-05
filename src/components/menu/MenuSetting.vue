@@ -5,9 +5,9 @@
                 <a-row type="flex" justify="start" align="middle" :style="{margin: '0px', padding: '0px'}">
                     <a-col class="gutter-row"><a-icon :key="index" :type="item.icon" /></a-col>
                     <a-col class="gutter-row">
-                                    <span style="margin-left: 10px">
-                                        {{item.text}}
-                                    </span>
+                        <span style="margin-left: 10px">
+                            {{item.text}}
+                        </span>
                     </a-col>
                 </a-row>
             </a-list-item>
@@ -53,7 +53,7 @@
 
 <style scoped>
     .menu-item, .ant-list {
-        font-size: 18px;
+        font-size: 16px;
     }
     .ant-list-item:hover {
         background-color: gainsboro;

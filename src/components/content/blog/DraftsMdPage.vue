@@ -4,7 +4,7 @@
                 :ishljs = "true"
                 v-model="markdown.value"
                 :style="{'minHeight': contentHeight}"
-                :codeStyle="markdown.codeStyle"
+                :codeStyle="markdown_theme"
                 @change="changeMd"
                 @save="save"
                 @imgAdd="imgAdd"
@@ -125,11 +125,12 @@
 
 <script>
     import { OSS_UPLOAD, BLOG_CREATE_POST } from "@/components/constant/url_path";
+    import { mapState } from 'vuex';
+
     export default {
         data() {
             return {
                 markdown: {
-                    codeStyle: 'github',
                     value: '',
                     render: '',
                 },
@@ -161,6 +162,7 @@
             this.markdown.value = localStorage.getItem(this.localItem) == undefined ? '': localStorage.getItem(this.localItem);
         },
         computed: {
+            ...mapState(['markdown_theme']),
             titleValidateStatus() {
                 return ((this.drawer.forceValidate && this.blog.title.length == 0) || this.blog.title.length >= 50) ? 'error' : 'success';
             },

@@ -33,18 +33,18 @@
       </Lay>
 
     </a-locale-provider>
+    <Init/>
   </div>
 </template>
 
 <script>
   import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
-  import { USER_INFO_GET } from "@/components/constant/url_path";
-  import { UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE} from "@/components/constant/mutation_types";
-  import { mapState, mapGetters, mapMutations } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
   import moment from 'moment';
   import 'moment/locale/zh-cn';
   moment.locale('zh-cn');
 
+  import Init from "@/components/content/Init";
   import Lay from "@/components/layout/Lay";
   import MenuTop from "@/components/menu/MenuTop";
   import MenuLeft from "@/components/menu/MenuLeft";
@@ -58,24 +58,14 @@
       MenuTop,
       MenuLeft,
       FirstPage,
-      MenuAvator
+      MenuAvator,
+      Init
     },
     data() {
       return {
         loggingIn: false,
         locale: zh_CN
       }
-    },
-    created() {
-      let _this = this;
-      _this.$axios.get(USER_INFO_GET)
-              .then(function (response) {
-                let code = response.data.code;
-                if (code == 200) {
-                  _this.updateAvatar(response.data.result.avatar);
-                  _this.updateSmsCaptchaAble(response.data.result.phone && response.data.result.phone.length > 0);
-                }
-              })
     },
     computed: {
       ...mapGetters([
@@ -97,11 +87,7 @@
       },
       toFirstPage: function () {
         this.$router.push('/');
-      },
-      ...mapMutations({
-        'updateAvatar': UPDATE_AVATAR,
-        'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE
-      })
+      }
     }
   }
 </script>

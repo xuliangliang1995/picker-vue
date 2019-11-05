@@ -5,7 +5,7 @@
                 <a-icon type="user" />资料修改
             </a-menu-item>
             <a-menu-item @click="toSetting">
-                <a-icon type="setting" />账户设置
+                <a-icon type="setting" />基础设置
             </a-menu-item>
             <a-menu-item @click="changePwd">
                 <a-icon type="lock" />修改密码

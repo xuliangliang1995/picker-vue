@@ -1,5 +1,5 @@
 <template>
-    <Main>
+    <Main3>
         <a-row type="flex" justify="center" align="top" slot="content">
             <a-col class="gutter-row" :span="6">
                 <router-view/>
@@ -8,11 +8,11 @@
                 <router-view name="content"/>
             </a-col>
         </a-row>
-    </Main>
+    </Main3>
 </template>
 
 <script>
-    import Main from "@/components/layout/Main";
+    import Main3 from "@/components/layout/Main3";
 
     export default {
         name: "UserSettingPage",
@@ -21,7 +21,7 @@
             }
         },
         components: {
-            Main
+            Main3
         }
     }
 </script>

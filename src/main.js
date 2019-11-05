@@ -7,7 +7,7 @@ import router from "./router";
 import axios from 'axios';
 import store from "@/store";
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN } from "@/components/constant/mutation_types";
-import { CHECK_ACCESS_TOKEN, INIT_PRIVILEGE } from "@/components/constant/action_types";
+import { CHECK_ACCESS_TOKEN } from "@/components/constant/action_types";
 import moment from 'moment';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
@@ -44,17 +44,14 @@ Vue.use(InputNumber);
 Vue.prototype.$moment = moment;
 Vue.prototype.$message = Message;
 Vue.prototype.$notification = notification;
-/**
- * 初始化下权限
- */
-store.dispatch(INIT_PRIVILEGE);
+
 /**
  * axios
  * @type {AxiosInstance}
  */
 let instance = axios.create({
   headers: {'Content-Type': 'application/json;charset=utf-8'},
-  timeout: 5000
+  timeout: 100000
 });
 instance.interceptors.request.use(
        async config => {

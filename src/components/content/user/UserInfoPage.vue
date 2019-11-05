@@ -4,7 +4,7 @@
             <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">头像：</span>
             </a-col>
-            <a-col class="gutter-row" :span="6" :offset="2">
+            <a-col class="gutter-row" :span="6" :offset="4">
                 <a-upload
                         name="file"
                         listType="picture-card"
@@ -22,7 +22,7 @@
         </a-row>
         <a-row>
             <!-- 分割线 -->
-            <a-col class="gutter-row" :span="13" :offset="5">
+            <a-col class="gutter-row" :span="18" :offset="5">
                 <a-divider/>
             </a-col>
         </a-row>
@@ -30,13 +30,13 @@
             <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">昵称：</span>
             </a-col>
-            <a-col class="gutter-row" :span="6" :offset="2">
-                <a-input size="large" v-model="info.name"/>
+            <a-col class="gutter-row" :span="6" :offset="4">
+                <a-input size="large" v-model="info.name" @blur="saveInfo"/>
             </a-col>
         </a-row>
         <a-row>
             <!-- 分割线 -->
-            <a-col class="gutter-row" :span="13" :offset="5">
+            <a-col class="gutter-row" :span="18" :offset="5">
                 <a-divider/>
             </a-col>
         </a-row>
@@ -44,13 +44,13 @@
             <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">性别：</span>
             </a-col>
-            <a-col class="gutter-row" :span="6" :offset="2">
-                <a-radio-group :options="genders" v-model="info.gender" />
+            <a-col class="gutter-row" :span="6" :offset="4">
+                <a-radio-group :options="genders" v-model="info.gender" @change="saveInfo"/>
             </a-col>
         </a-row>
         <a-row>
             <!-- 分割线 -->
-            <a-col class="gutter-row" :span="13" :offset="5">
+            <a-col class="gutter-row" :span="18" :offset="5">
                 <a-divider/>
             </a-col>
         </a-row>
@@ -58,13 +58,13 @@
             <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">电子邮箱：</span>
             </a-col>
-            <a-col class="gutter-row" :span="6" :offset="2">
+            <a-col class="gutter-row" :span="6" :offset="4">
                 {{info.email}}
             </a-col>
         </a-row>
         <a-row>
             <!-- 分割线 -->
-            <a-col class="gutter-row" :span="13" :offset="5">
+            <a-col class="gutter-row" :span="18" :offset="5">
                 <a-divider/>
             </a-col>
         </a-row>
@@ -72,22 +72,12 @@
             <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">手机号码：</span>
             </a-col>
-            <a-col class="gutter-row" :span="6" :offset="2">
+            <a-col class="gutter-row" :span="6" :offset="4">
                 <span v-if="info.phone.length > 0">{{info.phone}}<a-button :style="{marginLeft:'5px'}" size="small" @click="showModal('更换手机号')">更换</a-button></span>
                 <a-button v-else size="small" @click="showModal('绑定手机号')">绑定手机号</a-button>
             </a-col>
         </a-row>
-        <a-row>
-            <!-- 分割线 -->
-            <a-col class="gutter-row" :span="13" :offset="5">
-                <a-divider/>
-            </a-col>
-        </a-row>
-        <a-row class="info_row" type="flex" justify="start" align="middle">
-            <a-col class="gutter-row" :span="3" :offset="5">
-                <a-button type="primary" size="large" @click="saveInfo" :loading="loading">保存</a-button>
-            </a-col>
-        </a-row>
+
         <a-modal
                 :title="modal.title"
                 :visible="modal.visible"
@@ -325,7 +315,7 @@
 
 <style scoped>
     .info_label {
-        font-size: 17px;
+        font-size: 20px;
         color: #969696;
     }
     .info_row {

@@ -3,8 +3,8 @@
         <a-row type="flex" justify="space-around">
             <a-col :span="6">
                 <a-radio-group v-model="value">
-                    <a-radio-button value="email"><a-icon type="mail" /> 邮箱</a-radio-button>
-                    <a-radio-button value="mobile" :disabled="! sms_captcha_able"><a-icon type="message"/> 短信</a-radio-button>
+                    <a-radio-button value="0"><a-icon type="mail" /> 邮箱</a-radio-button>
+                    <a-radio-button value="1" :disabled="! sms_captcha_able"><a-icon type="message"/> 短信</a-radio-button>
                 </a-radio-group>
                 <a-input
                         v-model="captcha"
@@ -32,8 +32,9 @@
 
 <script>
     import { USER_EMAIL_CAPTCHA_GET, USER_SMS_CAPTCHA_GET, USER_PRIVILEGE_POST } from "@/components/constant/url_path";
-    import { mapState, mapMutations } from 'vuex';
+    import { mapState, mapMutations, mapGetters } from 'vuex';
     import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
+    import { DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
 
     export default {
         data () {
@@ -41,17 +42,23 @@
                 captcha:'',
                 disabled: false,
                 loading: false,
-                value:'email',
+                value: '',
                 formLayout: 'horizontal',
                 form: this.$form.createForm(this),
                 totalSeconds: 0,
                 btnContent: '获取验证码'
             };
         },
+        created() {
+           this.value = this.safetyCheckMode.toString();
+        },
         computed: {
             ...mapState([
                 'sms_captcha_able'
-            ])
+            ]),
+            ...mapGetters({
+                'safetyCheckMode': DEFAULT_SAFETY_CHECK_MODE
+            })
         },
         methods: {
             captchaChange () {
@@ -68,7 +75,7 @@
                             _this.$notification['success']({
                                 message: '校验成功',
                                 description:
-                                    '默认校验方式为邮箱。填写手机号码后，会激活短信校验，并且可以在账户设置里选择默认首选校验方式。',
+                                    '校验成功。默认校验方式为邮箱。填写手机号码后，会激活短信校验，并且可以在账户设置里选择首选校验方式。',
                             });
                             _this.captcha = '';
                             _this.upgradePrivilege(false);
@@ -94,7 +101,7 @@
             getCaptcha() {
                 let _this = this;
                 _this.disabled = true;
-                const URL = 'email' == _this.value ? USER_EMAIL_CAPTCHA_GET : USER_SMS_CAPTCHA_GET;
+                const URL = '0' == _this.value ? USER_EMAIL_CAPTCHA_GET : USER_SMS_CAPTCHA_GET;
                 _this.$axios.get(URL)
                     .then(function (response) {
                         // 倒计时
@@ -115,7 +122,7 @@
                         let code = response.data.code;
                         if (code == 200) {
                             let target = response.data.result;
-                            let targetText = 'email' == _this.value ? '邮箱' : '手机号码';
+                            let targetText = '0' == _this.value ? '邮箱' : '手机号码';
                             _this.$notification['success']({
                                 message: '发送成功',
                                 description:

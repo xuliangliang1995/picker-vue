@@ -1,45 +1,44 @@
 <template>
     <div id="topMenu">
-        <a-menu
-                v-model="current"
-                mode="horizontal"
-        >
-            <a-menu-item key="mail">
-                <a-icon type="mail" />Navigation One
+        <a-menu mode="horizontal">
+            <a-menu-item key="home" @click="route('/')">
+                <a-icon type="home" />首页
             </a-menu-item>
-            <a-menu-item key="markdown" @click="openMarkdown">
-                <a-icon type="appstore" />Markdown
+            <a-menu-item key="topic" @click="route('/flag')">
+                <a-icon type="flag" />专题
             </a-menu-item>
-            <a-sub-menu>
-                <span slot="title" class="submenu-title-wrapper">
-                  <a-icon type="setting" />Navigation Three - Submenu
-                </span>
-                <a-menu-item-group title="Item 1">
-                    <a-menu-item key="setting:1">Option 1</a-menu-item>
-                    <a-menu-item key="setting:2">Option 2</a-menu-item>
-                </a-menu-item-group>
-                <a-menu-item-group title="Item 2">
-                    <a-menu-item key="setting:3">Option 3</a-menu-item>
-                    <a-menu-item key="setting:4">Option 4</a-menu-item>
-                </a-menu-item-group>
-            </a-sub-menu>
-            <a-menu-item key="alipay">
-                <a href="https://ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
+            <a-menu-item key="blog" @click="routeIfLogin('/blog')">
+                <a-icon type="read" />博客
+            </a-menu-item>
+            <a-menu-item key="schedule" @click="routeIfLogin('/schedule')">
+                <a-icon type="schedule" />日历
+            </a-menu-item>
+            <a-menu-item key="message" @click="routeIfLogin('/message')">
+                <a-icon type="message" /> 消息
+            </a-menu-item>
+            <a-menu-item key="self" @click="routeIfLogin('/main')">
+                <a-icon type="idcard" />主页
             </a-menu-item>
         </a-menu>
     </div>
 </template>
 <script>
+    import { mapGetters } from 'vuex';
 
     export default {
-        data () {
-            return {
-                current: ['mail']
-            }
+        computed: {
+            ...mapGetters(['isLoggingIn'])
         },
         methods: {
-            openMarkdown(){
-                this.$router.push('/blog/drafts');
+            route(path) {
+                this.$router.push(path);
+            },
+            routeIfLogin(path) {
+                if (this.isLoggingIn) {
+                    this.$router.push(path);
+                } else {
+                    this.$router.push('/signIn');
+                }
             }
         }
     }

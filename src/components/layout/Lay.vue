@@ -3,7 +3,9 @@
 
     <a-layout>
       <!-- 头部 -->
-      <a-layout-header :style="{'minHeight':headerHeight}" id="header"><slot name="header"></slot></a-layout-header>
+      <a-layout-header :style="{'minHeight':headerHeight}" id="header">
+        <slot name="header"></slot>
+      </a-layout-header>
 
       <router-view :style="{'minHeight':contentHeight}">
 

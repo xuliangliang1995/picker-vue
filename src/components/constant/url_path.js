@@ -24,6 +24,10 @@ export const USER_SMS_CAPTCHA_GET = "/api/user/captcha/sms";
 export const USER_PHONE_CAPTCHA_POST = "/api/user/captcha/phone";
 /*提权*/
 export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
+/*获取用户配置*/
+export const USER_SETTING_GET = "/api/user/setting";
+/*修改用户配置*/
+export const USER_SETTING_PUT = "/api/user/setting";
 
 /*上传图片*/
 export const OSS_UPLOAD = "/api/oss/upload";

@@ -14,6 +14,7 @@ import UserInfoPage from "@/components/content/user/UserInfoPage";
 import UserSettingPage from "@/components/content/user/UserSettingPage";
 import SettingPage from "@/components/content/user/SettingPage";
 import MenuSetting from "@/components/menu/MenuSetting";
+import NoContent from "@/components/content/NoContent";
 const routes = [
     {
         path: '/',
@@ -65,6 +66,20 @@ const routes = [
         path: '/blog',
         component: MyBlogPage,
         children: [
+            // 默认。同 /blog/list
+            {
+                path: '/blog',
+                components: {
+                    default: BlogListPage,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: false,
+                    sider: {
+                        selectKey: ['blog-list']
+                    }
+                }
+            },
             {
                 path: '/blog/drafts',
                 components: {
@@ -80,7 +95,6 @@ const routes = [
             },
             {
                 path: '/blog/list',
-                name: 'draft',
                 components: {
                     default: BlogListPage,
                     sider: MenuLeft
@@ -106,6 +120,22 @@ const routes = [
                 }
             }
         ]
+    },
+    {
+        path: '/flag',
+        component: NoContent
+    },
+    {
+        path: '/schedule',
+        component: NoContent
+    },
+    {
+        path: '/message',
+        component: NoContent
+    },
+    {
+        path: '/main',
+        component: NoContent
     }
 ];
 

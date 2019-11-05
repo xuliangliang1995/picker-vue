@@ -3,14 +3,14 @@
         <a-col class="gutter-row" :span="20">
             <a-list itemLayout="vertical" :dataSource="data">
                 <a-list-item slot="renderItem" slot-scope="item, index">
-                    <div v-if="! loading">
+                    <!--<template v-if="! loading">
                         <template  slot="actions" v-for="{type, text} in actions">
-                    <span :key="type">
-                      <a-icon :type="type" style="margin-right: 8px" />
-                      {{text}}
-                    </span>
+                            <span :key="type">
+                              <a-icon :type="type" style="margin-right: 8px" />
+                              {{text}}
+                            </span>
                         </template>
-                    </div>
+                    </template>-->
                     <img
                             v-if="! loading"
                             slot="extra"
@@ -33,8 +33,8 @@
                         </a-list-item-meta>
                     </a-skeleton>
                     <span v-if="! loading">
-                {{item.summary}}
-            </span>
+                        {{item.summary}}
+                    </span>
                 </a-list-item>
             </a-list>
         </a-col>
@@ -72,7 +72,8 @@
                     { type: 'like-o', text: '156' },
                     { type: 'message', text: '2' },
                 ],
-                tagColors:[  'red', 'purple', 'cyan', 'orange', 'blue',  'green', 'pink']
+                /*tagColors:[  'red', 'purple', 'cyan', 'orange', 'blue',  'green', 'pink']*/
+                tagColors:['cyan']
             };
         },
         mounted: function () {

@@ -12,7 +12,7 @@
                         previewBackground="unset"
                         defaultOpen = "preview"
                         :style="{'minHeight': contentHeight, 'font-size': '18px'}"
-                        :codeStyle="codeStyle"
+                        :codeStyle="markdown_theme"
                         ref="md"
                 />
             </a-spin>
@@ -21,14 +21,14 @@
 </template>
 
 <script>
-    import {BLOG_MARKDOWN_GET} from "@/components/constant/url_path";
+    import { BLOG_MARKDOWN_GET } from "@/components/constant/url_path";
+    import { mapState } from 'vuex';
 
     export default {
         props: ['blogId'],
         data() {
             return {
                 spinning: true,
-                codeStyle:'github',
                 value: '',
                 url: '',
                 contentHeight: (window.screen.height * 95 / 100) + "px"
@@ -45,6 +45,9 @@
                         _this.spinning = false;
                     }
                 })
+        },
+        computed: {
+            ...mapState(['markdown_theme'])
         }
     }
 </script>
