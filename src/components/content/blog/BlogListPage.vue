@@ -78,7 +78,7 @@
         },
         mounted: function () {
             let _this = this;
-            _this.$axios.get(BLOG_LIST_GET+"?pageNo=1&pageSize=10&categoryId=0").then(function (response) {
+            _this.$axios.get(BLOG_LIST_GET+"?pageNo=1&pageSize=10&categoryId=-1").then(function (response) {
                 let code = response.data.code;
                 if (code == 200) {
                     _this.data = response.data.result;

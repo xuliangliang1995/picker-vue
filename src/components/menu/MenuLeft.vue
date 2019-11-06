@@ -75,6 +75,12 @@
                                 title: '草稿箱',
                                 route: '/blog/drafts',
                                 icon: 'file'
+                            },
+                            {
+                                key:'blog-category',
+                                title: '博客分类',
+                                route: '/blog/category',
+                                icon: 'folder-open'
                             }
                         ]
                     }

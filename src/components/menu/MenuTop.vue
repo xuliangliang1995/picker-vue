@@ -1,6 +1,6 @@
 <template>
     <div id="topMenu">
-        <a-menu mode="horizontal" :defaultSelectedKeys="defaultSelectedKeys">
+        <a-menu mode="horizontal" :defaultSelectedKeys="selectKey">
             <a-menu-item key="home" @click="route('/')">
                 <a-icon type="home" />首页
             </a-menu-item>
@@ -32,6 +32,9 @@
             }
         },
         computed: {
+            selectKey() {
+                return [this.$route.fullPath.split("/")[1].length > 0 ? this.$route.fullPath.split("/")[1] : 'home'];
+            },
             ...mapGetters(['isLoggingIn'])
         },
         methods: {

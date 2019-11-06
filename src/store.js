@@ -71,8 +71,7 @@ const store = new Vuex.Store({
         // 缺省校验身份方式
         safety_check_mode: 0,
         // markdown 主题
-        markdown_theme: localStorage.getItem(MARKDOWN_THEME)
-
+        markdown_theme: localStorage.getItem(MARKDOWN_THEME) == undefined ? 'github' : localStorage.getItem(MARKDOWN_THEME)
     },
     mutations: {
         /**

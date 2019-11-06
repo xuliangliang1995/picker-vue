@@ -15,10 +15,10 @@ import UserSettingPage from "@/components/content/user/UserSettingPage";
 import SettingPage from "@/components/content/user/SettingPage";
 import MenuSetting from "@/components/menu/MenuSetting";
 import NoContent from "@/components/content/NoContent";
+import CategoryPage from "@/components/content/blog/CategoryPage";
 const routes = [
     {
         path: '/',
-        name: 'home',
         component: FirstPage
     },
     {
@@ -65,7 +65,6 @@ const routes = [
     },
     {
         path: '/blog',
-        name: 'blog',
         component: MyBlogPage,
         children: [
             // 默认。同 /blog/list
@@ -109,6 +108,19 @@ const routes = [
                 }
             },
             {
+                path: '/blog/category',
+                components: {
+                    default: CategoryPage,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: false,
+                    sider: {
+                        selectKey: ['blog-category']
+                    }
+                }
+            },
+            {
                 path: '/blog/:blogId',
                 components: {
                     default: BlogViewPage,
@@ -125,22 +137,18 @@ const routes = [
     },
     {
         path: '/topic',
-        name: 'topic',
         component: NoContent
     },
     {
         path: '/schedule',
-        name: 'schedule',
         component: NoContent
     },
     {
         path: '/message',
-        name: 'message',
         component: NoContent
     },
     {
         path: '/main',
-        name: 'main',
         component: NoContent
     }
 ];

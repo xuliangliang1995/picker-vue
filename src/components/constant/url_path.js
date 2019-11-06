@@ -38,3 +38,11 @@ export const BLOG_CREATE_POST = "/api/blog/";
 export const BLOG_LIST_GET = "/api/blog/";
 /*获取博客 markdown*/
 export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";
+/*修改博客分类*/
+export const BLOG_CATEGORY_PATCH = "/api/blog/{blogId}/category";
+
+/*获取分类树*/
+export const CATEGORY_TREE_GET = "/api/blog/category/tree";
+/*创建分类*/
+export const CATEGORY_POST = "/api/blog/category";
+
