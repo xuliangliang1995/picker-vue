@@ -8,6 +8,10 @@ export const CLEAR_TOKEN = "clearToken";
 export const UPGRADE_PRIVILEGE = "upgradePrivilege";
 /* 更新权限 */
 export const PRIVILEGE = "privilege";
+/*更新本地 markdown 存储*/
+export const UPDATE_LOCAL_MARKDOWN = "updateLocalMarkdown";
+/*移除本地 markdown 存储*/
+export const REMOVE_LOCAL_BLOG = "removeLocalBlog";
 
 
 /*更换头像*/

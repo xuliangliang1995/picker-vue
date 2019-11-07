@@ -132,6 +132,19 @@ const routes = [
                         selectKey: ['blog-list']
                     }
                 }
+            },
+            {
+                path: '/blog/:blogId/editor',
+                components: {
+                    default: DraftsMd,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: true,
+                    sider: {
+                        selectKey: ['blog-category']
+                    }
+                }
             }
         ]
     },

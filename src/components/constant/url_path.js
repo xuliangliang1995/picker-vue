@@ -34,15 +34,25 @@ export const OSS_UPLOAD = "/api/oss/upload";
 
 /*创建博客*/
 export const BLOG_CREATE_POST = "/api/blog/";
+/*修改博客*/
+export const BLOG_EDIT_PUT = "/api/blog/{blogId}";
 /*获取博客列表*/
 export const BLOG_LIST_GET = "/api/blog/";
 /*获取博客 markdown*/
 export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";
 /*修改博客分类*/
 export const BLOG_CATEGORY_PATCH = "/api/blog/{blogId}/category";
+/* 删除博客 */
+export const BLOG_DELETE = "/api/blog/{blogId}";
+/* 博客回收 */
+export const BLOG_RECYCLE_PATCH = "/api/blog/{blogId}/recycle";
 
 /*获取分类树*/
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";
 /*创建分类*/
 export const CATEGORY_POST = "/api/blog/category";
+/* 修改分类 */
+export const CATEGORY_PATCH = "/api/blog/category/{categoryId}";
+/*删除分类*/
+export const CATEGORY_DELETE = "/api/blog/category/{categoryId}"
 

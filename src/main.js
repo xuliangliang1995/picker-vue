@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import {LocaleProvider, Layout, Menu, Row, Col, Button, Icon, Skeleton, Avatar, Divider, Input, Form, AutoComplete, Steps, Message,
-Dropdown, Drawer, Radio, notification, List, Spin, Upload, Select, Tag, Modal, InputNumber, Tree, Breadcrumb, Switch } from 'ant-design-vue';
+Dropdown, Drawer, Radio, notification, List, Spin, Upload, Select, Tag, Modal, InputNumber, Tree, Breadcrumb, Switch, TreeSelect } from 'ant-design-vue';
 import App from "./App";
 import router from "./router";
 import axios from 'axios';
@@ -43,6 +43,7 @@ Vue.use(InputNumber);
 Vue.use(Tree);
 Vue.use(Breadcrumb);
 Vue.use(Switch);
+Vue.use(TreeSelect);
 
 Vue.prototype.$moment = moment;
 Vue.prototype.$message = Message;

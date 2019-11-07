@@ -2,7 +2,7 @@
     <div>
         <a-row type="flex" justify="center" align="middle" style="margin:50px">
             <a-col :span="18">
-                <a-divider style="font-size:30px"><a-icon type="lock" /></a-divider>
+                <a-divider style="font-size:30px"><a-icon type="safety" /></a-divider>
             </a-col>
         </a-row>
         <a-row type="flex" justify="center" align="middle">

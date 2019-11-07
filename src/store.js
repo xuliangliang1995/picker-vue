@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE,
-UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE} from "@/components/constant/mutation_types";
+UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE, UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG} from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
 import { IS_LOGGING_IN, DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
+import { MARKDOWN_LOCAL_STORAGE } from "@/components/constant/local_md_storage";
 import jwt_decode from 'jwt-decode';
 import moment from "moment";
 import axios from 'axios';
@@ -23,7 +24,11 @@ let instance = axios.create({
     timeout: 5000
 });
 
-
+/**
+ * 本地 markdown 存储
+ * @type {string}
+ */
+let localMarkdown = JSON.parse(localStorage.getItem(MARKDOWN_LOCAL_STORAGE) == undefined ? '[]' : localStorage.getItem(MARKDOWN_LOCAL_STORAGE));
 /**
  * 刷新 access_token
  * @param refreshToken
@@ -71,7 +76,9 @@ const store = new Vuex.Store({
         // 缺省校验身份方式
         safety_check_mode: 0,
         // markdown 主题
-        markdown_theme: localStorage.getItem(MARKDOWN_THEME) == undefined ? 'github' : localStorage.getItem(MARKDOWN_THEME)
+        markdown_theme: localStorage.getItem(MARKDOWN_THEME) == undefined ? 'github' : localStorage.getItem(MARKDOWN_THEME),
+        // 本地存储的 markdown 信息
+        markdown_data: localMarkdown
     },
     mutations: {
         /**
@@ -149,6 +156,51 @@ const store = new Vuex.Store({
          */
         [PRIVILEGE](state, privilege) {
             state.privilege = privilege;
+        },
+        /**
+         * 更新本地 markdown 存储
+         * @param state
+         * @param key
+         * @param markdown
+         */
+        [UPDATE_LOCAL_MARKDOWN](state, info) {
+            let key = info.key;
+            let markdown = info.markdown;
+            let push = true;
+            for (let i = 0; i < state.markdown_data.length; i++) {
+                if (state.markdown_data[i].key == key) {
+                    let node = state.markdown_data[i];
+                    node.markdown = markdown;
+                    push = false;
+                    break;
+                }
+            }
+            if (push) {
+                state.markdown_data.push({
+                    key: key,
+                    markdown: markdown,
+                    time: moment().format("YYYYMMDDhhmm")
+                });
+            }
+            localStorage.setItem(MARKDOWN_LOCAL_STORAGE, JSON.stringify(state.markdown_data));
+        },
+        /**
+         * 根据 key 移除本地博客 markdown 存储
+         * @param state
+         * @param key
+         */
+        [REMOVE_LOCAL_BLOG](state, key) {
+            let remove = false;
+            for (let i = 0; i < state.markdown_data.length; i++) {
+                if (state.markdown_data[i].key == key) {
+                    state.markdown_data.splice(i, 1);
+                    remove = true;
+                    break;
+                }
+            }
+            if (remove) {
+                localStorage.setItem(MARKDOWN_LOCAL_STORAGE, JSON.stringify(state.markdown_data));
+            }
         }
     },
     getters: {
