@@ -1,26 +1,12 @@
 <template>
   <div id="components-layout-demo-basic">
 
-    <a-layout>
+    <a-layout :style="{minHeight:windowHeight}">
       <!-- 头部 -->
-      <a-layout-header :style="{'minHeight':headerHeight}" id="header">
+      <a-layout-header :style="{minHeight: headerHeight}" id="header">
         <slot name="header"></slot>
       </a-layout-header>
-
-      <router-view :style="{'minHeight':contentHeight}">
-
-      </router-view>
-      <!-- Footer  -->
-      <a-layout-footer :style="{'minHeight':footerHeight}">
-        <a-row type="flex" justify="space-around">
-          <a-col>
-            <span id="footer-info">
-              京ICP备 18038495号-1
-            </span>
-          </a-col>
-        </a-row>
-
-      </a-layout-footer>
+      <router-view :style="{minHeight:contentHeight}"></router-view>
     </a-layout>
 
     <!-- 全局提权框 -->
@@ -40,12 +26,16 @@
   import { mapState, mapMutations } from 'vuex';
   import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
   import PrivilegeForm from "@/components/form/PrivilegeForm";
+  const bodyHeight = document.body.clientHeight;
+  const headerHeight = window.screen.height * 5 / 100;
+  const contentHeight = bodyHeight - headerHeight;
+  console.log(bodyHeight);
   export default {
     data () {
       return {
-        headerHeight: (window.screen.height * 5 / 100) + "px",
-        contentHeight: (window.screen.height * 95 / 100) + "px",
-        footerHeight: (window.screen.height * 10 / 100) + "px"
+        windowHeight: bodyHeight.toString().concat('px'),
+        headerHeight: headerHeight.toString().concat('px'),
+        contentHeight: contentHeight.toString().concat('px')
       }
     },
     components: {

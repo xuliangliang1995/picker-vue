@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import Main2 from "@/components/layout/Main2";
+    import Main2 from "@/components/layout/LayLeftRight";
 
     export default {
         data () {

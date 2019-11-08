@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <a-back-top />
     <a-locale-provider :locale="locale">
       <Lay>
         <!-- 页面头 -->
@@ -27,11 +28,7 @@
             <a-button v-if="! isLoggingIn" type="primary" class="header-btn" @click="toSignUp">注册</a-button>
           </a-col>
         </a-row>
-
-        <MenuLeft slot="sider"/>
-        <FirstPage slot="content"/>
       </Lay>
-
     </a-locale-provider>
     <Init/>
   </div>
@@ -47,8 +44,6 @@
   import Init from "@/components/content/Init";
   import Lay from "@/components/layout/Lay";
   import MenuTop from "@/components/menu/MenuTop";
-  import MenuLeft from "@/components/menu/MenuLeft";
-  import FirstPage from "@/components/content/FirstPage";
   import MenuAvator from "@/components/menu/MenuAvator";
 
   export default {
@@ -56,8 +51,6 @@
     components: {
       Lay,
       MenuTop,
-      MenuLeft,
-      FirstPage,
       MenuAvator,
       Init
     },

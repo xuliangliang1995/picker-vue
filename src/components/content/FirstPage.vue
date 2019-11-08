@@ -6,7 +6,7 @@
     </Main>
 </template>
 <script>
-    import Main from "@/components/layout/Main";
+    import Main from "@/components/layout/LayCenter";
     export default {
         components: {
             Main
