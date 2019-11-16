@@ -16,6 +16,7 @@ import SettingPage from "@/components/content/user/SettingPage";
 import MenuSetting from "@/components/menu/MenuSetting";
 import NoContent from "@/components/content/NoContent";
 import CategoryPage from "@/components/content/blog/CategoryPage";
+import BindWechatPage from "@/components/content/user/BindWechatPage";
 const routes = [
     {
         path: '/',
@@ -58,6 +59,18 @@ const routes = [
                 props: {
                     default: {
                         defaultIndex: 1
+                    }
+                }
+            },
+            {
+                path: '/user/wechat',
+                components: {
+                    default: MenuSetting,
+                    content: BindWechatPage
+                },
+                props: {
+                    default: {
+                        defaultIndex: 2
                     }
                 }
             }

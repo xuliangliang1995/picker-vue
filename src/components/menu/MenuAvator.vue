@@ -33,8 +33,10 @@
                 this.$router.push('/user/setting');
             },
             changePwd() {
-                this.$router.push('/pwd');
-                this.upgradePrivilege(true);
+                this.upgradePrivilege({
+                    privilege: true,
+                    url: '/pwd'
+                });
             },
             ...mapMutations({
                 upgradePrivilege: UPGRADE_PRIVILEGE

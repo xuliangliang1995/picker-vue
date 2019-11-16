@@ -250,7 +250,10 @@
                             _this.$message.warn("验证码发送失败，请稍后重试。");
                         })
                     } else {
-                        _this.upgradePrivilege(true);
+                        _this.upgradePrivilege({
+                            privilege: true,
+                            url: undefined
+                        });
                         _this.modal.canSendCaptcha = true;
                     }
                 }

@@ -33,7 +33,11 @@
         },
         computed: {
             selectKey() {
-                return [this.$route.fullPath.split("/")[1].length > 0 ? this.$route.fullPath.split("/")[1] : 'home'];
+                let key = [this.$route.fullPath.split("/")[1].length > 0 ? this.$route.fullPath.split("/")[1] : 'home'];
+                if (key == undefined || key == '') {
+                    key = 'home';
+                }
+                return key;
             },
             ...mapGetters(['isLoggingIn'])
         },

@@ -29,7 +29,6 @@
   const bodyHeight = document.body.clientHeight;
   const headerHeight = window.screen.height * 5 / 100;
   const contentHeight = bodyHeight - headerHeight;
-  console.log(bodyHeight);
   export default {
     data () {
       return {
@@ -43,7 +42,10 @@
     },
     methods: {
       onClose() {
-        this.upgradePrivilege(false);
+        this.upgradePrivilege({
+           privilege: false,
+           url: undefined
+        });
       },
       ...mapMutations({
         upgradePrivilege: UPGRADE_PRIVILEGE

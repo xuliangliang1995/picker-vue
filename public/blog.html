@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>picker</title>
+    <link rel="stylesheet" type="text/css" href="https://picker-oss.oss-cn-beijing.aliyuncs.com/meta/css/github.min.css">
+</head>
+<body>
+<div id="app">
+    <h1><a id="NexusMaven_0"></a>Nexus：Maven私服搭建</h1>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/16089db0297ea034389461756338b749.png_target" alt="微信截图_20191111191330.png" /></p>
+    <h2><a id="Nexus__3"></a>Nexus 安装</h2>
+    <pre><div class="hljs"><code class="lang-shell">// 国内下载超级慢 ！！！所以自己上传到了阿里云上。
+wget https://nexus-bucket.oss-cn-beijing.aliyuncs.com/nexus-3.18.1-01-unix.tar.gz
+tar -zxvf nexus-3.18.1-01-unix.tar.gz
+
+// 解压后会有两个目录，一个是 nexus-3.18.1-01，另一个是 sonatype-work
+// 如果要移动目录的话，请把两个都移动了。否则相对路径会改变，就需要修改配置文件nexus.vmoptions
+cd nexus-3.18.1-01/bin/
+
+// 前台启动
+sh nexus run
+// 后台启动
+sh nexus start
+// 终止命令
+sh nexus stop
+</code></div></pre>
+    <pre><code class="lang-">默认监听 8081 端口，启动后稍等片刻可以通过 http://ip:8081 进行访问。
+如果访问不了，则去 soantype-work 包中去找 log 文件查看。
+默认初始密码存储地址：sonatype-work/nexus3/admin.password，用户名：admin
+</code></pre>
+    <h2><a id="_Nexus_26"></a>登录 Nexus</h2>
+    <pre><div class="hljs"><code class="lang-shell">cat sonatype-work/nexus3/admin.password // 查看 admin 用户密码
+</code></div></pre>
+    <h2><a id="_30"></a>查看仓库</h2>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/f66eceafde6d4a98d5c82aae38a58897.png_target" alt="image.png" /></p>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/9f65cf3ae65e081e5f59b4cd5bede7ac.png_target" alt="image.png" /></p>
+    <h2><a id="_34"></a>创建角色</h2>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/2cc74360dcae1e25eef0fb2810e13905.png_target" alt="image.png" /></p>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/8a5c1a7bcb4760f1baaed7de096f7156.png_target" alt="image.png" /></p>
+    <h2><a id="_39"></a>创建用户</h2>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/8a7f43060d56d3d0b9726bba96d69d79.png_target" alt="image.png" /></p>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/cbafedb37b807b47ea6720dd34a5f3fc.png_target" alt="image.png" /></p>
+    <h2><a id="_settingsxml___pomxml__44"></a>最后，配置本地的 settings.xml 和 项目的 pom.xml 即可。</h2>
+    <p>以下是自己从网上找的配置文件参考，也许会有累赘，但可以用。有时间再细究。</p>
+    <ul>
+        <li>settings.xml</li>
+    </ul>
+    <pre><div class="hljs"><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span><span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://maven.apache.org/SETTINGS/1.0.0"</span>
+          <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+          <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">pluginGroups</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pluginGroups</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">proxies</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">proxies</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">servers</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>xuliangliang0422<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>releases<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>xuliangliang0422<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span>
+       <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>snapshots<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+       <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span>
+       <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>xuliangliang0422<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span>
+     <span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">servers</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">mirrors</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://59.110.163.6:8081/repository/maven-public/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">mirrors</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span>
+       <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>jdk-1.8<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">jdk</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">jdk</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.compilerVersion</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>nexus-maven<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-comment">&lt;!-- 远程仓库列表 --&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">repositories</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+          <span class="hljs-comment">&lt;!-- 虚拟的URL形式,指向镜像的URL--&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://59.110.163.6:8081/repository/maven-public/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">layout</span>&gt;</span>default<span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span>
+          <span class="hljs-comment">&lt;!-- 表示可以从这个仓库下载releases版本的构件--&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">releases</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">releases</span>&gt;</span>
+          <span class="hljs-comment">&lt;!-- 表示可以从这个仓库下载snapshot版本的构件 --&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">snapshots</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">repositories</span>&gt;</span>
+      <span class="hljs-comment">&lt;!-- 插件仓库列表 --&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">pluginRepositories</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">pluginRepository</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>nexus-xuliangliang<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://59.110.163.6:8081/repository/maven-public/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">layout</span>&gt;</span>default<span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">snapshots</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">releases</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">releases</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepository</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepositories</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">activeProfiles</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">activeProfile</span>&gt;</span>jdk-1.8<span class="hljs-tag">&lt;/<span class="hljs-name">activeProfile</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">activeProfile</span>&gt;</span>nexus-maven<span class="hljs-tag">&lt;/<span class="hljs-name">activeProfile</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">activeProfiles</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+</code></div></pre>
+    <ul>
+        <li>pom.xml</li>
+    </ul>
+    <pre><div class="hljs"><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">distributionManagement</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>releases<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://59.110.163.6:8081/repository/maven-releases/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">snapshotRepository</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>snapshots<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://59.110.163.6:8081/repository/maven-snapshots/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">snapshotRepository</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">distributionManagement</span>&gt;</span>
+</code></div></pre>
+    <h2><a id="_159"></a>测试</h2>
+    <pre><div class="hljs"><code class="lang-shell">mvn clean install deploy
+</code></div></pre>
+    <p><img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191111/68eea9cd360eeb39d2d27aa82f9f8ae4.png_target" alt="image.png" /></p>
+
+</div>
+
+</body>
+</html>

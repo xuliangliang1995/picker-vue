@@ -16,6 +16,9 @@
 </template>
 
 <script>
+    import { mapState, mapMutations } from 'vuex';
+    import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
+
     export default {
         name: "MenuSetting",
         props: ['defaultIndex'],
@@ -31,22 +34,47 @@
                     {
                         text: '个人资料',
                         icon: 'user',
-                        route: '/user/info'
+                        route: '/user/info',
+                        privilege: false
                     },
                     {
                         text: '账户设置',
                         icon: 'setting',
-                        route: '/user/setting'
+                        route: '/user/setting',
+                        privilege: false
+                    },
+                    {
+                        text: '微信绑定',
+                        icon: 'wechat',
+                        route: '/user/wechat',
+                        privilege: true
                     }
                 ]
             }
         },
-
+        computed: {
+            ...mapState([
+                'privilege'
+            ])
+        },
         methods: {
             route(index){
-                this.selectIndex = index;
-                this.$router.push(this.menu[index].route);
-            }
+                let _this = this;
+                if (_this.menu[index].privilege) {
+                    if (! _this.privilege) {
+                        _this.upgradePrivilege({
+                            privilege: true,
+                            url: _this.menu[index].route
+                        });
+                        return;
+                    }
+                }
+                _this.selectIndex = index;
+                _this.$router.push(_this.menu[index].route);
+            },
+            ...mapMutations({
+                'upgradePrivilege': UPGRADE_PRIVILEGE
+            })
         }
     }
 </script>

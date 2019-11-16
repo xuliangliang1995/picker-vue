@@ -68,6 +68,7 @@ const store = new Vuex.Store({
         access_token: localStorage.getItem(ACCESS_TOKEN),
         refresh_token: localStorage.getItem(REFRESH_TOKEN),
         upgrade_privilege: false,
+        upgrade_privilege_target_url: undefined,
         privilege: false,
         // 头像
         avatar: localStorage.getItem(AVATAR),
@@ -138,6 +139,8 @@ const store = new Vuex.Store({
         [CLEAR_TOKEN](state) {
             state.access_token = null;
             state.refresh_token = null;
+            state.upgrade_privilege = false;
+            state.upgrade_privilege_target_url = undefined;
             localStorage.removeItem(ACCESS_TOKEN);
             localStorage.removeItem(REFRESH_TOKEN);
         },
@@ -147,7 +150,8 @@ const store = new Vuex.Store({
          * @param upgrade
          */
         [UPGRADE_PRIVILEGE](state, upgrade) {
-            state.upgrade_privilege = upgrade;
+            state.upgrade_privilege = upgrade.privilege;
+            state.upgrade_privilege_target_url = upgrade.url;
         },
         /**
          * 更新权限

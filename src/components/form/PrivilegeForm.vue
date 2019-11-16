@@ -5,6 +5,7 @@
                 <a-radio-group v-model="value">
                     <a-radio-button value="0"><a-icon type="mail" /> 邮箱</a-radio-button>
                     <a-radio-button value="1" :disabled="! sms_captcha_able"><a-icon type="message"/> 短信</a-radio-button>
+                    <a-radio-button value="2"><a-icon type="wechat"/> 微信</a-radio-button>
                 </a-radio-group>
                 <a-input
                         v-model="captcha"
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-    import { USER_EMAIL_CAPTCHA_GET, USER_SMS_CAPTCHA_GET, USER_PRIVILEGE_POST } from "@/components/constant/url_path";
+    import { USER_EMAIL_CAPTCHA_GET, USER_SMS_CAPTCHA_GET, USER_PRIVILEGE_POST, USER_WECHAT_CAPTCHA_GET } from "@/components/constant/url_path";
     import { mapState, mapMutations, mapGetters } from 'vuex';
     import { UPGRADE_PRIVILEGE } from "@/components/constant/mutation_types";
     import { DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
@@ -42,7 +43,7 @@
                 captcha:'',
                 disabled: false,
                 loading: false,
-                value: '',
+                value: undefined,
                 formLayout: 'horizontal',
                 form: this.$form.createForm(this),
                 totalSeconds: 0,
@@ -54,7 +55,7 @@
         },
         computed: {
             ...mapState([
-                'sms_captcha_able'
+                'sms_captcha_able', 'upgrade_privilege_target_url'
             ]),
             ...mapGetters({
                 'safetyCheckMode': DEFAULT_SAFETY_CHECK_MODE
@@ -78,7 +79,13 @@
                                     '校验成功。默认校验方式为邮箱。填写手机号码后，会激活短信校验，并且可以在账户设置里选择首选校验方式。',
                             });
                             _this.captcha = '';
-                            _this.upgradePrivilege(false);
+                            if (_this.upgrade_privilege_target_url != undefined) {
+                                _this.$router.push(_this.upgrade_privilege_target_url);
+                            }
+                            _this.upgradePrivilege({
+                                privilege: false,
+                                url: undefined
+                            });
                         } else {
                             let message = response.data.message;
                             _this.$notification['warning']({
@@ -101,8 +108,22 @@
             getCaptcha() {
                 let _this = this;
                 _this.disabled = true;
-                const URL = '0' == _this.value ? USER_EMAIL_CAPTCHA_GET : USER_SMS_CAPTCHA_GET;
-                _this.$axios.get(URL)
+                let _url = undefined;
+                let _target = undefined;
+                switch (_this.value) {
+                    case '0':
+                        _url = USER_EMAIL_CAPTCHA_GET;
+                        _target = "邮箱";
+                        break;
+                    case '1':
+                        _url = USER_SMS_CAPTCHA_GET;
+                        _target = "手机";
+                        break;
+                    case '2':
+                        _url = USER_WECHAT_CAPTCHA_GET;
+                        _target = "微信";
+                }
+                _this.$axios.get(_url)
                     .then(function (response) {
                         // 倒计时
                         _this.totalSeconds = 60;
@@ -122,11 +143,10 @@
                         let code = response.data.code;
                         if (code == 200) {
                             let target = response.data.result;
-                            let targetText = '0' == _this.value ? '邮箱' : '手机号码';
                             _this.$notification['success']({
                                 message: '发送成功',
                                 description:
-                                    '验证码已发送至您的' + targetText + ' ' + target + ' ，如果没有收到，请稍后重试。',
+                                    '验证码已发送至您的' + _target + ' ' + target + ' ，如果没有收到，请稍后重试。',
                             });
                         } else {
                             let message = response.data.message;

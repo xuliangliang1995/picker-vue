@@ -30,20 +30,6 @@
                         </template>
                     </a-sub-menu>
                 </template>
-                <!--<a-sub-menu key="blog">
-                    <span slot="title"><a-icon type="mail" /><span>博客管理</span></span>
-                    <a-menu-item key="1">
-                        <router-link to="/blog/list">我的博客</router-link>
-                    </a-menu-item>
-                    <a-menu-item-group key="g1">
-                        <template slot="title"><a-icon type="qq" /><span>博客分类</span></template>
-                        <a-menu-item key="2">Option 1</a-menu-item>
-                        <a-menu-item key="3">Option 2</a-menu-item>
-                    </a-menu-item-group>
-                    <a-menu-item key="4">
-                        <router-link to="/blog/drafts">草稿箱</router-link>
-                    </a-menu-item>
-                </a-sub-menu>-->
             </a-menu>
         </a-affix>
     </div>
@@ -97,6 +83,9 @@
     }
 </script>
 
-<style scoped>
+<style>
+    .ant-affix {
+        z-index: unset;
+    }
 
 </style>

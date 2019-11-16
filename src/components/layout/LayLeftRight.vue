@@ -21,25 +21,6 @@
                 </a-layout-footer>
             </a-layout>
         </a-layout-content>
-        <!--<a-row type="flex" justify="start">
-            <a-col class="gutter-row" :span="4">
-
-            </a-col>
-            <a-col class="gutter-row" :span="20">
-                <div class="content-wrapper" id="picker-content">
-                    <slot name="content"></slot>
-                </div>
-                <a-layout-footer :style="{minHeight:'200px', marginRight:'-40px'}">
-                    <a-row type="flex" justify="space-around">
-                        <a-col>
-                    <span id="footer-info">
-                      京ICP备 18038495号-1
-                    </span>
-                        </a-col>
-                    </a-row>
-                </a-layout-footer>
-            </a-col>
-        </a-row>-->
     </a-layout>
 </template>
 

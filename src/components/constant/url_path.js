@@ -20,6 +20,8 @@ export const USER_PRIVILEGE_GET = "/api/user/privilege";
 export const USER_EMAIL_CAPTCHA_GET = "/api/user/captcha/email";
 /*获取短信验证（登录状态）*/
 export const USER_SMS_CAPTCHA_GET = "/api/user/captcha/sms";
+/*获取微信验证（登录状态）*/
+export const USER_WECHAT_CAPTCHA_GET = "/api/user/captcha/wechat"
 /*获取手机验证码（允许非登录状态获取）*/
 export const USER_PHONE_CAPTCHA_POST = "/api/user/captcha/phone";
 /*提权*/
@@ -55,4 +57,6 @@ export const CATEGORY_POST = "/api/blog/category";
 export const CATEGORY_PATCH = "/api/blog/category/{categoryId}";
 /*删除分类*/
 export const CATEGORY_DELETE = "/api/blog/category/{categoryId}"
+/* 获取二维码 */
+export const QRCODE_GET = "/api/user/wxmp/bind/qrcode";
 
