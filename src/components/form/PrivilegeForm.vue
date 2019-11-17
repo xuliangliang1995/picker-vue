@@ -5,7 +5,7 @@
                 <a-radio-group v-model="value">
                     <a-radio-button value="0"><a-icon type="mail" /> 邮箱</a-radio-button>
                     <a-radio-button value="1" :disabled="! sms_captcha_able"><a-icon type="message"/> 短信</a-radio-button>
-                    <a-radio-button value="2"><a-icon type="wechat"/> 微信</a-radio-button>
+                    <a-radio-button value="2" :disabled="! bind_wechat"><a-icon type="wechat"/> 微信</a-radio-button>
                 </a-radio-group>
                 <a-input
                         v-model="captcha"
@@ -55,7 +55,7 @@
         },
         computed: {
             ...mapState([
-                'sms_captcha_able', 'upgrade_privilege_target_url'
+                'sms_captcha_able', 'bind_wechat', 'upgrade_privilege_target_url'
             ]),
             ...mapGetters({
                 'safetyCheckMode': DEFAULT_SAFETY_CHECK_MODE

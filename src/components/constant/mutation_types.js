@@ -12,6 +12,8 @@ export const PRIVILEGE = "privilege";
 export const UPDATE_LOCAL_MARKDOWN = "updateLocalMarkdown";
 /*移除本地 markdown 存储*/
 export const REMOVE_LOCAL_BLOG = "removeLocalBlog";
+/*更新是否绑定微信状态*/
+export const UPDATE_BIND_WECHAT = "updateBindWechat";
 
 
 /*更换头像*/

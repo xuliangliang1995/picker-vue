@@ -77,6 +77,25 @@
                 <a-button v-else size="small" @click="showModal('绑定手机号')">绑定手机号</a-button>
             </a-col>
         </a-row>
+        <a-row>
+            <!-- 分割线 -->
+            <a-col class="gutter-row" :span="18" :offset="5">
+                <a-divider/>
+            </a-col>
+        </a-row>
+        <a-row class="info_row" type="flex" justify="start" align="middle">
+            <a-col class="gutter-row" :span="3" :offset="5">
+                <span class="info_label">微信：</span>
+            </a-col>
+            <a-col class="gutter-row" :span="6" :offset="4">
+                <span v-if="bind_wechat">
+                    <img  :src="info.mpHeadImgUrl" :width="50" :height="50" alt="avatar" />
+                    <!--{{info.mpNickName}}-->
+                    <a-button :style="{marginLeft:'5px'}" size="small" @click="bindWechat">更换</a-button>
+                </span>
+                <a-button v-else size="small" @click="bindWechat">绑定微信</a-button>
+            </a-col>
+        </a-row>
 
         <a-modal
                 :title="modal.title"
@@ -121,7 +140,9 @@
                     avatar: '',
                     email: '',
                     gender: 0,
-                    phone: ''
+                    phone: '',
+                    mpHeadImgUrl: undefined,
+                    mpNickName: undefined
                 },
                 modal: {
                     phone: '',
@@ -151,7 +172,7 @@
                 return (! this.modal.checkCaptcha) || reg.test(this.modal.captcha) ? "success" : "warning";
             },
             ...mapState([
-                    'privilege'
+                    'privilege', 'bind_wechat'
             ])
         },
         created() {
@@ -165,6 +186,8 @@
                         _this.info.email = response.data.result.email;
                         _this.info.gender = response.data.result.sex;
                         _this.info.phone = response.data.result.phone;
+                        _this.info.mpHeadImgUrl = response.data.result.mpHeadImgUrl;
+                        _this.info.mpNickName = response.data.result.mpNickName;
                     } else {
                         _this.$message.info(response.data.message);
                     }
@@ -311,7 +334,17 @@
             ...mapMutations({
                 'upgradePrivilege':UPGRADE_PRIVILEGE,
                 'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE
-            })
+            }),
+            bindWechat() {
+                if (this.privilege) {
+                    this.$router.push('/user/wechat');
+                } else {
+                    this.upgradePrivilege({
+                        privilege: true,
+                        url: '/user/wechat'
+                    });
+                }
+            }
         }
     }
 </script>

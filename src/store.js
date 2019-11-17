@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE,
-UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE, UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG} from "@/components/constant/mutation_types";
+UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE, UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG, UPDATE_BIND_WECHAT } from "@/components/constant/mutation_types";
 import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
 import { IS_LOGGING_IN, DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
@@ -74,6 +74,8 @@ const store = new Vuex.Store({
         avatar: localStorage.getItem(AVATAR),
         // 是否可以通过短信校验身份
         sms_captcha_able: false,
+        // 是否绑定微信
+        bind_wechat: false,
         // 缺省校验身份方式
         safety_check_mode: 0,
         // markdown 主题
@@ -88,6 +90,14 @@ const store = new Vuex.Store({
         [UPDATE_AVATAR](state, avatar) {
             state.avatar = avatar;
             localStorage.setItem(AVATAR, avatar);
+        },
+        /**
+         * 更改是否绑定微信状态
+         * @param state
+         * @param bindWechat
+         */
+        [UPDATE_BIND_WECHAT](state, bindWechat) {
+            state.bind_wechat = bindWechat;
         },
         /**
          * 更改 markdown 主题

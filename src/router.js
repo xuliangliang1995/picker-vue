@@ -17,6 +17,7 @@ import MenuSetting from "@/components/menu/MenuSetting";
 import NoContent from "@/components/content/NoContent";
 import CategoryPage from "@/components/content/blog/CategoryPage";
 import BindWechatPage from "@/components/content/user/BindWechatPage";
+import CalendarPage from "@/components/content/blog/CalendarPage";
 const routes = [
     {
         path: '/',
@@ -167,7 +168,7 @@ const routes = [
     },
     {
         path: '/schedule',
-        component: NoContent
+        component: CalendarPage
     },
     {
         path: '/message',
