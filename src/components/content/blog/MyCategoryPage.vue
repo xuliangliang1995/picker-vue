@@ -19,11 +19,13 @@
                             </template>
                         </a-row>
                         <template v-if="blogCanMove && ! (item.parentId >= 0)" slot="actions">
+                            <a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>
                             <a-icon type="form" @click="editBlog(item.key)"/>
                             <a-icon type="delete" @click="deleteBlog(item.key)"/>
                             <a-icon type="export" @click="transferBlog(item.key, item.title)"/>
                         </template>
                         <template v-if="! blogCanMove && ! (item.parentId >= 0)" slot="actions">
+                            <a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>
                             <a-icon type="form" @click="editBlog(item.key)"/>
                             <a-icon type="delete" @click="deleteBlog(item.key)"/>
                         </template>
@@ -112,7 +114,7 @@
 </template>
 
 <script>
-    import { CATEGORY_TREE_GET, CATEGORY_POST, BLOG_LIST_GET, BLOG_CATEGORY_PATCH, CATEGORY_PATCH, BLOG_DELETE, BLOG_RECYCLE_PATCH, CATEGORY_DELETE } from "@/components/constant/url_path";
+    import { CATEGORY_TREE_GET, CATEGORY_POST, BLOG_LIST_GET, BLOG_CATEGORY_PATCH, CATEGORY_PATCH, BLOG_DELETE, BLOG_RECYCLE_PATCH, CATEGORY_DELETE, BLOG_CURVE_PATCH } from "@/components/constant/url_path";
     /**
      * 匹配 当前 key 的子节点
      * @param items
@@ -370,7 +372,7 @@
                 }
                 // 获取博客信息
                 _this.loading = true;
-                _this.$axios.get(BLOG_LIST_GET + "?pageNo=1&pageSize=10&categoryId=" + _this.current)
+                _this.$axios.get(BLOG_LIST_GET + "?pageNo=1&pageSize=100&categoryId=" + _this.current)
                     .then(function (response) {
                         _this.loading = false;
                         let code = response.data.code;
@@ -381,7 +383,9 @@
                                 _this.currentData.push({
                                     key: blogs[i].blogId,
                                     title: blogs[i].title,
-                                    route: '/blog/'.concat(blogs[i].blogId)
+                                    route: '/blog/'.concat(blogs[i].blogId),
+                                    //route: '/api/blog/'.concat(blogs[i].blogId).concat('.html'),
+                                    triggerStatus: blogs[i].triggerStatus
                                 })
                             }
                         } else {
@@ -687,6 +691,36 @@
                         _this.$message.warn("当前网路不稳定，请稍后重试。");
                     })
                 }
+            },
+            curveStatusChange(checked, event, blogId) {
+                let _this = this;
+                _this.$axios.patch(BLOG_CURVE_PATCH.replace("{blogId}", blogId), {
+                    status: checked ? 0 : 1
+                }).then(function (response) {
+                    let code = response.data.code;
+                    if (code == 200) {
+                        if (checked) {
+                            _this.$notification['success']({
+                                message: '已加入推送计划',
+                                description:
+                                    '您已将该博客加入复习推送计划。系统会按照设定的记忆曲线定时推送给您。',
+                            });
+                        } else {
+                            _this.$notification['success']({
+                                message: '已取消推送计划',
+                                description:
+                                    '您已将该博客从推送计划中移除。',
+                            });
+                        }
+
+                    } else {
+                        _this.$message.warn(response.data.message);
+                        _this.loadData();
+                    }
+                }).catch(function () {
+                    _this.$message.warn("当前网络不稳定，请稍后重试。");
+                    _this.loadData();
+                })
             }
         }
     }

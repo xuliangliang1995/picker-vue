@@ -40,6 +40,8 @@ export const BLOG_CREATE_POST = "/api/blog/";
 export const BLOG_EDIT_PUT = "/api/blog/{blogId}";
 /*获取博客列表*/
 export const BLOG_LIST_GET = "/api/blog/";
+/*获取公共博客列表*/
+export const BLOG_POOL_GET = "/api/blog/pool";
 /*获取博客 markdown*/
 export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";
 /*修改博客分类*/
@@ -48,6 +50,8 @@ export const BLOG_CATEGORY_PATCH = "/api/blog/{blogId}/category";
 export const BLOG_DELETE = "/api/blog/{blogId}";
 /* 博客回收 */
 export const BLOG_RECYCLE_PATCH = "/api/blog/{blogId}/recycle";
+/* 博客曲线调整 */
+export const BLOG_CURVE_PATCH = "/api/blog/{blogId}/curve";
 
 /*获取分类树*/
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";

@@ -5,19 +5,19 @@ import FirstPage from "@/components/content/FirstPage";
 import Register from "@/components/content/user/RegisterPage";
 import Login from "@/components/content/user/LoginPage";
 import Password from "@/components/content/user/PasswordPage";
-import DraftsMd from "@/components/content/blog/DraftsMdPage";
+import DraftsMd from "@/components/content/blog/MyDraftsMdPage";
 import MyBlogPage from "@/components/content/blog/MyBlogPage";
-import BlogListPage from "@/components/content/blog/BlogListPage";
-import BlogViewPage from "@/components/content/blog/BlogViewPage";
+import BlogListPage from "@/components/content/blog/MyBlogListPage";
+import BlogViewPage from "@/components/content/blog/MyBlogViewPage";
 import MenuLeft from "@/components/menu/MenuLeft";
 import UserInfoPage from "@/components/content/user/UserInfoPage";
 import UserSettingPage from "@/components/content/user/UserSettingPage";
 import SettingPage from "@/components/content/user/SettingPage";
 import MenuSetting from "@/components/menu/MenuSetting";
 import NoContent from "@/components/content/NoContent";
-import CategoryPage from "@/components/content/blog/CategoryPage";
+import CategoryPage from "@/components/content/blog/MyCategoryPage";
 import BindWechatPage from "@/components/content/user/BindWechatPage";
-import CalendarPage from "@/components/content/blog/CalendarPage";
+import CalendarPage from "@/components/content/blog/MyCalendarPage";
 const routes = [
     {
         path: '/',

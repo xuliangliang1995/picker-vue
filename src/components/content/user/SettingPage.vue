@@ -58,6 +58,20 @@
         </a-row>
         <a-row class="info_row" type="flex" justify="start" align="middle">
             <a-col class="gutter-row" :span="3" :offset="5">
+                <span class="info_label">推送时间：</span>
+            </a-col>
+            <a-col class="gutter-row" :span="6" :offset="4">
+                <a-time-picker v-model="pushTime" format="HH:mm" :minuteStep="60" :allowClear="false"/>
+            </a-col>
+        </a-row>
+        <a-row>
+            <!-- 分割线 -->
+            <a-col class="gutter-row" :span="18" :offset="5">
+                <a-divider/>
+            </a-col>
+        </a-row>
+        <a-row class="info_row" type="flex" justify="start" align="middle">
+            <a-col class="gutter-row" :span="3" :offset="5">
                 <a-button type="primary" size="large" @click="saveSetting" :loading="loading">保存</a-button>
             </a-col>
         </a-row>
@@ -68,6 +82,7 @@
     import { USER_SETTING_PUT, USER_SETTING_GET } from "@/components/constant/url_path";
     import { mapState, mapMutations } from 'vuex';
     import { UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE } from "@/components/constant/mutation_types";
+    import moment from 'moment';
 
     export default {
         data() {
@@ -89,11 +104,13 @@
                 verifyMethod: 0,
                 openBlogPush: false,
                 pushMethod: 0,
+                pushTime: undefined,
                 loading: false
             }
         },
         created() {
             let _this = this;
+            _this.pushTime = moment('20:00', 'HH:mm');
             _this.theme = _this.markdown_theme;
             _this.verifyMethod = _this.safety_check_mode;
             _this.$axios.get(USER_SETTING_GET)
@@ -114,6 +131,7 @@
             ])
         },
         methods: {
+            moment,
             ...mapMutations({
                 'updateMarkdownTheme': UPDATE_MARKDOWN_THEME,
                 'updateSafetyCheckMode': UPDATE_SAFETY_CHECK_MODE
@@ -125,7 +143,8 @@
                     markdownTheme: _this.theme,
                     safetyCheckMode: _this.verifyMethod,
                     openBlogPush: _this.openBlogPush,
-                    blogPushMode: _this.pushMethod
+                    blogPushMode: _this.pushMethod,
+                    blogPushTime: _this.pushTime.format("HH:mm")
                 }).then(function (response) {
                     let code = response.data.code;
                     if (code == 200) {
