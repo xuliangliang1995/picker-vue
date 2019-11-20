@@ -18,6 +18,7 @@ import NoContent from "@/components/content/NoContent";
 import CategoryPage from "@/components/content/blog/MyCategoryPage";
 import BindWechatPage from "@/components/content/user/BindWechatPage";
 import CalendarPage from "@/components/content/blog/MyCalendarPage";
+import PublicBlogViewPage from "@/components/content/blog/PublicBlogViewPage";
 const routes = [
     {
         path: '/',
@@ -76,6 +77,11 @@ const routes = [
                 }
             }
         ]
+    },
+    {
+        path: '/blog/:blogId.html',
+        component: PublicBlogViewPage,
+        props: true
     },
     {
         path: '/blog',

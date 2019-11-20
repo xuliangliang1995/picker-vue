@@ -1,6 +1,6 @@
 <template>
     <a-row type="flex" justify="start">
-        <a-col class="gutter-row" :span="20">
+        <a-col class="gutter-row" :span="span">
             <a-spin :spinning="spinning" >
                 <mavon-editor
                         v-model="value"
@@ -25,9 +25,10 @@
     import { mapState } from 'vuex';
 
     export default {
-        props: ['blogId'],
+        props: ['blogId', 'filled'],
         data() {
             return {
+                span: 20,
                 spinning: true,
                 value: '',
                 url: '',
@@ -36,6 +37,9 @@
         },
         created: function () {
             let _this = this;
+            if (_this.filled) {
+                _this.span = 24;
+            }
             _this.url = BLOG_MARKDOWN_GET.replace("{blogId}", _this.blogId);
             _this.$axios.get(_this.url)
                 .then(function (response) {

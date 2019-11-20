@@ -28,7 +28,7 @@
                     <a-skeleton :loading="loading"  avatar>
                         <a-list-item-meta :description="'作者：' + item.author">
                             <a slot="title">
-                                <router-link :to="'/blog/' + item.blogId" :style="{'color':'unset'}">
+                                <router-link :to="'/blog/' + item.blogId + '.html'" target="_blank"  :style="{'color':'unset'}">
                                     {{item.title}}
                                 </router-link>
                                 <template v-for="(tag, index) in item.labels">
