@@ -30,6 +30,12 @@ export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
 export const USER_SETTING_GET = "/api/user/setting";
 /*修改用户配置*/
 export const USER_SETTING_PUT = "/api/user/setting";
+/*获取作者信息*/
+export const AUTHOR_INFO_GET = "/api/user/{pickerId}";
+/*关注作者*/
+export const AUTHOR_SUBSCRIBE_POST_OR_DELETE = "/api/user/subscribe/author/{pickerId}";
+/*关注状态*/
+export const AUTHOR_SUBSCRIBE_STATUS_GET = "/api/user/subscribe/author/{pickerId}/status";
 
 /*上传图片*/
 export const OSS_UPLOAD = "/api/oss/upload";

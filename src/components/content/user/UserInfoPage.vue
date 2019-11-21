@@ -124,7 +124,7 @@
 <script>
     import { USER_INFO_GET, USER_INFO_PUT, OSS_UPLOAD, USER_PHONE_PATCH, USER_PHONE_CAPTCHA_POST } from "@/components/constant/url_path";
     import { mapState, mapMutations } from 'vuex';
-    import { UPGRADE_PRIVILEGE, UPDATE_SMS_CAPTCHA_ABLE } from "@/components/constant/mutation_types";
+    import { UPGRADE_PRIVILEGE, UPDATE_SMS_CAPTCHA_ABLE, UPDATE_AVATAR } from "@/components/constant/mutation_types";
 
     export default {
         name: "UserInfo",
@@ -220,6 +220,7 @@
                     let code = info.file.response.code;
                     if (code == 200) {
                         _this.info.avatar = info.file.response.result;
+                        _this.saveInfo();
                     } else {
                         _this.$message.info(info.file.response.message);
                     }
@@ -323,6 +324,7 @@
                     _this.loading = false;
                     if (code == 200) {
                         _this.$message.success("保存成功")
+                        _this.updateAvatar(_this.info.avatar);
                     } else {
                         _this.$message.info(response.data.message);
                     }
@@ -333,7 +335,8 @@
             },
             ...mapMutations({
                 'upgradePrivilege':UPGRADE_PRIVILEGE,
-                'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE
+                'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE,
+                'updateAvatar': UPDATE_AVATAR
             }),
             bindWechat() {
                 if (this.privilege) {

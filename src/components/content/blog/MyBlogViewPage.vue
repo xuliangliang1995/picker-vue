@@ -47,6 +47,7 @@
                     if (code == 200) {
                         _this.value = response.data.result.markdown;
                         _this.spinning = false;
+                        _this.$emit('author', response.data.result.pickerId);
                     }
                 })
         },

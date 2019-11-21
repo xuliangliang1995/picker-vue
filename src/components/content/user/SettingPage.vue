@@ -121,6 +121,7 @@
                         _this.verifyMethod = response.data.result.safetyCheckMode;
                         _this.openBlogPush = response.data.result.openBlogPush;
                         _this.pushMethod = response.data.result.blogPushMode;
+                        _this.pushTime = moment(response.data.result.blogPushTime, 'HH:mm');
                     }
                  })
         },

@@ -2,10 +2,8 @@
     <Main>
         <div slot="content">
             <a-carousel autoplay>
-                <div><h3>1</h3></div>
-                <div><h3>2</h3></div>
-                <div><h3>3</h3></div>
-                <div><h3>4</h3></div>
+                <img height="243" src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191121/9280f5d6c275410874aa68a7138b7abb.png_target"/>
+                <img height="243" src="https://picker-oss.oss-cn-beijing.aliyuncs.com/20191121/88f4171bb4d12a1e05268eb052650e71.png_target"/>
             </a-carousel>
             <a-list itemLayout="vertical" :dataSource="data" :style="{marginBottom:'50px'}">
                 <a-list-item slot="renderItem" slot-scope="item, index">
