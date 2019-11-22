@@ -36,7 +36,12 @@ export const AUTHOR_INFO_GET = "/api/user/{pickerId}";
 export const AUTHOR_SUBSCRIBE_POST_OR_DELETE = "/api/user/subscribe/author/{pickerId}";
 /*关注状态*/
 export const AUTHOR_SUBSCRIBE_STATUS_GET = "/api/user/subscribe/author/{pickerId}/status";
-
+/*上传推广公众号二维码*/
+export const MP_QRCODE_POST = "/api/user/mpQrcode";
+/*获取推广公众号二维码*/
+export const MP_QRCODE_GET = "/api/user/mpQrcode";
+/*获取作者公众号二维码*/
+export const AUTHOR_MP_QRCODE_GET = "/api/user/{pickerId}/mpQrcode";
 /*上传图片*/
 export const OSS_UPLOAD = "/api/oss/upload";
 

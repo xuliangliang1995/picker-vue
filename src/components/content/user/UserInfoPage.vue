@@ -42,6 +42,20 @@
         </a-row>
         <a-row class="info_row" type="flex" justify="start" align="middle">
             <a-col class="gutter-row" :span="3" :offset="5">
+                <span class="info_label">签名：</span>
+            </a-col>
+            <a-col class="gutter-row" :span="6" :offset="4">
+                <a-textarea :rows="3" @change="changeSignature" size="large" v-model="info.signature" @blur="saveInfo"/>
+            </a-col>
+        </a-row>
+        <a-row>
+            <!-- 分割线 -->
+            <a-col class="gutter-row" :span="18" :offset="5">
+                <a-divider/>
+            </a-col>
+        </a-row>
+        <a-row class="info_row" type="flex" justify="start" align="middle">
+            <a-col class="gutter-row" :span="3" :offset="5">
                 <span class="info_label">性别：</span>
             </a-col>
             <a-col class="gutter-row" :span="6" :offset="4">
@@ -142,7 +156,8 @@
                     gender: 0,
                     phone: '',
                     mpHeadImgUrl: undefined,
-                    mpNickName: undefined
+                    mpNickName: undefined,
+                    signature: undefined
                 },
                 modal: {
                     phone: '',
@@ -188,6 +203,7 @@
                         _this.info.phone = response.data.result.phone;
                         _this.info.mpHeadImgUrl = response.data.result.mpHeadImgUrl;
                         _this.info.mpNickName = response.data.result.mpNickName;
+                        _this.info.signature = response.data.result.signature;
                     } else {
                         _this.$message.info(response.data.message);
                     }
@@ -207,6 +223,11 @@
                 this.modal.checkCaptcha = true;
                 if (this.modal.captcha.length > 6) {
                     this.modal.captcha = this.modal.captcha.substring(0, 6);
+                }
+            },
+            changeSignature() {
+                if (this.info.signature.length > 50) {
+                    this.info.signature = this.info.signature.substring(0, 50);
                 }
             },
             handleChange(info) {
@@ -318,7 +339,8 @@
                 _this.$axios.put([USER_INFO_PUT], {
                     name: _this.info.name,
                     sex: _this.info.gender,
-                    avatar: _this.info.avatar
+                    avatar: _this.info.avatar,
+                    signature: _this.info.signature
                 }).then(function (response) {
                     let code = response.data.code;
                     _this.loading = false;

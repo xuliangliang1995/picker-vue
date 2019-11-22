@@ -38,6 +38,12 @@
                         privilege: false
                     },
                     {
+                        text: '个人公众号',
+                        icon: 'wechat',
+                        route: '/user/mpQrcode',
+                        privilege: false
+                    },
+                    {
                         text: '账户设置',
                         icon: 'setting',
                         route: '/user/setting',

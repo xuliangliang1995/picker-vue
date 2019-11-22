@@ -19,6 +19,7 @@ import CategoryPage from "@/components/content/blog/MyCategoryPage";
 import BindWechatPage from "@/components/content/user/BindWechatPage";
 import CalendarPage from "@/components/content/blog/MyCalendarPage";
 import PublicBlogViewPage from "@/components/content/blog/PublicBlogViewPage";
+import UserMpQrcode from "@/components/content/user/UserMpQrcode";
 const routes = [
     {
         path: '/',
@@ -53,6 +54,18 @@ const routes = [
                 }
             },
             {
+                path: '/user/mpQrcode',
+                components: {
+                    default: MenuSetting,
+                    content: UserMpQrcode
+                },
+                props: {
+                    default: {
+                        defaultIndex: 1
+                    }
+                }
+            },
+            {
                 path: '/user/setting',
                 components: {
                     default: MenuSetting,
@@ -60,7 +73,7 @@ const routes = [
                 },
                 props: {
                     default: {
-                        defaultIndex: 1
+                        defaultIndex: 2
                     }
                 }
             },
@@ -72,7 +85,7 @@ const routes = [
                 },
                 props: {
                     default: {
-                        defaultIndex: 2
+                        defaultIndex: 3
                     }
                 }
             }

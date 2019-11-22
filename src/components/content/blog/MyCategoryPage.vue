@@ -19,13 +19,19 @@
                             </template>
                         </a-row>
                         <template v-if="blogCanMove && ! (item.parentId >= 0)" slot="actions">
-                            <a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>
+                            <a-icon type="flag" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
+                                    @click="curveStatusChange(item.triggerStatus != 0, item.key)"
+                            />
+                            <!--<a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>-->
                             <a-icon type="form" @click="editBlog(item.key)"/>
                             <a-icon type="delete" @click="deleteBlog(item.key)"/>
                             <a-icon type="export" @click="transferBlog(item.key, item.title)"/>
                         </template>
                         <template v-if="! blogCanMove && ! (item.parentId >= 0)" slot="actions">
-                            <a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>
+                            <a-icon type="flag" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
+                                    @click="curveStatusChange(item.triggerStatus != 0, item.key)"
+                            />
+                            <!--<a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>-->
                             <a-icon type="form" @click="editBlog(item.key)"/>
                             <a-icon type="delete" @click="deleteBlog(item.key)"/>
                         </template>
@@ -692,7 +698,7 @@
                     })
                 }
             },
-            curveStatusChange(checked, event, blogId) {
+            curveStatusChange(checked, blogId) {
                 let _this = this;
                 _this.$axios.patch(BLOG_CURVE_PATCH.replace("{blogId}", blogId), {
                     status: checked ? 0 : 1
@@ -705,12 +711,16 @@
                                 description:
                                     '您已将该博客加入复习推送计划。系统会按照设定的记忆曲线定时推送给您。',
                             });
+                            let node = findNodeByKey(_this.currentData, blogId);
+                            node.triggerStatus = 0;
                         } else {
                             _this.$notification['success']({
                                 message: '已取消推送计划',
                                 description:
                                     '您已将该博客从推送计划中移除。',
                             });
+                            let node = findNodeByKey(_this.currentData, blogId);
+                            node.triggerStatus = 1;
                         }
 
                     } else {
