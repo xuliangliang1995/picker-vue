@@ -58,6 +58,10 @@ export const BLOG_DELETE = "/api/blog/{blogId}";
 export const BLOG_RECYCLE_PATCH = "/api/blog/{blogId}/recycle";
 /* 博客曲线调整 */
 export const BLOG_CURVE_PATCH = "/api/blog/{blogId}/curve";
+/* 添加评论 */
+export const BLOG_COMMENT_POST = "/api/blog/{blogId}/comment";
+/* 获取评论 */
+export const BLOG_COMMENT_GET = "/api/blog/{blogId}/comment";
 
 /*获取分类树*/
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";
