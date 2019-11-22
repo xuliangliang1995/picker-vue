@@ -83,7 +83,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .ant-affix {
         z-index: unset;
     }

@@ -15,7 +15,6 @@
                         :codeStyle="markdown_theme"
                         ref="md"
                 />
-                <BlogComment :blogId="blogId"/>
             </a-spin>
         </a-col>
     </a-row>
@@ -24,7 +23,6 @@
 <script>
     import { BLOG_MARKDOWN_GET } from "@/components/constant/url_path";
     import { mapState } from 'vuex';
-    import BlogComment from "@/components/content/blog/BlogComment";
 
     export default {
         props: ['blogId', 'filled'],
@@ -36,9 +34,6 @@
                 url: '',
                 contentHeight: (window.screen.height * 95 / 100) + "px"
             }
-        },
-        components:{
-            BlogComment
         },
         created: function () {
             let _this = this;
