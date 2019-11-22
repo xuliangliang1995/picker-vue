@@ -1,6 +1,6 @@
 <template>
     <div :style="{marginTop: '50px'}" >
-        <a-affix :offsetBottom="showCommentBox ? 0 : -100000" :offsetTop="0">
+        <a-affix :offsetBottom="(showCommentBox || focus) ? 0 : -100000" :offsetTop="0">
             <a-comment v-if="! spinning">
                 <a-avatar
                         v-if="isLoggingIn"
