@@ -37,11 +37,19 @@
                 <MyBlogViewPage @author="author" @render="renderToc" filled="true"  :blogId="blogId" :exclude-comments="true" :exclude-toc="true"/>
                 <BlogComment :blogId="blogId" :showCommentBox="showCommentBox"/>
             </a-col>
-            <a-col class="gutter-row" :offset="(showToc && tocRender)?1:0" :span="3" :style="{paddingLeft: '20px'}">
-                <a-affix>
-                    <UserCard v-if="! showToc && pickerId" :pickerId="pickerId"/>
-                </a-affix>
-                <BlogAnchor v-if="showToc && tocRender" :render="tocRender"/>
+            <a-col class="gutter-row" :span="4" :style="{paddingLeft: '20px'}">
+                <a-row>
+                    <a-col class="gutter-row">
+                        <UserCard v-if="pickerId" :pickerId="pickerId"/>
+                    </a-col>
+                </a-row>
+                <a-row>
+                    <a-col class="gutter-row" :offset="1">
+                        <a-affix>
+                            <BlogAnchor :style="{margin:'50px'}" v-if="tocRender" :render="tocRender"/>
+                        </a-affix>
+                    </a-col>
+                </a-row>
             </a-col>
         </a-row>
     </LayBlogView>
@@ -64,17 +72,14 @@
                 contentHeight: contentHeight.toString().concat('px'),
                 headerHeight: headerHeight,
                 showCommentBox: false,
-                tocRender: undefined,
-                showToc: false
+                tocRender: undefined
             }
         },
         created() {
             document.addEventListener('click', this.cancelCommentBox);
-            document.addEventListener('scroll', this.scrollEvent);
         },
         beforeDestroy () {
             document.removeEventListener('click', this.cancelCommentBox);
-            document.removeEventListener('scroll', this.scrollEvent);
         },
         components: {
             MyBlogViewPage,
@@ -96,9 +101,6 @@
             },
             renderToc(render) {
                 this.tocRender = render;
-            },
-            scrollEvent() {
-                this.showToc = document.documentElement.scrollTop > 350;
             }
         }
     }
