@@ -13,9 +13,14 @@
                         defaultOpen = "preview"
                         :style="{'minHeight': contentHeight, 'font-size': '18px'}"
                         :codeStyle="markdown_theme"
+                        @change="changeMd"
                         ref="md"
                 />
+                <BlogComment v-if="! excludeComments" :blog-id="blogId"/>
             </a-spin>
+        </a-col>
+        <a-col v-if="! excludeToc" class="gutter-row" :span="3" :offset="1">
+            <BlogAnchor v-if="render"  :render="render"/>
         </a-col>
     </a-row>
 </template>
@@ -23,17 +28,24 @@
 <script>
     import { BLOG_MARKDOWN_GET } from "@/components/constant/url_path";
     import { mapState } from 'vuex';
+    import BlogComment from "@/components/content/blog/BlogComment";
+    import BlogAnchor from "@/components/content/blog/BlogAnchor";
 
     export default {
-        props: ['blogId', 'filled'],
+        props: ['blogId', 'filled', 'excludeComments', 'excludeToc'],
         data() {
             return {
                 span: 20,
                 spinning: true,
                 value: '',
                 url: '',
-                contentHeight: (window.screen.height * 95 / 100) + "px"
+                contentHeight: (window.screen.height * 95 / 100) + "px",
+                render: undefined
             }
+        },
+        components: {
+            BlogComment,
+            BlogAnchor
         },
         created: function () {
             let _this = this;
@@ -53,6 +65,12 @@
         },
         computed: {
             ...mapState(['markdown_theme'])
+        },
+        methods: {
+            changeMd(value, render) {
+                this.render = render;
+                this.$emit('render', render);
+            },
         }
     }
 </script>

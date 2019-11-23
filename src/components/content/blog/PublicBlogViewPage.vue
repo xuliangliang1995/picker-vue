@@ -34,16 +34,16 @@
                 </a-affix>
             </a-col>
             <a-col class="gutter-row" :span="17">
-                <MyBlogViewPage @author="author" filled="true"  :blogId="blogId"/>
+                <MyBlogViewPage @author="author" @render="renderToc" filled="true"  :blogId="blogId" :exclude-comments="true" :exclude-toc="true"/>
                 <BlogComment :blogId="blogId" :showCommentBox="showCommentBox"/>
             </a-col>
-            <a-col class="gutter-row" :span="3" :style="{paddingLeft: '20px'}">
+            <a-col class="gutter-row" :offset="(showToc && tocRender)?1:0" :span="3" :style="{paddingLeft: '20px'}">
                 <a-affix>
-                    <UserCard v-if="pickerId" :pickerId="pickerId"/>
+                    <UserCard v-if="! showToc && pickerId" :pickerId="pickerId"/>
                 </a-affix>
+                <BlogAnchor v-if="showToc && tocRender" :render="tocRender"/>
             </a-col>
         </a-row>
-
     </LayBlogView>
 </template>
 <script>
@@ -51,6 +51,7 @@
     import UserCard from "@/components/content/user/UserCard";
     import MyBlogViewPage from "@/components/content/blog/MyBlogViewPage";
     import BlogComment from "@/components/content/blog/BlogComment";
+    import BlogAnchor from "@/components/content/blog/BlogAnchor";
 
     const bodyHeight = document.body.clientHeight;
     const headerHeight = window.screen.height * 10 / 100;
@@ -62,20 +63,25 @@
                 pickerId: undefined,
                 contentHeight: contentHeight.toString().concat('px'),
                 headerHeight: headerHeight,
-                showCommentBox: false
+                showCommentBox: false,
+                tocRender: undefined,
+                showToc: false
             }
         },
         created() {
             document.addEventListener('click', this.cancelCommentBox);
+            document.addEventListener('scroll', this.scrollEvent);
         },
         beforeDestroy () {
             document.removeEventListener('click', this.cancelCommentBox);
+            document.removeEventListener('scroll', this.scrollEvent);
         },
         components: {
             MyBlogViewPage,
             LayBlogView,
             UserCard,
-            BlogComment
+            BlogComment,
+            BlogAnchor
         },
         methods: {
             author(pickerId) {
@@ -87,6 +93,12 @@
             changeCommentBoxShow(e) {
                 e.preventDefault();
                 this.showCommentBox = ! this.showCommentBox;
+            },
+            renderToc(render) {
+                this.tocRender = render;
+            },
+            scrollEvent() {
+                this.showToc = document.documentElement.scrollTop > 350;
             }
         }
     }

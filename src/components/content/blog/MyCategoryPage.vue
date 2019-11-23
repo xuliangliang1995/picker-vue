@@ -19,7 +19,7 @@
                             </template>
                         </a-row>
                         <template v-if="blogCanMove && ! (item.parentId >= 0)" slot="actions">
-                            <a-icon type="flag" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
+                            <a-icon type="clock-circle" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
                                     @click="curveStatusChange(item.triggerStatus != 0, item.key)"
                             />
                             <!--<a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>-->
@@ -28,7 +28,7 @@
                             <a-icon type="export" @click="transferBlog(item.key, item.title)"/>
                         </template>
                         <template v-if="! blogCanMove && ! (item.parentId >= 0)" slot="actions">
-                            <a-icon type="flag" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
+                            <a-icon type="clock-circle" :theme="item.triggerStatus == 0 ? 'filled' : 'outlined'"
                                     @click="curveStatusChange(item.triggerStatus != 0, item.key)"
                             />
                             <!--<a-switch :defaultChecked="item.triggerStatus == 0" @change="(checked, event) => { curveStatusChange(checked, event, item.key)}"/>-->

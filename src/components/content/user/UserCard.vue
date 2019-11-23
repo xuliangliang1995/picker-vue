@@ -75,8 +75,8 @@
         },
         data() {
             return {
-                avatar: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-                name: "",
+                avatar: undefined,
+                name: undefined,
                 signature: "暂无签名",
                 gender: undefined,
                 sexColors: ['unset', '#E0FFFF', '#FFE0E3'],
