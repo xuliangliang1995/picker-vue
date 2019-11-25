@@ -1,6 +1,8 @@
 const Oss = require('./oss');
 const WebpackAliyunOss = require('webpack-aliyun-oss');
 module.exports = {
+    publicPath: 'https://picker.grasswort.com',
+    assetsDir: 'static',
     css: {
         loaderOptions: {
             less: {
@@ -20,7 +22,6 @@ module.exports = {
         let webpackAliyunOss = [
             new WebpackAliyunOss({
                 from: "./dist/**", // 上传那个文件或文件夹  可以是字符串或数组
-                //dist: "static",  // 需要上传到oss上的给定文件目录
                 region: Oss.region,
                 accessKeyId: Oss.accessKeyId,
                 accessKeySecret: Oss.accessKeySecret,

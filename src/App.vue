@@ -7,7 +7,7 @@
         <a-row slot="header" type="flex" justify="space-around">
           <a-col :span="2">
             <div id="logo">
-              <img class="logo-img" @click="toFirstPage" src="https://grasswort.oss-cn-hangzhou.aliyuncs.com/logo/grasswort.png"/>
+              <img class="logo-img" @click="toFirstPage" src="https://picker-oss.oss-cn-beijing.aliyuncs.com/meta/grasswort.png_target"/>
             </div>
           </a-col>
           <a-col :span="16">
