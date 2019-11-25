@@ -6,24 +6,30 @@
                     <a-row type="flex" justify="space-around" align="middle" :style="{height: contentHeight}">
                         <a-col>
                             <p :style="{marginTop:'40px'}">
-                                <a-tooltip placement="bottom">
+                                <a-tooltip placement="bottom" @click="toLike">
                                     <span slot="title">点 赞</span>
-                                    <a-button shape="circle" size="large" :style="{height:'60px', width:'60px'}">
-                                        <a-icon type="like" :style="{fontSize: '30px'}"/>
+                                    <a-button
+                                            shape="circle" size="large"
+                                            :style="{height:'60px', width:'60px'}"
+                                    >
+                                        <a-icon :theme="like?'filled':'outlined'" type="like" :style="{fontSize: '30px'}"/>
                                     </a-button>
                                 </a-tooltip>
                             </p>
                             <p :style="{marginTop:'40px'}">
-                                <a-tooltip placement="bottom">
-                                    <span slot="title">收藏</span>
-                                    <a-button shape="circle" size="large" :style="{height:'60px', width:'60px'}">
-                                        <a-icon type="star" :style="{fontSize: '30px'}"/>
+                                <a-tooltip placement="bottom" @click="toFavorite">
+                                    <span slot="title">收 藏</span>
+                                    <a-button
+                                            shape="circle" size="large"
+                                            :style="{height:'60px', width:'60px'}"
+                                    >
+                                        <a-icon :theme="favorite?'filled':'outlined'" type="star" :style="{fontSize: '30px'}"/>
                                     </a-button>
                                 </a-tooltip>
                             </p>
                             <p :style="{marginTop:'40px'}">
                                 <a-tooltip placement="bottom" @click.stop="changeCommentBoxShow($event)">
-                                    <span slot="title">评论</span>
+                                    <span slot="title">评 论</span>
                                     <a-button shape="circle" size="large" :style="{height:'60px', width:'60px'}">
                                         <a-icon type="message" :style="{fontSize: '30px'}"/>
                                     </a-button>
@@ -60,6 +66,7 @@
     import MyBlogViewPage from "@/components/content/blog/MyBlogViewPage";
     import BlogComment from "@/components/content/blog/BlogComment";
     import BlogAnchor from "@/components/content/blog/BlogAnchor";
+    import { BLOG_LIKE, BLOG_FAVORITE} from "@/components/constant/url_path";
 
     const bodyHeight = document.body.clientHeight;
     const headerHeight = window.screen.height * 10 / 100;
@@ -72,11 +79,28 @@
                 contentHeight: contentHeight.toString().concat('px'),
                 headerHeight: headerHeight,
                 showCommentBox: false,
-                tocRender: undefined
+                tocRender: undefined,
+                like: false,
+                favorite: false
             }
         },
         created() {
-            document.addEventListener('click', this.cancelCommentBox);
+            let _this = this;
+            document.addEventListener('click', _this.cancelCommentBox);
+            _this.$axios.get(BLOG_LIKE.replace("{blogId}", _this.blogId))
+                .then(function (response) {
+                    let code = response.data.code;
+                    if (code == 200) {
+                        _this.like = response.data.result;
+                    }
+                })
+            _this.$axios.get(BLOG_FAVORITE.replace("{blogId}", _this.blogId))
+                .then(function (response) {
+                    let code = response.data.code;
+                    if (code == 200) {
+                        _this.favorite = response.data.result;
+                    }
+                })
         },
         beforeDestroy () {
             document.removeEventListener('click', this.cancelCommentBox);
@@ -101,6 +125,47 @@
             },
             renderToc(render) {
                 this.tocRender = render;
+            },
+            toLike() {
+                let _this = this;
+                if (_this.like) {
+                    _this.$axios.delete(BLOG_LIKE.replace("{blogId}", _this.blogId))
+                        .then(function (response) {
+                            let code = response.data.code;
+                            if (code == 200) {
+                                _this.like = false;
+                            }
+                        })
+                } else {
+                    _this.$axios.post(BLOG_LIKE.replace("{blogId}", _this.blogId))
+                        .then(function (response) {
+                            let code = response.data.code;
+                            if (code == 200) {
+                                _this.like = true;
+                            }
+                        })
+                }
+            },
+            toFavorite() {
+                let _this = this;
+                if (_this.favorite) {
+                    _this.$axios.delete(BLOG_FAVORITE.replace("{blogId}", _this.blogId))
+                        .then(function (response) {
+                            let code = response.data.code;
+                            if (code == 200) {
+                                _this.favorite = false;
+                            }
+                        })
+                } else {
+                    _this.$axios.post(BLOG_FAVORITE.replace("{blogId}", _this.blogId))
+                        .then(function (response) {
+                            let code = response.data.code;
+                            if (code == 200) {
+                                _this.favorite = true;
+                            }
+                        })
+                }
+
             }
         }
     }

@@ -55,6 +55,10 @@ export const BLOG_LIST_GET = "/api/blog/";
 export const BLOG_POOL_GET = "/api/blog/pool";
 /*获取博客 markdown*/
 export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";
+/*博客点赞*/
+export const BLOG_LIKE = "/api/blog/{blogId}/like";
+/*博客收藏*/
+export const BLOG_FAVORITE = "/api/blog/{blogId}/favorite";
 /*修改博客分类*/
 export const BLOG_CATEGORY_PATCH = "/api/blog/{blogId}/category";
 /* 删除博客 */

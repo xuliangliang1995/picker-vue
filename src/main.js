@@ -65,8 +65,8 @@ Vue.prototype.$notification = notification;
  * @type {AxiosInstance}
  */
 let instance = axios.create({
-  headers: {'Content-Type': 'application/json;charset=utf-8'},
-  timeout: 100000
+    headers: {'Content-Type': 'application/json;charset=utf-8'},
+    timeout: 100000
 });
 instance.interceptors.request.use(
        async config => {

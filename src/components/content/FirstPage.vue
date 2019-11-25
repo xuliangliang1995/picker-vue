@@ -8,10 +8,18 @@
             <a-list itemLayout="vertical" :dataSource="data" :style="{marginBottom:'50px'}">
                 <a-list-item slot="renderItem" slot-scope="item, index">
                     <template v-if="! loading">
-                        <template  slot="actions" v-for="{type, text} in actions">
+                        <template  slot="actions">
                             <span :key="type">
-                              <a-icon :type="type" style="margin-right: 8px" />
-                              {{text}}
+                              <a-icon type="star-o" style="margin-right: 8px" />
+                              {{item.interaction.favorite}}
+                            </span>
+                            <span :key="type">
+                              <a-icon type="like-o" style="margin-right: 8px" />
+                              {{item.interaction.like}}
+                            </span>
+                            <span key="type">
+                              <a-icon type="eye-o" style="margin-right: 8px" />
+                              {{item.interaction.browse}}
                             </span>
                         </template>
                     </template>
@@ -85,7 +93,7 @@
                 actions: [
                     { type: 'star-o', text: '156' },
                     { type: 'like-o', text: '156' },
-                    { type: 'message', text: '2' },
+                    { type: 'eye-o', text: '2' },
                 ],
                 /*tagColors:[  'red', 'purple', 'cyan', 'orange', 'blue',  'green', 'pink']*/
                 tagColors:['cyan'],

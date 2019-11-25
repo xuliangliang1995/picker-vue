@@ -1,3 +1,5 @@
+const Oss = require('./oss');
+const WebpackAliyunOss = require('webpack-aliyun-oss');
 module.exports = {
     css: {
         loaderOptions: {
@@ -13,5 +15,33 @@ module.exports = {
     },
     devServer:{
         proxy: "https://picker.grasswort.com"
+    },
+    configureWebpack: config => {
+        let webpackAliyunOss = [
+            new WebpackAliyunOss({
+                from: "./dist/**", // 上传那个文件或文件夹  可以是字符串或数组
+                //dist: "static",  // 需要上传到oss上的给定文件目录
+                region: Oss.region,
+                accessKeyId: Oss.accessKeyId,
+                accessKeySecret: Oss.accessKeySecret,
+                bucket: Oss.bucket,
+                test: false,
+                setOssPath(filePath) {
+                    // some operations to filePath
+                    let index = filePath.lastIndexOf("dist");
+                    let Path = filePath.substring(index + 4, filePath.length);
+                    return Path.replace(/\\/g, "/");
+                },
+                // eslint-disable-next-line no-unused-vars
+                setHeaders(filePath) {
+                    // some operations to filePath
+                    // return false to use default header
+                    return {
+                        "Cache-Control": "max-age=31536000"
+                    };
+                }
+            })
+        ];
+        config.plugins = [...config.plugins, ...webpackAliyunOss ];
     }
 }
