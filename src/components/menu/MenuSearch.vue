@@ -34,6 +34,9 @@
                             <a @click.prevent.stop="showHotwords=false">最近搜索 <a-icon type="clock-circle" /></a>
                         </span>
                     </a-col>
+                    <a-col v-if="! showHotwords && recentwords.length > 0" :span="3">
+                        <span @click="clearSearchWords">清空</span>
+                    </a-col>
                 </a-row>
             </strong>
             <div v-if="showHotwords">
@@ -76,7 +79,8 @@
     import { BLOG_SEARCH_HOT_WORD } from "@/components/constant/url_path";
     import { SEARCH, DEL_SEARCH_WORD } from "@/components/constant/action_types";
     import { SEARCH_WORD_ARRAY} from "@/components/constant/getter_types";
-    import { mapActions, mapGetters } from 'vuex';
+    import { UPDATE_SEARCH_WORDS } from "@/components/constant/mutation_types";
+    import { mapActions, mapGetters, mapMutations } from 'vuex';
 
     export default {
         name: "MenuSetting",
@@ -122,6 +126,9 @@
             }
         },
         methods: {
+            ...mapMutations({
+                'updateSearchWords': UPDATE_SEARCH_WORDS
+            }),
             ...mapActions({
                 'search': SEARCH,
                 'delSearchWord': DEL_SEARCH_WORD
@@ -158,6 +165,9 @@
             },
             deleteWord(word) {
                 this.delSearchWord(word);
+            },
+            clearSearchWords() {
+                this.updateSearchWords('');
             }
         }
     }

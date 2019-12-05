@@ -50,13 +50,13 @@
                     {
                         key: 'blog',
                         title: '博客管理',
-                        icon: 'book',
+                        icon: 'appstore',
                         children: [
                             {
                                 key:'blog-list',
                                 title: '我的博客',
                                 route: '/blog/list',
-                                icon: 'bars'
+                                icon: 'profile'
                             },
                             {
                                 key:'blog-draft',
@@ -68,7 +68,13 @@
                                 key:'blog-category',
                                 title: '博客分类',
                                 route: '/blog/category',
-                                icon: 'folder-open'
+                                icon: 'folder'
+                            },
+                            {
+                                key: 'blog-recycle',
+                                title: '回收站',
+                                route: '/blog/recycle-bin',
+                                icon: 'delete'
                             }
                         ]
                     }

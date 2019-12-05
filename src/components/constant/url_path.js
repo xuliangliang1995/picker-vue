@@ -53,17 +53,17 @@ export const OSS_UPLOAD = "/api/oss/upload";
 export const BLOG_CREATE_POST = "/api/blog/";
 /*修改博客*/
 export const BLOG_EDIT_PUT = "/api/blog/{blogId}";
-/*获取博客列表*/
+/* 获取博客列表 */
 export const BLOG_LIST_GET = "/api/blog/";
-/*获取公共博客列表*/
+/* 获取公共博客列表 */
 export const BLOG_POOL_GET = "/api/blog/pool";
-/*获取博客 markdown*/
+/* 获取博客 markdown */
 export const BLOG_MARKDOWN_GET = "/api/blog/{blogId}/markdown";
-/*博客点赞*/
+/* 博客点赞 */
 export const BLOG_LIKE = "/api/blog/{blogId}/like";
-/*博客收藏*/
+/* 博客收藏 */
 export const BLOG_FAVORITE = "/api/blog/{blogId}/favorite";
-/*修改博客分类*/
+/* 修改博客分类 */
 export const BLOG_CATEGORY_PATCH = "/api/blog/{blogId}/category";
 /* 删除博客 */
 export const BLOG_DELETE = "/api/blog/{blogId}";
@@ -75,16 +75,18 @@ export const BLOG_CURVE_PATCH = "/api/blog/{blogId}/curve";
 export const BLOG_COMMENT_POST = "/api/blog/{blogId}/comment";
 /* 获取评论 */
 export const BLOG_COMMENT_GET = "/api/blog/{blogId}/comment";
+/* 回收站 */
+export const BLOG_RECYCLE_BIN = "/api/blog/recycle/bin";
 /* 搜索热词 */
 export const BLOG_SEARCH_HOT_WORD = "/api/blog/hotWord";
 
-/*获取分类树*/
+/* 获取分类树 */
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";
-/*创建分类*/
+/* 创建分类 */
 export const CATEGORY_POST = "/api/blog/category";
 /* 修改分类 */
 export const CATEGORY_PATCH = "/api/blog/category/{categoryId}";
-/*删除分类*/
+/* 删除分类 */
 export const CATEGORY_DELETE = "/api/blog/category/{categoryId}"
 /* 获取二维码 */
 export const QRCODE_GET = "/api/user/wxmp/bind/qrcode";

@@ -3,9 +3,9 @@
         <a-card v-if="data && data.length > 0" :title="title" :style="{marginBottom: '20px'}">
             <a href="#" @click.prevent.stop="toSearch" slot="extra">查看更多</a>
             <a-row :gutter="16" :style="{marginBottom: '20px'}">
-                <template v-for="(item, index) in data"  style="background-color: #ececec; padding: 20px;">
+                <template v-for="(item, index) in data"  style="background-color: #f7f2f2; padding: 20px;">
                     <a-col :key="index" :span="cardSpan">
-                        <a-card :bordered="false" hoverable>
+                        <a-card :bordered="false">
                             <template slot="title">
                                 <a-avatar
                                         :src="item.avatar ? item.avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -143,6 +143,6 @@
 </script>
 <style scoped>
     .ant-card {
-        background-color: #ececec;
+        background-color: #f7f2f2;
     }
 </style>

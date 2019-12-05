@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-if="data && data.length > 0" style="background-color: #ececec; padding: 20px;">
+        <div v-if="data && data.length > 0" style="background-color: #f7f2f2; padding: 20px;">
             <template v-for="(item, index) in data">
                 <a-row v-if="index % 2 == 0" :key="index" :gutter="16" :style="{marginBottom: '20px'}">
                     <a-col :span="12">
-                        <a-card :bordered="false" hoverable>
+                        <a-card :bordered="false">
                             <template slot="title">
                                 <a-avatar
                                         :src="data[index].avatar ? data[index].avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -41,7 +41,7 @@
                         </a-card>
                     </a-col>
                     <a-col :span="12" v-if="index + 1 < data.length">
-                        <a-card :bordered="false" hoverable>
+                        <a-card :bordered="false">
                             <template slot="title">
                                 <a-avatar
                                         :src="data[index+1].avatar ? data[index+1].avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -78,7 +78,7 @@
                     </a-col>
                 </a-row>
             </template>
-            <a-row type="flex" justify="center">
+            <a-row type="flex" justify="end">
                 <a-pagination
                         :total="total"
                         :pageSize="pageSize"

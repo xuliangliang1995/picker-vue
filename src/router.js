@@ -25,6 +25,8 @@ import MenuSearch from "@/components/menu/MenuSearch";
 import BlogList from "@/components/content/blog/BlogList";
 import UserList from "@/components/content/user/UserList";
 import SearchHomePage from "@/components/content/search/SearchHomePage";
+import RecycleBin from "@/components/content/blog/RecycleBin";
+import MainPage from "@/components/content/MainPage";
 const routes = [
     {
         path: '/',
@@ -95,6 +97,10 @@ const routes = [
                 }
             }
         ]
+    },
+    {
+        path: '/user/:userId',
+        component: MainPage
     },
     {
         path: '/search',
@@ -204,6 +210,19 @@ const routes = [
                     default: false,
                     sider: {
                         selectKey: ['blog-category']
+                    }
+                }
+            },
+            {
+                path: '/blog/recycle-bin',
+                components: {
+                    default: RecycleBin,
+                    sider: MenuLeft
+                },
+                props: {
+                    default: true,
+                    sider: {
+                        selectKey: ['blog-recycle']
                     }
                 }
             },
