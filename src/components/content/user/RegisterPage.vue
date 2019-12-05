@@ -14,6 +14,9 @@
                         请打开您的邮箱对账号进行激活。
                         <a-button @click="sendActivateEmail">发送激活邮件</a-button><br/>
                     </template>
+                    <template v-if="currentStep == 2">
+                        <p>恭喜成为 Picker 用户的一员。现在，您可以去登录啦~</p>
+                    </template>
                 </div>
             </a-col>
         </a-row>
@@ -33,7 +36,7 @@
 </template>
 
 <script>
-    import {SEND_ACTIVATE_EMAIL_POST} from "@/components/constant/url_path";
+    import { SEND_ACTIVATE_EMAIL_POST, ACCOUNT_ACTIVATE_STATUS } from "@/components/constant/url_path";
     import SignUpForm from "@/components/form/SignUpForm";
     export default {
         data() {
@@ -52,10 +55,11 @@
                 _this.username = username;
                 _this.email = email;
                 _this.currentStep = 1;
+                _this.getActivateStatus();
             },
             sendActivateEmail() {
                 let _this = this;
-                this.$axios.post([SEND_ACTIVATE_EMAIL_POST], {
+                this.$axios.post(SEND_ACTIVATE_EMAIL_POST, {
                     'username': _this.username
                 }).then(function (response) {
                     let code = response.data.code;
@@ -65,10 +69,23 @@
                     } else {
                         _this.$message.error(message);
                     }
-                }).catch(function(error) {
+                }).catch(function() {
                     // eslint-disable-next-line no-console
-                    console.log(error);
                 })
+            },
+            getActivateStatus() {
+                let _this = this;
+                _this.$axios.get(ACCOUNT_ACTIVATE_STATUS.concat('?username=').concat(_this.username))
+                    .then(function (response) {
+                        if (response.data.code == 200) {
+                            if (response.data.result.activated) {
+                                _this.activate = true;
+                                _this.currentStep = 2;
+                            } else {
+                                setTimeout(_this.getActivateStatus, 1000);
+                            }
+                        }
+                    })
             }
         }
     }

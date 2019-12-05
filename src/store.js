@@ -2,10 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 import { UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, CLEAR_TOKEN, UPGRADE_PRIVILEGE, PRIVILEGE, UPDATE_AVATAR, UPDATE_SMS_CAPTCHA_ABLE,
-UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE, UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG, UPDATE_BIND_WECHAT } from "@/components/constant/mutation_types";
-import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE } from "@/components/constant/action_types";
+UPDATE_MARKDOWN_THEME, UPDATE_SAFETY_CHECK_MODE, UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG, UPDATE_BIND_WECHAT, UPDATE_SEARCH_WORDS } from "@/components/constant/mutation_types";
+import { CHECK_ACCESS_TOKEN, QUERY_PRIVILEGE, INIT_PRIVILEGE, SEARCH, DEL_SEARCH_WORD } from "@/components/constant/action_types";
 import { USER_TOKEN_GET, USER_PRIVILEGE_GET } from "@/components/constant/url_path";
-import { IS_LOGGING_IN, DEFAULT_SAFETY_CHECK_MODE } from "@/components/constant/getter_types";
+import { IS_LOGGING_IN, DEFAULT_SAFETY_CHECK_MODE, SEARCH_WORD_ARRAY } from "@/components/constant/getter_types";
 import { MARKDOWN_LOCAL_STORAGE } from "@/components/constant/local_md_storage";
 import jwt_decode from 'jwt-decode';
 import moment from "moment";
@@ -18,6 +18,8 @@ const REFRESH_TOKEN = "refresh_token";
 const AVATAR = "avatar";
 /*markdown 主题*/
 const MARKDOWN_THEME = "markdown_theme";
+/* 搜索词语 */
+const SEARCH_WORDS = "search_words";
 
 let instance = axios.create({
     headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -81,7 +83,8 @@ const store = new Vuex.Store({
         // markdown 主题
         markdown_theme: localStorage.getItem(MARKDOWN_THEME) == undefined ? 'github' : localStorage.getItem(MARKDOWN_THEME),
         // 本地存储的 markdown 信息
-        markdown_data: localMarkdown
+        markdown_data: localMarkdown,
+        search_words: localStorage.getItem(SEARCH_WORDS) == undefined ? '' : localStorage.getItem(SEARCH_WORDS)
     },
     mutations: {
         /**
@@ -90,6 +93,15 @@ const store = new Vuex.Store({
         [UPDATE_AVATAR](state, avatar) {
             state.avatar = avatar;
             localStorage.setItem(AVATAR, avatar);
+        },
+        /**
+         * 更新最近搜索热词
+         * @param state
+         * @param searchWords
+         */
+        [UPDATE_SEARCH_WORDS](state, searchWords) {
+            state.search_words = searchWords;
+            localStorage.setItem(SEARCH_WORDS, searchWords);
         },
         /**
          * 更改是否绑定微信状态
@@ -237,9 +249,63 @@ const store = new Vuex.Store({
                 return state.safety_check_mode;
             }
             return 0;
+        },
+        /**
+         * 获取搜索词数组
+         * @param state
+         */
+        [SEARCH_WORD_ARRAY]: state => {
+            if (state.search_words) {
+                return state.search_words.split(",").reverse();
+            }
+            return [];
         }
     },
     actions:{
+        /**
+         * 搜索
+         * @param commit
+         * @param state
+         * @param word
+         */
+        [SEARCH]({commit, state}, word) {
+            let words = state.search_words;
+            if (words) {
+                let wordArray = words.split(",");
+                for (let i = 0; i < wordArray.length; i++) {
+                    if (wordArray[i] == word) {
+                        wordArray.splice(i, 1);
+                    }
+                }
+                wordArray.push(word);
+                if (wordArray.length > 10) {
+                    wordArray.splice(0, wordArray.length - 10);
+                }
+                let searchWords = wordArray.join(",");
+                commit(UPDATE_SEARCH_WORDS, searchWords);
+            } else {
+                commit(UPDATE_SEARCH_WORDS, word);
+            }
+        },
+        /**
+         * 移除搜索词
+         * @param commit
+         * @param state
+         * @param word
+         */
+        [DEL_SEARCH_WORD]({commit, state}, word) {
+            let words = state.search_words;
+            if (words) {
+                let wordArray = words.split(",");
+                for (let i = 0; i < wordArray.length; i++) {
+                    if (wordArray[i] == word) {
+                        wordArray.splice(i, 1);
+                    }
+                }
+                let searchWords = wordArray.join(",");
+                commit(UPDATE_SEARCH_WORDS, searchWords);
+            }
+        },
         /**
          * 查看当前 access_token 权限
          */

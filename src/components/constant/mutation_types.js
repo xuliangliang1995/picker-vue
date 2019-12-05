@@ -14,6 +14,8 @@ export const UPDATE_LOCAL_MARKDOWN = "updateLocalMarkdown";
 export const REMOVE_LOCAL_BLOG = "removeLocalBlog";
 /*更新是否绑定微信状态*/
 export const UPDATE_BIND_WECHAT = "updateBindWechat";
+/*更新搜索词*/
+export const UPDATE_SEARCH_WORDS = "updateSearchWords";
 
 
 /*更换头像*/
@@ -24,3 +26,4 @@ export const UPDATE_SMS_CAPTCHA_ABLE = "updateSmsCpatchaAble";
 export const UPDATE_SAFETY_CHECK_MODE = "updateSafetyCheckMode";
 /*修改 markdown 主题*/
 export const UPDATE_MARKDOWN_THEME = "updateMarkdownTheme";
+

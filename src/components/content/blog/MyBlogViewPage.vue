@@ -11,7 +11,7 @@
                         :boxShadow = "false"
                         previewBackground="unset"
                         defaultOpen = "preview"
-                        :style="{'minHeight': contentHeight, 'font-size': '18px'}"
+                        :style="{minHeight: contentHeight, 'font-size':'15px', lineHeight: 2}"
                         :codeStyle="markdown_theme"
                         @change="changeMd"
                         ref="md"

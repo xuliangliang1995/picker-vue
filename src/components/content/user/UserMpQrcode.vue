@@ -7,6 +7,7 @@
                     class="avatar-uploader"
                     :showUploadList="false"
                     :action="uploadOssUrl"
+                    :accept="accept"
                     @change="handleChange"
             >
                 <img v-if="qrcode" :src="qrcode" :width="250" :height="250" alt="avatar" />
@@ -20,13 +21,15 @@
 </template>
 <script>
     import { OSS_UPLOAD, MP_QRCODE_GET, MP_QRCODE_POST } from "@/components/constant/url_path";
+    import {IMG_ACCEPT} from "@/components/constant/img_accept";
 
     export default {
         data() {
             return {
                 uploadOssUrl:OSS_UPLOAD,
                 qrcode: undefined,
-                uploading: false
+                uploading: false,
+                accept: IMG_ACCEPT
             }
         },
         created() {

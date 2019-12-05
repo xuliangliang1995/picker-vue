@@ -2,6 +2,8 @@
 export const SIGN_UP_POST = "/api/user/signUp";
 /*激活邮件*/
 export const SEND_ACTIVATE_EMAIL_POST = "/api/user/activate/email";
+/*获取账号激活状态*/
+export const ACCOUNT_ACTIVATE_STATUS = "/api/user/activate/status"
 /*登录*/
 export const SIGN_IN_POST = "/api/user/signIn";
 /*刷新 access_token*/
@@ -30,6 +32,8 @@ export const USER_PRIVILEGE_POST = "/api/user/privilege/captcha";
 export const USER_SETTING_GET = "/api/user/setting";
 /*修改用户配置*/
 export const USER_SETTING_PUT = "/api/user/setting";
+/*用户搜索*/
+export const USER_SEARCH = "/api/user/search";
 /*获取作者信息*/
 export const AUTHOR_INFO_GET = "/api/user/{pickerId}";
 /*关注作者*/
@@ -71,6 +75,8 @@ export const BLOG_CURVE_PATCH = "/api/blog/{blogId}/curve";
 export const BLOG_COMMENT_POST = "/api/blog/{blogId}/comment";
 /* 获取评论 */
 export const BLOG_COMMENT_GET = "/api/blog/{blogId}/comment";
+/* 搜索热词 */
+export const BLOG_SEARCH_HOT_WORD = "/api/blog/hotWord";
 
 /*获取分类树*/
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";

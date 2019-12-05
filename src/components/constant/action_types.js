@@ -4,3 +4,7 @@ export const CHECK_ACCESS_TOKEN = "checkAccessToken";
 export const QUERY_PRIVILEGE = "queryPrivilege";
 /*初始化权限*/
 export const INIT_PRIVILEGE = "initPrivilege";
+/*搜索*/
+export const SEARCH = "search";
+/*删除搜索热词*/
+export const DEL_SEARCH_WORD = "delSearchWord";

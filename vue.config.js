@@ -1,7 +1,7 @@
 const Oss = require('./oss');
 const WebpackAliyunOss = require('webpack-aliyun-oss');
 module.exports = {
-    publicPath: 'https://picker.grasswort.com',
+    //publicPath: 'https://picker.grasswort.com',
     assetsDir: 'static',
     css: {
         loaderOptions: {
@@ -26,7 +26,7 @@ module.exports = {
                 accessKeyId: Oss.accessKeyId,
                 accessKeySecret: Oss.accessKeySecret,
                 bucket: Oss.bucket,
-                test: false,
+                test: true,
                 setOssPath(filePath) {
                     // some operations to filePath
                     let index = filePath.lastIndexOf("dist");

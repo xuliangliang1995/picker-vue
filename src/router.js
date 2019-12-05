@@ -20,6 +20,11 @@ import BindWechatPage from "@/components/content/user/BindWechatPage";
 import CalendarPage from "@/components/content/blog/MyCalendarPage";
 import PublicBlogViewPage from "@/components/content/blog/PublicBlogViewPage";
 import UserMpQrcode from "@/components/content/user/UserMpQrcode";
+import SearchPage from "@/components/content/search/SearchPage";
+import MenuSearch from "@/components/menu/MenuSearch";
+import BlogList from "@/components/content/blog/BlogList";
+import UserList from "@/components/content/user/UserList";
+import SearchHomePage from "@/components/content/search/SearchHomePage";
 const routes = [
     {
         path: '/',
@@ -86,6 +91,55 @@ const routes = [
                 props: {
                     default: {
                         defaultIndex: 3
+                    }
+                }
+            }
+        ]
+    },
+    {
+        path: '/search',
+        component: SearchPage,
+        children: [
+            {
+                path: '/search',
+                components: {
+                    default: MenuSearch,
+                    content: SearchHomePage
+                }
+            },
+            {
+                path: '/search/blog',
+                components: {
+                    default: MenuSearch,
+                    content: BlogList
+                },
+                props: {
+                    default: {
+                        defaultIndex: 0
+                    }
+                }
+            },
+            {
+                path: '/search/user',
+                components: {
+                    default: MenuSearch,
+                    content: UserList
+                },
+                props: {
+                    default: {
+                        defaultIndex: 1
+                    }
+                }
+            },
+            {
+                path: '/search/subject',
+                components: {
+                    default: MenuSearch,
+                    content: NoContent
+                },
+                props: {
+                    default: {
+                        defaultIndex: 2
                     }
                 }
             }

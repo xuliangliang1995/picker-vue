@@ -61,6 +61,8 @@
 
 <script>
     import { SIGN_IN_POST } from "@/components/constant/url_path";
+    import { CLEAR_TOKEN } from "@/components/constant/mutation_types";
+    import { mapMutations } from 'vuex';
 
     export default {
         data () {
@@ -71,9 +73,13 @@
             };
         },
         methods: {
+            ...mapMutations({
+                'clearToken': CLEAR_TOKEN
+            }),
             handleSubmit (e) {
                 e.preventDefault();
                 let _this = this;
+                _this.clearToken();
                 _this.form.validateFields((err, values) => {
                     if (!err) {
                         _this.$axios.post([SIGN_IN_POST], values)

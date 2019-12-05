@@ -52,6 +52,7 @@
                                 :showUploadList="false"
                                 :action="drawer.uploadOssUrl"
                                 @change="uploadChange"
+                                :accept="accept"
                         >
                             <img v-if="blog.coverImg" :src="blog.coverImg" alt="avatar" :style="{'height':'200px', 'width':'322px'}"/>
                             <div v-else :style="{'height':'200px', 'width':'322px'}">
@@ -133,6 +134,7 @@
     import { OSS_UPLOAD, BLOG_CREATE_POST, CATEGORY_TREE_GET, BLOG_MARKDOWN_GET, BLOG_EDIT_PUT } from "@/components/constant/url_path";
     import { mapState, mapMutations } from 'vuex';
     import { UPDATE_LOCAL_MARKDOWN, REMOVE_LOCAL_BLOG } from "@/components/constant/mutation_types";
+    import { IMG_ACCEPT } from "@/components/constant/img_accept";
     import moment from "moment";
     /**
      * 类别转换
@@ -194,6 +196,7 @@
                 localItemTime: undefined,
                 contentHeight: (window.screen.height * 95 / 100) + "px",
                 formLayout: 'horizontal',
+                accept: IMG_ACCEPT
             }
         },
         created: function () {

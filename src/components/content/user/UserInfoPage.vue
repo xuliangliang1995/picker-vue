@@ -12,6 +12,7 @@
                         :showUploadList="false"
                         :action="uploadOssUrl"
                         @change="handleChange"
+                        :accept="accept"
                 >
                     <img v-if="info.avatar" :src="info.avatar" :width="102" :height="102" alt="avatar" />
                     <div v-else>
@@ -87,8 +88,8 @@
                 <span class="info_label">手机号码：</span>
             </a-col>
             <a-col class="gutter-row" :span="6" :offset="4">
-                <span v-if="info.phone.length > 0">{{info.phone}}<a-button :style="{marginLeft:'5px'}" size="small" @click="showModal('更换手机号')">更换</a-button></span>
-                <a-button v-else size="small" @click="showModal('绑定手机号')">绑定手机号</a-button>
+                <span v-if="info.phone && info.phone.length > 0">{{info.phone}}<a-button :style="{marginLeft:'5px'}" size="small" @click="showModal('更换手机号')" type="primary" ghost>更换</a-button></span>
+                <a-button v-else size="small" @click="showModal('绑定手机号')" type="primary" ghost>绑定手机号</a-button>
             </a-col>
         </a-row>
         <a-row>
@@ -105,9 +106,9 @@
                 <span v-if="bind_wechat">
                     <img  :src="info.mpHeadImgUrl" :width="50" :height="50" alt="avatar" />
                     <!--{{info.mpNickName}}-->
-                    <a-button :style="{marginLeft:'5px'}" size="small" @click="bindWechat">更换</a-button>
+                    <a-button :style="{marginLeft:'5px'}" size="small" @click="bindWechat" type="primary" ghost>更换</a-button>
                 </span>
-                <a-button v-else size="small" @click="bindWechat">绑定微信</a-button>
+                <a-button v-else size="small" @click="bindWechat" type="primary" ghost>绑定微信</a-button>
             </a-col>
         </a-row>
 
@@ -139,6 +140,7 @@
     import { USER_INFO_GET, USER_INFO_PUT, OSS_UPLOAD, USER_PHONE_PATCH, USER_PHONE_CAPTCHA_POST } from "@/components/constant/url_path";
     import { mapState, mapMutations } from 'vuex';
     import { UPGRADE_PRIVILEGE, UPDATE_SMS_CAPTCHA_ABLE, UPDATE_AVATAR } from "@/components/constant/mutation_types";
+    import { IMG_ACCEPT } from "@/components/constant/img_accept";
 
     export default {
         name: "UserInfo",
@@ -174,7 +176,8 @@
                 },
                 uploading: false,
                 uploadOssUrl: OSS_UPLOAD,
-                loading: false
+                loading: false,
+                accept: IMG_ACCEPT
             }
         },
         computed: {
@@ -213,6 +216,11 @@
                 })
         },
         methods: {
+            ...mapMutations({
+                'upgradePrivilege':UPGRADE_PRIVILEGE,
+                'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE,
+                'updateAvatar': UPDATE_AVATAR
+            }),
             phoneChange() {
                 this.modal.checkPhone = true;
                 if (this.modal.phone.length > 11) {
@@ -231,6 +239,12 @@
                 }
             },
             handleChange(info) {
+                /*const event = info.event
+                if (event) { // 一定要加判断，不然会报错
+                    let percent = Math.floor((event.loaded / event.total) * 100)
+
+                    console.log(percent) // percent就是进度条的数值
+                }*/
                 let _this = this;
                 const status = info.file.status;
                 if (status == 'uploading') {
@@ -355,11 +369,6 @@
                     _this.$message.info("系统异常，保存失败")
                 })
             },
-            ...mapMutations({
-                'upgradePrivilege':UPGRADE_PRIVILEGE,
-                'updateSmsCaptchaAble': UPDATE_SMS_CAPTCHA_ABLE,
-                'updateAvatar': UPDATE_AVATAR
-            }),
             bindWechat() {
                 if (this.privilege) {
                     this.$router.push('/user/wechat');

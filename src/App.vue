@@ -10,8 +10,13 @@
               <img class="logo-img" @click="toFirstPage" src="https://picker-oss.oss-cn-beijing.aliyuncs.com/meta/grasswort.png_target"/>
             </div>
           </a-col>
-          <a-col :span="16">
+          <a-col :span="8">
             <MenuTop/>
+          </a-col>
+          <a-col :span="6" :style="{width:'200px'}">
+            <a-input placeholder="搜索" v-model="keyword" @keyup.enter="toSearch">
+              <a-icon slot="prefix" type="search"/>
+            </a-input>
           </a-col>
           <a-col :span="2" v-if="isLoggingIn">
             <a-button type="primary" class="header-btn" ghost @click="toDrafts"><a-icon type="edit" />写文章</a-button>
@@ -30,13 +35,14 @@
         </a-row>
       </Lay>
     </a-locale-provider>
-    <Init/>
+    <Init v-if="isLoggingIn"/>
   </div>
 </template>
 
 <script>
   import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
-  import { mapState, mapGetters } from 'vuex';
+  import { mapState, mapGetters, mapActions } from 'vuex';
+  import { SEARCH } from "@/components/constant/action_types";
   import moment from 'moment';
   import 'moment/locale/zh-cn';
   moment.locale('zh-cn');
@@ -56,8 +62,14 @@
     },
     data() {
       return {
+        keyword: '',
         loggingIn: false,
         locale: zh_CN
+      }
+    },
+    created() {
+      if (this.$route.query.q) {
+        this.keyword = this.$route.query.q;
       }
     },
     computed: {
@@ -69,6 +81,9 @@
       ])
     },
     methods: {
+      ...mapActions({
+        'search': SEARCH
+      }),
       toSignUp: function () {
         this.$router.push("/signUp");
       },
@@ -80,6 +95,18 @@
       },
       toFirstPage: function () {
         this.$router.push('/');
+      },
+      toSearch: function () {
+        let key = [this.$route.path.split("/")[1].length > 0 ? this.$route.path.split("/")[1] : 'home'];
+        let isSearch = "search" == key;
+        if (this.keyword && this.keyword != '') {
+          this.search(this.keyword);
+        }
+        if (isSearch) {
+          window.location.href = this.$route.path.concat("?q=").concat(this.keyword)
+        } else {
+          window.open('/search?q='.concat(this.keyword), "_blank");
+        }
       }
     }
   }
