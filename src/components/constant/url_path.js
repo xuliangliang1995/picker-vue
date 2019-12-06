@@ -36,6 +36,10 @@ export const USER_SETTING_PUT = "/api/user/setting";
 export const USER_SEARCH = "/api/user/search";
 /*获取作者信息*/
 export const AUTHOR_INFO_GET = "/api/user/{pickerId}";
+/*关注列表*/
+export const FOLLOWING_LIST = "/api/user/{pickerId}/following";
+/*粉丝列表*/
+export const FOLLOWER_LIST = "/api/user/{pickerId}/follower";
 /*关注作者*/
 export const AUTHOR_SUBSCRIBE_POST_OR_DELETE = "/api/user/subscribe/author/{pickerId}";
 /*关注状态*/

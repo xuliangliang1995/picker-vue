@@ -28,249 +28,44 @@ import SearchHomePage from "@/components/content/search/SearchHomePage";
 import RecycleBin from "@/components/content/blog/RecycleBin";
 import MainPage from "@/components/content/MainPage";
 const routes = [
-    {
-        path: '/',
-        component: FirstPage
-    },
-    {
-        path: '/signUp',
-        component: Register
-    },
-    {
-        path: '/signIn',
-        component: Login
-    },
-    {
-        path: '/pwd',
-        component: Password
-    },
-    {
-        path: '/user',
-        component: UserSettingPage,
+    {   path: '/', component: FirstPage },
+    {   path: '/signUp', component: Register    },
+    {   path: '/signIn', component: Login   },
+    {   path: '/pwd', component: Password   },
+    {   path: '/user', component: UserSettingPage,
         children: [
-            {
-                path: '/user/info',
-                components: {
-                    default: MenuSetting,
-                    content: UserInfoPage
-                },
-                props: {
-                    default: {
-                        defaultIndex: 0
-                    }
-                }
-            },
-            {
-                path: '/user/mpQrcode',
-                components: {
-                    default: MenuSetting,
-                    content: UserMpQrcode
-                },
-                props: {
-                    default: {
-                        defaultIndex: 1
-                    }
-                }
-            },
-            {
-                path: '/user/setting',
-                components: {
-                    default: MenuSetting,
-                    content: SettingPage
-                },
-                props: {
-                    default: {
-                        defaultIndex: 2
-                    }
-                }
-            },
-            {
-                path: '/user/wechat',
-                components: {
-                    default: MenuSetting,
-                    content: BindWechatPage
-                },
-                props: {
-                    default: {
-                        defaultIndex: 3
-                    }
-                }
-            }
+            {   path: '/user/info', components: {default: MenuSetting, content: UserInfoPage}, props: {default: {defaultIndex: 0 }}},
+            {   path: '/user/mpQrcode', components: {default: MenuSetting, content: UserMpQrcode}, props: {default: {defaultIndex: 1}}},
+            {   path: '/user/setting', components: {default: MenuSetting, content: SettingPage}, props: {default: {defaultIndex: 2}}},
+            {   path: '/user/wechat', components: {default: MenuSetting, content: BindWechatPage}, props: {default: {defaultIndex: 3}}}
         ]
     },
-    {
-        path: '/user/:pickerId',
-        component: MainPage,
-        props: true
-    },
-    {
-        path: '/search',
-        component: SearchPage,
+    {   path: '/user/:pickerId', component: MainPage, props: true},
+    {   path: '/search', component: SearchPage,
         children: [
-            {
-                path: '/search',
-                components: {
-                    default: MenuSearch,
-                    content: SearchHomePage
-                }
-            },
-            {
-                path: '/search/blog',
-                components: {
-                    default: MenuSearch,
-                    content: BlogList
-                },
-                props: {
-                    default: {
-                        defaultIndex: 0
-                    }
-                }
-            },
-            {
-                path: '/search/user',
-                components: {
-                    default: MenuSearch,
-                    content: UserList
-                },
-                props: {
-                    default: {
-                        defaultIndex: 1
-                    }
-                }
-            },
-            {
-                path: '/search/subject',
-                components: {
-                    default: MenuSearch,
-                    content: NoContent
-                },
-                props: {
-                    default: {
-                        defaultIndex: 2
-                    }
-                }
-            }
+            {   path: '/search', components: {default: MenuSearch, content: SearchHomePage}},
+            {   path: '/search/blog', components: {default: MenuSearch, content: BlogList}, props: {default: {defaultIndex: 0}}},
+            {   path: '/search/user', components: {default: MenuSearch, content: UserList}, props: {default: {defaultIndex: 1}}},
+            {   path: '/search/subject', components: {default: MenuSearch, content: NoContent}, props: {default: {defaultIndex: 2}}}
         ]
     },
-    {
-        path: '/blog/:blogId.html',
-        component: PublicBlogViewPage,
-        props: true
-    },
-    {
-        path: '/blog',
-        component: MyBlogPage,
+    {   path: '/blog/:blogId.html', component: PublicBlogViewPage, props: true},
+    {   path: '/blog', component: MyBlogPage,
         children: [
             // 默认。同 /blog/list
-            {
-                path: '/blog',
-                components: {
-                    default: BlogListPage,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: false,
-                    sider: {
-                        selectKey: ['blog-list']
-                    }
-                }
-            },
-            {
-                path: '/blog/drafts',
-                components: {
-                    default: DraftsMd,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: false,
-                    sider: {
-                        selectKey: ['blog-draft']
-                    }
-                }
-            },
-            {
-                path: '/blog/list',
-                components: {
-                    default: BlogListPage,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: false,
-                    sider: {
-                        selectKey: ['blog-list']
-                    }
-                }
-            },
-            {
-                path: '/blog/category',
-                components: {
-                    default: CategoryPage,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: false,
-                    sider: {
-                        selectKey: ['blog-category']
-                    }
-                }
-            },
-            {
-                path: '/blog/recycle-bin',
-                components: {
-                    default: RecycleBin,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: true,
-                    sider: {
-                        selectKey: ['blog-recycle']
-                    }
-                }
-            },
-            {
-                path: '/blog/:blogId',
-                components: {
-                    default: BlogViewPage,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: true,
-                    sider: {
-                        selectKey: ['blog-list']
-                    }
-                }
-            },
-            {
-                path: '/blog/:blogId/editor',
-                components: {
-                    default: DraftsMd,
-                    sider: MenuLeft
-                },
-                props: {
-                    default: true,
-                    sider: {
-                        selectKey: ['blog-category']
-                    }
-                }
-            }
+            {   path: '/blog', components: {default: BlogListPage, sider: MenuLeft}, props: {default: false, sider: {selectKey: ['blog-list']}}},
+            {   path: '/blog/drafts', components: {default: DraftsMd, sider: MenuLeft}, props: {default: false, sider: {selectKey: ['blog-draft']}}},
+            {   path: '/blog/list', components: {default: BlogListPage, sider: MenuLeft}, props: {default: false, sider: {selectKey: ['blog-list']}}},
+            {   path: '/blog/category', components: {default: CategoryPage, sider: MenuLeft}, props: {default: false, sider: {selectKey: ['blog-category']}}},
+            {   path: '/blog/recycle-bin', components: {default: RecycleBin, sider: MenuLeft}, props: {default: true, sider: {selectKey: ['blog-recycle']}}},
+            {   path: '/blog/:blogId', components: {default: BlogViewPage, sider: MenuLeft}, props: {default: true, sider: {selectKey: ['blog-list']}}},
+            {   path: '/blog/:blogId/editor', components: {default: DraftsMd, sider: MenuLeft}, props: {default: true, sider: {selectKey: ['blog-category']}}}
         ]
     },
-    {
-        path: '/topic',
-        component: NoContent
-    },
-    {
-        path: '/schedule',
-        component: CalendarPage
-    },
-    {
-        path: '/message',
-        component: NoContent
-    },
-    {
-        path: '/main',
-        component: MainPage
-    }
+    {   path: '/topic', component: NoContent},
+    {   path: '/schedule', component: CalendarPage},
+    {   path: '/message', component: NoContent},
+    {   path: '/main', component: MainPage}
 ];
 
 // const router = new VueRouter(routes);

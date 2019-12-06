@@ -1,6 +1,7 @@
 <template>
     <div>
-        <a-list v-if="data && data.length > 0" itemLayout="vertical" :dataSource="data" :style="{marginBottom:'50px'}">
+        <a-skeleton v-if="loading" avatar :paragraph="{rows: 4}" />
+        <a-list v-if="!loading && data && data.length > 0" itemLayout="vertical" :dataSource="data" :style="{marginBottom:'50px'}">
             <a-list-item slot="renderItem" slot-scope="item, index">
                 <template v-if="! loading">
                     <template  slot="actions">
@@ -19,31 +20,24 @@
                     </template>
                 </template>
                 <img
-                        v-if="! loading"
                         slot="extra"
                         width="242"
                         height="150"
                         alt="logo"
                         :src="item.coverImg ? item.coverImg : 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'"
                 />
-                <a-skeleton :loading="loading"  avatar>
-                    <a-list-item-meta :description="'作者：' + item.author">
-                        <a slot="title">
-                            <strong><router-link :to="'/blog/' + item.blogId + '.html'" target="_blank"  :style="{'color':'unset'}" v-html="item.title"/></strong>
-                            <template v-for="(tag, index) in item.labels">
-                                <a-tag :style="{'margin-left': '5px', 'margin-right': '-2px'}" :key="tag" :color="tagColors[index % tagColors.length]">{{ tag }}</a-tag>
-                            </template>
-                        </a>
-                        <a-avatar v-if="! hideAvatar" slot="avatar" :src="item.authorAvatar"/>
-                    </a-list-item-meta>
-                </a-skeleton>
-                <span v-if="! loading" v-html="item.summary"></span>
+                <a-list-item-meta :description="'作者：' + item.author">
+                    <a slot="title">
+                        <strong><router-link :to="'/blog/' + item.blogId + '.html'" target="_blank"  :style="{'color':'unset'}" v-html="item.title"/></strong>
+                        <template v-for="(tag, index) in item.labels">
+                            <a-tag :style="{'margin-left': '5px', 'margin-right': '-2px'}" :key="tag" :color="tagColors[index % tagColors.length]">{{ tag }}</a-tag>
+                        </template>
+                    </a>
+                    <a-avatar v-if="! hideAvatar" slot="avatar" :src="item.authorAvatar"/>
+                </a-list-item-meta>
+                <span v-html="item.summary"></span>
             </a-list-item>
-            <div
-                    v-if="showLoadingMore"
-                    slot="loadMore"
-                    :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
-            >
+            <div v-if="showLoadingMore" slot="loadMore" :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
                 <a-spin v-if="loadingMore" />
                 <a-button v-else id="blog_pool_load_more_btn">加载更多数据</a-button>
             </div>
@@ -54,6 +48,7 @@
 <script>
     import { BLOG_POOL_GET } from "@/components/constant/url_path";
     import NoContent from "@/components/content/NoContent";
+    import qs from 'qs';
 
     /**
      * 判断某个元素是否在可视区域
@@ -71,7 +66,7 @@
     }
 
     export default {
-        props:['hideAvatar'],
+        props:['hideAvatar', 'authorId'],
         components: {NoContent},
         data() {
             return {
@@ -84,7 +79,7 @@
                 tagColors:['cyan'],
                 pageNo: 0,
                 pageSize: 10,
-                keyword: ''
+                keyword: undefined
             };
         },
         created() {
@@ -106,7 +101,14 @@
                 _this.pageNo += 1;
                 _this.loadingMore = true;
 
-                _this.$axios.get(BLOG_POOL_GET + "?keyword=" + _this.keyword + "&pageNo=" + _this.pageNo + "&pageSize=" + _this.pageSize).then(function (response) {
+                _this.$axios.get(BLOG_POOL_GET.concat("?").concat(
+                        qs.stringify({
+                            keyword: _this.keyword,
+                            authorId: _this.authorId,
+                            pageNo: _this.pageNo,
+                            pageSize: _this.pageSize
+                        })
+                    )).then(function (response) {
                     _this.loadingMore = false;
                     let code = response.data.code;
                     if (code == 200) {
@@ -120,6 +122,7 @@
                         }
                         _this.loading = false;
                         _this.showLoadingMore = response.data.total > ((_this.pageNo - 1) * _this.pageSize + response.data.result.length);
+                        _this.scrollEvent();
                     }
                 }).catch(function () {
                     _this.loadingMore = false;
