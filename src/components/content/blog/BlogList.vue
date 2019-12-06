@@ -29,12 +29,12 @@
                 <a-skeleton :loading="loading"  avatar>
                     <a-list-item-meta :description="'作者：' + item.author">
                         <a slot="title">
-                            <router-link :to="'/blog/' + item.blogId + '.html'" target="_blank"  :style="{'color':'unset'}" v-html="item.title"/>
+                            <strong><router-link :to="'/blog/' + item.blogId + '.html'" target="_blank"  :style="{'color':'unset'}" v-html="item.title"/></strong>
                             <template v-for="(tag, index) in item.labels">
                                 <a-tag :style="{'margin-left': '5px', 'margin-right': '-2px'}" :key="tag" :color="tagColors[index % tagColors.length]">{{ tag }}</a-tag>
                             </template>
                         </a>
-                        <a-avatar slot="avatar" :src="item.authorAvatar"/>
+                        <a-avatar v-if="! hideAvatar" slot="avatar" :src="item.authorAvatar"/>
                     </a-list-item-meta>
                 </a-skeleton>
                 <span v-if="! loading" v-html="item.summary"></span>
@@ -71,6 +71,7 @@
     }
 
     export default {
+        props:['hideAvatar'],
         components: {NoContent},
         data() {
             return {

@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import {LocaleProvider, Layout, Menu, Row, Col, Button, Icon, Skeleton, Avatar, Divider, Input, Form, AutoComplete, Steps, Message,
 Dropdown, Drawer, Radio, notification, List, Spin, Upload, Select, Tag, Modal, InputNumber, Tree, Breadcrumb, Switch, TreeSelect,
-Affix, BackTop, Calendar, TimePicker, Carousel, Card, Comment, Tooltip, Alert, Anchor, Statistic, Pagination, Table, Tabs } from 'ant-design-vue';
+Affix, BackTop, Calendar, TimePicker, Carousel, Card, Comment, Tooltip, Alert, Anchor, Statistic, Pagination, Table, Tabs, Popover } from 'ant-design-vue';
 import App from "./App";
 import router from "./router";
 import axios from 'axios';
@@ -59,6 +59,7 @@ Vue.use(Statistic);
 Vue.use(Pagination);
 Vue.use(Table);
 Vue.use(Tabs);
+Vue.use(Popover);
 
 Vue.prototype.$moment = moment;
 Vue.prototype.$message = Message;
