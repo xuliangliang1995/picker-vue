@@ -4,7 +4,7 @@
             <a-col class="gutter-row" :span="15" :offset="3">
                 <div class="content-wrapper" id="picker-content">
                     <a-skeleton v-if="loading" avatar :paragraph="{rows: 4}" />
-                    <a-card v-else>
+                    <a-card v-else style="background-color: #f7f2f2">
                         <a-card-meta :description="signature">
                             <span slot="title">
                                 <a-row type="flex" justify="start">
@@ -36,13 +36,13 @@
                         </a-card-meta>
                         <a-row>
                             <a-col :span="3">
-                                文章：{{interactionData.blogCount}}
-                            </a-col>
-                            <a-col :span="3">
                                 关注：{{interactionData.subscribeCount}}
                             </a-col>
                             <a-col :span="3">
                                 粉丝：{{interactionData.fansCount}}
+                            </a-col>
+                            <a-col :span="3">
+                                文章：{{interactionData.blogCount}}
                             </a-col>
                             <a-col :span="3">
                                 获赞：{{interactionData.likedCount}}
@@ -51,11 +51,11 @@
                     </a-card>
                     <div :style="{marginTop:'20px', minHeight:'500px'}">
                         <a-tabs defaultActiveKey="1">
-                            <a-tab-pane tab="文章" key="1">
-                                <BlogList :hideAvatar="true"/>
-                            </a-tab-pane>
+                            <a-tab-pane tab="文章" key="1"><BlogList v-if="authorId" :hide-avatar="true" :author-id="authorId"/></a-tab-pane>
                             <a-tab-pane disabled tab="专题" key="2" forceRender>Content of Tab Pane 2</a-tab-pane>
                             <a-tab-pane disabled tab="动态" key="3">Content of Tab Pane 3</a-tab-pane>
+                            <a-tab-pane tab="关注" key="4"><FollowerOrFollowingList v-if="authorId" :author-id="authorId"/></a-tab-pane>
+                            <a-tab-pane tab="粉丝" key="5"><FollowerOrFollowingList v-if="authorId" :author-id="authorId" :follower="true"/></a-tab-pane>
                         </a-tabs>
                     </div>
                 </div>
@@ -71,9 +71,10 @@
     import BlogList from "@/components/content/blog/BlogList";
     import { AUTHOR_INFO_GET, AUTHOR_SUBSCRIBE_STATUS_GET, AUTHOR_SUBSCRIBE_POST_OR_DELETE, AUTHOR_MP_QRCODE_GET, USER_INFO_GET } from "@/components/constant/url_path";
     import { mapGetters } from 'vuex';
+    import FollowerOrFollowingList from "@/components/content/user/FollowerOrFollowingList";
     export default {
         props:['pickerId'],
-        components:{ BlogList },
+        components:{FollowerOrFollowingList, BlogList },
         created() {
             let _this = this;
             let url = USER_INFO_GET;
@@ -145,7 +146,7 @@
                     return;
                 }
                 if (subscribe) {
-                    _this.$axios.post(AUTHOR_SUBSCRIBE_POST_OR_DELETE.replace("{pickerId}", _this.pickerId))
+                    _this.$axios.post(AUTHOR_SUBSCRIBE_POST_OR_DELETE.replace("{pickerId}", _this.authorId))
                         .then(function (response) {
                             if (response.data.code == 200) {
                                 _this.subscribe = true;
@@ -158,7 +159,7 @@
                             _this.$message.warn("当前网络不稳定，请稍后重试。");
                         })
                 } else {
-                    _this.$axios.delete(AUTHOR_SUBSCRIBE_POST_OR_DELETE.replace("{pickerId}", _this.pickerId))
+                    _this.$axios.delete(AUTHOR_SUBSCRIBE_POST_OR_DELETE.replace("{pickerId}", _this.authorId))
                         .then(function (response) {
                             if (response.data.code == 200) {
                                 _this.subscribe = false;

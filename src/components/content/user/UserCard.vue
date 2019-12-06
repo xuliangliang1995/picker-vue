@@ -11,7 +11,7 @@
             <template class="ant-card-actions" slot="actions">
                 <a-icon v-if="subscribe" @click="subscribeStatus(false)" type="heart" theme="filled" :style="{color:'#eb2f96'}"/>
                 <a-icon v-else type="heart" @click="subscribeStatus(true)"/>
-                <a-icon type="message" />
+                <a-icon type="message" disabled/>
                 <a-icon type="home" @click="toHome"/>
                 <a-icon v-if="mpQrcode" @click="showQrcode = !showQrcode" type="qrcode" :style="{color: (showQrcode ? '#2C94FF' : 'unset')}"/>
             </template>
