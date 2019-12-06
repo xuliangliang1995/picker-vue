@@ -12,7 +12,7 @@
                 <a-icon v-if="subscribe" @click="subscribeStatus(false)" type="heart" theme="filled" :style="{color:'#eb2f96'}"/>
                 <a-icon v-else type="heart" @click="subscribeStatus(true)"/>
                 <a-icon type="message" />
-                <a-icon type="home" />
+                <a-icon type="home" @click="toHome"/>
                 <a-icon v-if="mpQrcode" @click="showQrcode = !showQrcode" type="qrcode" :style="{color: (showQrcode ? '#2C94FF' : 'unset')}"/>
             </template>
             <a-card-meta :description="signature ? signature : '暂无签名'">
@@ -95,6 +95,9 @@
             ])
         },
         methods: {
+            toHome() {
+                this.$router.push('/user/'.concat(this.pickerId));
+            },
             subscribeStatus(subscribe) {
                 let _this = this;
                 if (! _this.isLoggingIn) {

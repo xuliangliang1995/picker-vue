@@ -99,8 +99,9 @@ const routes = [
         ]
     },
     {
-        path: '/user/:userId',
-        component: MainPage
+        path: '/user/:pickerId',
+        component: MainPage,
+        props: true
     },
     {
         path: '/search',
@@ -268,7 +269,7 @@ const routes = [
     },
     {
         path: '/main',
-        component: NoContent
+        component: MainPage
     }
 ];
 
