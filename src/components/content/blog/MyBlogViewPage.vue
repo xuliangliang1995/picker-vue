@@ -70,13 +70,13 @@
             changeMd(value, render) {
                 this.render = render;
                 this.$emit('render', render);
-            },
+            }
         }
     }
 </script>
 
 <style scoped>
     .v-note-wrapper {
-        z-index: 0;
+        z-index: 99;
     }
 </style>

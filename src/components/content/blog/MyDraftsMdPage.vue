@@ -124,7 +124,7 @@
                 <a-button :style="{marginRight: '8px'}" @click="onClose">
                     取消
                 </a-button>
-                <a-button @click="handleSubmit" type="primary">提交</a-button>
+                <a-button @click="handleSubmit" :loading="drawer.submitting" type="primary">提交</a-button>
             </div>
         </a-drawer>
     </div>
@@ -176,7 +176,8 @@
                     visible: false,
                     inputVisible: false,
                     tagInputValue: '',
-                    forceValidate: false
+                    forceValidate: false,
+                    submitting: false
                 },
                 treeData: [{
                     key: '0',
@@ -362,6 +363,7 @@
                 if (_this.titleValidateStatus != 'success' || _this.summaryValidateStatus != 'success') {
                     return;
                 }
+                _this.drawer.submitting = true;
                 _this.$axios.post(BLOG_CREATE_POST, {
                     title: _this.blog.title,
                     markdown: _this.markdown.value,
@@ -372,17 +374,18 @@
                     labels: _this.blog.tags
                 })
                     .then(function (response) {
+                        _this.drawer.submitting = false;
                         let code = response.data.code;
                         if (code == 200) {
-                            _this.$message.success(response.data.message);
                             _this.removeLocalBlog(_this.localItem);
                             _this.$router.push("/blog/list");
                         } else {
                             _this.$message.info(response.data.message);
                         }
                     }).catch(function () {
-                    _this.$message.warn("当然网络不稳定，请重试。");
-                })
+                        _this.drawer.submitting = false;
+                        _this.$message.warn("当然网络不稳定，请重试。");
+                    })
             },
             editBlog() {
                 let _this = this;
@@ -390,6 +393,7 @@
                 if (_this.titleValidateStatus != 'success' || _this.summaryValidateStatus != 'success') {
                     return;
                 }
+                _this.drawer.submitting = true;
                 _this.$axios.put(BLOG_EDIT_PUT.replace("{blogId}", _this.blogId), {
                     title: _this.blog.title,
                     markdown: _this.markdown.value,
@@ -400,17 +404,18 @@
                     labels: _this.blog.tags
                 })
                     .then(function (response) {
+                        _this.drawer.submitting = false;
                         let code = response.data.code;
                         if (code == 200) {
-                            _this.$message.success(response.data.message);
                             _this.removeLocalBlog(_this.localItem);
                             _this.$router.push("/blog/".concat(_this.blogId));
                         } else {
                             _this.$message.info(response.data.message);
                         }
                     }).catch(function () {
-                    _this.$message.warn("当然网络不稳定，请重试。");
-                })
+                        _this.drawer.submitting = false;
+                        _this.$message.warn("当然网络不稳定，请重试。");
+                    })
             }
         }
     }
@@ -418,7 +423,7 @@
 
 <style scoped>
     .v-note-wrapper {
-        z-index: 0;
+        z-index: 99;
     }
     .ant-input-group-addon {
         background-color: azure;
