@@ -76,7 +76,7 @@
                             size="large"
                             :rows="7"
                             v-model="blog.summary"
-                            placeholder="要是能够对文章一些简单的描述，那就再好不过啦 ~"
+                            placeholder="要是能够对文章做一些简单的描述，那就再好不过啦 ~"
                     >
                     </a-textarea>
                 </a-form-item>

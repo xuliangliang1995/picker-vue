@@ -61,7 +61,33 @@
                 </div>
             </a-col>
             <a-col class="gutter-row" :span="4">
-                <slot name="sider"></slot>
+                <img src="https://picker-oss.oss-cn-beijing.aliyuncs.com/meta/flower.png_target" width="30px" height="30px"/>
+                <span style="margin-left: 10px">采采卷耳</span>
+                <a-divider/>
+                <span style="color: #969696">个人介绍</span>
+                <p style="font-size: 18px;margin-top: 8px">
+                    采采卷耳，不盈顷筐。嗟我怀人，置彼周行。
+                    陟彼崔嵬，我马虺隤。我姑酌彼金罍，维以不永怀。
+                    陟彼高冈，我马玄黄。我姑酌彼兕觥，维以不永伤。
+                    陟彼砠矣，我马瘏矣，我仆痡矣，云何吁矣。
+                </p>
+                <a-divider/>
+                <a-row>
+                    <a-icon style="margin-right: 20px" type="appstore"/> 他收藏的专题
+                </a-row>
+                <a-row>
+                    <a-icon style="margin-right: 20px; margin-top: 30px" type="star"/> 他收藏的文章
+                </a-row>
+                <a-divider/>
+                <span style="color: #969696">社交账号</span>
+                <div style="font-size: 18px">
+                    <a-row>
+                        <a-icon style="margin-right: 20px; margin-top: 30px; color: #969696" type="github"/>
+                        <a-icon style="margin-right: 20px; margin-top: 30px; color: #969696" type="wechat" />
+                        <a-icon style="margin-right: 20px; margin-top: 30px; color: #969696" type="gitlab" />
+                        <a-icon style="margin-right: 20px; margin-top: 30px; color: #969696" type="zhihu" />
+                    </a-row>
+                </div>
             </a-col>
         </a-row>
     </a-layout>
