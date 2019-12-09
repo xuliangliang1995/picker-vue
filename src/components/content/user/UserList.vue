@@ -4,7 +4,7 @@
             <template v-for="(item, index) in data">
                 <a-row v-if="index % 2 == 0" :key="index" :gutter="16" :style="{marginBottom: '20px'}">
                     <a-col :span="12">
-                        <a-card :bordered="false">
+                        <a-card :bordered="false" @click="toHome(data[index].userId)" style="cursor: pointer">
                             <template slot="title">
                                 <a-avatar
                                         :src="data[index].avatar ? data[index].avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -41,7 +41,7 @@
                         </a-card>
                     </a-col>
                     <a-col :span="12" v-if="index + 1 < data.length">
-                        <a-card :bordered="false">
+                        <a-card :bordered="false" @click="toHome(data[index].userId)" style="cursor: pointer">
                             <template slot="title">
                                 <a-avatar
                                         :src="data[index+1].avatar ? data[index+1].avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -137,6 +137,9 @@
                         _this.pageNo = pageNo;
                     }
                 })
+            },
+            toHome(pickerId) {
+                this.$router.push('/user/'.concat(pickerId));
             },
             pageChange(page, pageSize) {
                 this.pageNo = page;

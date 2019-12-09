@@ -20,15 +20,17 @@
                                         </a-popover>
                                     </a-col>
                                     <a-col :span="5" :offset="14">
-                                        <a-button v-if="subscribe"
-                                                  @click="subscribeStatus(false)"
-                                                  @mouseover="unsubscribeBtnText='取消'"
-                                                  @mouseout="unsubscribeBtnText='已关注'"
-                                        >
-                                            {{unsubscribeBtnText}}
-                                        </a-button>
-                                        <a-button v-else @click="subscribeStatus(true)">关注</a-button>
-                                        <a-button style="margin-left: 2px" disabled>私信</a-button>
+                                        <template v-if="! isSelf">
+                                            <a-button v-if="subscribe"
+                                                      @click="subscribeStatus(false)"
+                                                      @mouseover="unsubscribeBtnText='取消'"
+                                                      @mouseout="unsubscribeBtnText='已关注'"
+                                            >
+                                                {{unsubscribeBtnText}}
+                                            </a-button>
+                                            <a-button v-else @click="subscribeStatus(true)">关注</a-button>
+                                            <a-button style="margin-left: 2px" disabled>私信</a-button>
+                                        </template>
                                     </a-col>
                                 </a-row>
                             </span>
@@ -108,6 +110,9 @@
                 _this.authorId = _this.pickerId;
                 url = AUTHOR_INFO_GET.replace("{pickerId}", _this.authorId);
             }
+            if (_this.$route.path == "/main") {
+                _this.isSelf = true;
+            }
             _this.$axios.get(url)
                 .then(function (response) {
                     let code = response.data.code;
@@ -153,7 +158,8 @@
                 subscribe: false,
                 mpQrcode: undefined,
                 showQrcode: true,
-                interactionData: undefined
+                interactionData: undefined,
+                isSelf: false
             }
         },
         computed: {

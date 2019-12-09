@@ -1,6 +1,6 @@
 <template>
     <div :style="{marginTop: '50px'}" >
-        <a-affix :offsetBottom="(showCommentBox || focus) ? 0 : -100000" :offsetTop="0">
+        <a-affix :offsetBottom="focus ? 0 : -100000" :offsetTop="0">
             <a-comment v-if="! spinning">
                 <a-avatar
                         v-if="isLoggingIn"
@@ -9,6 +9,7 @@
                 />
                 <div slot="content">
                     <a-form-item>
+                        <a id="_comment"></a>
                         <a-textarea :rows="4"  v-model="comment" :placeholder="commentPlaceholder" @click.stop="handleEvent($event)" @focus.stop="commentFocus($event)" @blur.stop="commentBlur($event)">
 
                         </a-textarea>
@@ -47,7 +48,7 @@
 
     export default {
         components: {IteComment},
-        props: ['blogId', 'showCommentBox'],
+        props: ['blogId'],
         data() {
             return {
                 data: [],

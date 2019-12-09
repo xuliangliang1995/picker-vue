@@ -4,7 +4,7 @@
         <a-list v-else :dataSource="data">
             <a-list-item slot="renderItem" slot-scope="item">
                 <a-list-item-meta :description="item.signature">
-                    <a slot="title">{{item.nickName}}
+                    <a slot="title" @click="toHome(item.userId)">{{item.nickName}}
                         <a-icon v-if="item.sex == 1" type="man" :style="{color:'#1E90FF'}" />
                         <a-icon v-if="item.sex == 2" type="woman" :style="{color:'#eb2f96'}"/>
                     </a>
@@ -80,6 +80,9 @@
             },
             cancelBtnMouseOut(item) {
                 item.delable = false;
+            },
+            toHome(pickerId) {
+                window.location.href = '/user/'.concat(pickerId);
             },
             fetchData() {
                 let _this = this;
