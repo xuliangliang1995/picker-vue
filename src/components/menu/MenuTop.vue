@@ -47,7 +47,11 @@
             },
             routeIfLogin(path) {
                 if (this.isLoggingIn) {
-                    this.$router.push(path);
+                    if (path == "/main") {
+                        window.location.href = "/main";
+                    } else {
+                        this.$router.push(path);
+                    }
                 } else {
                     this.$router.push('/signIn');
                 }

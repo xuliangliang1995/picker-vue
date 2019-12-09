@@ -28,11 +28,13 @@
                                 </a-tooltip>
                             </p>
                             <p :style="{marginTop:'40px'}">
-                                <a-tooltip placement="bottom" @click.stop="changeCommentBoxShow($event)">
+                                <a-tooltip placement="bottom">
                                     <span slot="title">评 论</span>
-                                    <a-button shape="circle" size="large" :style="{height:'60px', width:'60px'}">
-                                        <a-icon type="message" :style="{fontSize: '30px'}"/>
-                                    </a-button>
+                                    <a href="#_comment">
+                                        <a-button shape="circle" size="large" :style="{height:'60px', width:'60px'}">
+                                            <a-icon type="message" :style="{fontSize: '30px'}"/>
+                                        </a-button>
+                                    </a>
                                 </a-tooltip>
                             </p>
                         </a-col>
@@ -41,7 +43,7 @@
             </a-col>
             <a-col class="gutter-row" :span="17">
                 <MyBlogViewPage @author="author" @render="renderToc" filled="true"  :blogId="blogId" :exclude-comments="true" :exclude-toc="true"/>
-                <BlogComment :blogId="blogId" :showCommentBox="showCommentBox"/>
+                <BlogComment :blogId="blogId"/>
             </a-col>
             <a-col class="gutter-row" :span="4" :style="{paddingLeft: '20px'}">
                 <a-row>
@@ -78,7 +80,6 @@
                 pickerId: undefined,
                 contentHeight: contentHeight.toString().concat('px'),
                 headerHeight: headerHeight,
-                showCommentBox: false,
                 tocRender: undefined,
                 like: false,
                 favorite: false
@@ -86,7 +87,6 @@
         },
         created() {
             let _this = this;
-            document.addEventListener('click', _this.cancelCommentBox);
             _this.$axios.get(BLOG_LIKE.replace("{blogId}", _this.blogId))
                 .then(function (response) {
                     let code = response.data.code;
@@ -102,9 +102,6 @@
                     }
                 })
         },
-        beforeDestroy () {
-            document.removeEventListener('click', this.cancelCommentBox);
-        },
         components: {
             MyBlogViewPage,
             LayBlogView,
@@ -115,13 +112,6 @@
         methods: {
             author(pickerId) {
                 this.pickerId = pickerId;
-            },
-            cancelCommentBox() {
-                this.showCommentBox = false;
-            },
-            changeCommentBoxShow(e) {
-                e.preventDefault();
-                this.showCommentBox = ! this.showCommentBox;
             },
             renderToc(render) {
                 this.tocRender = render;
