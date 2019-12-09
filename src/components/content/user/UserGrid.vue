@@ -5,7 +5,7 @@
             <a-row :gutter="16" :style="{marginBottom: '20px'}">
                 <template v-for="(item, index) in data"  style="background-color: #f7f2f2; padding: 20px;">
                     <a-col :key="index" :span="cardSpan">
-                        <a-card :bordered="false">
+                        <a-card :bordered="false" @click="toHome(item.userId)" style="cursor: pointer">
                             <template slot="title">
                                 <a-avatar
                                         :src="item.avatar ? item.avatar : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'"
@@ -80,6 +80,9 @@
             }
         },
         methods: {
+            toHome(pickerId) {
+                this.$router.push('/user/'.concat(pickerId));
+            },
             fetchData() {
                 let _this = this;
                 const pageNo = _this.pageNo;
