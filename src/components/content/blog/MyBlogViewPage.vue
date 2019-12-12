@@ -48,20 +48,7 @@
             BlogAnchor
         },
         created: function () {
-            let _this = this;
-            if (_this.filled) {
-                _this.span = 24;
-            }
-            _this.url = BLOG_MARKDOWN_GET.replace("{blogId}", _this.blogId);
-            _this.$axios.get(_this.url)
-                .then(function (response) {
-                    let code = response.data.code;
-                    if (code == 200) {
-                        _this.value = response.data.result.markdown;
-                        _this.spinning = false;
-                        _this.$emit('author', response.data.result.pickerId);
-                    }
-                })
+            this.fetchData();
         },
         computed: {
             ...mapState(['markdown_theme'])
@@ -70,6 +57,22 @@
             changeMd(value, render) {
                 this.render = render;
                 this.$emit('render', render);
+            },
+            fetchData() {
+                let _this = this;
+                if (_this.filled) {
+                    _this.span = 24;
+                }
+                _this.url = BLOG_MARKDOWN_GET.replace("{blogId}", _this.blogId);
+                _this.$axios.get(_this.url)
+                    .then(function (response) {
+                        let code = response.data.code;
+                        if (code == 200) {
+                            _this.value = response.data.result.markdown;
+                            _this.spinning = false;
+                            _this.$emit('author', response.data.result.pickerId);
+                        }
+                    })
             }
         }
     }

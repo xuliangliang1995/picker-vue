@@ -84,6 +84,17 @@ export const BLOG_RECYCLE_BIN = "/api/blog/recycle/bin";
 /* 搜索热词 */
 export const BLOG_SEARCH_HOT_WORD = "/api/blog/hotWord";
 
+/* 创建专题 */
+export const TOPIC_CREATE_POST = "/api/blog/topic";
+/* 专题列表 */
+export const TOPICS_GET = "/api/blog/topic";
+/* 创建菜单 */
+export const TOPIC_MENU_CREATE = "/api/blog/topic/{topicId}/menu";
+/* 专题菜单 */
+export const TOPIC_MENU_GET = "/api/blog/topic/{topicId}/menu";
+/* 菜单删除 */
+export const TOPIC_MENU_DELETE = "/api/blog/topic/{topicId}/menu/{menuId}"
+
 /* 获取分类树 */
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";
 /* 创建分类 */

@@ -27,6 +27,9 @@ import UserList from "@/components/content/user/UserList";
 import SearchHomePage from "@/components/content/search/SearchHomePage";
 import RecycleBin from "@/components/content/blog/RecycleBin";
 import MainPage from "@/components/content/MainPage";
+import Topic from "@/components/content/topic/Topic";
+import TopicList from "@/components/content/topic/TopicList";
+import MyBlogViewPage from "@/components/content/blog/MyBlogViewPage";
 const routes = [
     {   path: '/', component: FirstPage },
     {   path: '/signUp', component: Register    },
@@ -62,7 +65,9 @@ const routes = [
             {   path: '/blog/:blogId/editor', components: {default: DraftsMd, sider: MenuLeft}, props: {default: true, sider: {selectKey: ['blog-category']}}}
         ]
     },
-    {   path: '/topic', component: NoContent},
+    {   path: '/topic', component: TopicList },
+    {   path: '/topic/:topicId', component: Topic, props: true },
+    {   path: '/topic/:topicId/blog/:blogId', component: Topic, props: true },
     {   path: '/schedule', component: CalendarPage},
     {   path: '/message', component: NoContent},
     {   path: '/main', component: MainPage}

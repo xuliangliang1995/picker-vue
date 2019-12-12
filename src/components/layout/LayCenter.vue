@@ -43,6 +43,9 @@
     .content-wrapper {
         padding: 0px 40px 0 40px;
     }
+    #picker-content {
+        min-height: 1080px;
+    }
     #footer-info {
         color: #fff;
         text-align: center;
