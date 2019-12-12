@@ -30,7 +30,7 @@
                                 style="width: 120px;margin-top: 10px"
                         >
                             <a-select-option value="1">链接</a-select-option>
-                            <a-select-option value="2" :disabled="tierAdd > 2 || (parent && parent.menuType == 'group')">分组</a-select-option>
+                            <a-select-option value="2" :disabled="tierAdd > 2 || (parent && parent.menuType == 'group' && tierAdd > tier)">分组</a-select-option>
                             <a-select-option value="3" :disabled="tierAdd > 1">菜单</a-select-option>
                         </a-select>
                     </a-col>
