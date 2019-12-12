@@ -2,7 +2,7 @@
     <TopicLay>
         <a-affix slot="sider">
             <a-skeleton v-if="loading"/>
-            <a-menu v-else mode="inline" :inlineCollapsed="false" :inlineIndent="20" v-model="selectedKeys">
+            <a-menu v-else mode="inline" :inlineCollapsed="false" :inlineIndent="20" v-model="selectedKeys" :defaultOpenKeys="openKeys">
                 <a-menu-item :key="0" v-if="menu.length == 0">
 
                     <MenuTopicEdit :tier="0" :topic-id="topicId" @refresh="fetchMenu">
@@ -11,7 +11,7 @@
 
                 </a-menu-item>
                 <template v-else v-for="item in menu">
-                    <a-sub-menu v-if="item.menuType == 'folder'" :key="item.menuId"> @click="routeBlog(item)"
+                    <a-sub-menu v-if="item.menuType == 'folder'" :key="item.menuId" @click="routeBlog(item)">
 
                         <MenuTopicEdit slot="title" :tier="1" :parent="item" :topic-id="topicId" @refresh="fetchMenu">
                             <span slot="content">{{ item.menuName }}</span>
@@ -88,6 +88,7 @@
             return {
                 menu: [],
                 selectedKeys: [],
+                openKeys: [],
                 selectBlogId: undefined,
                 loading: true
             }
@@ -160,6 +161,9 @@
                     if (menu[i].children) {
                         let findMenu = _this.findFirstLinkMenu(menu[i].children, blogId)
                         if (findMenu) {
+                            if (menu[i].menuType == 'folder') {
+                                _this.openKeys.push(menu[i].menuId);
+                            }
                             return findMenu;
                         }
                     }
