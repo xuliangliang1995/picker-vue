@@ -105,7 +105,7 @@
                         _this.title = _this.tier > 0 ? "添加子级菜单" : '新建菜单';
                         _this.tierAdd = _this.tier + 1;
                         _this.visible = true;
-                        _this.parentMenuId = _this.parent.menuId;
+                        _this.parentMenuId = _this.tier > 0 ? _this.parent.menuId : 0;
                         break;
                     case 3:
                         break;
