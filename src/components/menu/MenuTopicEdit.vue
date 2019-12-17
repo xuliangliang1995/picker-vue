@@ -6,8 +6,10 @@
                 <template v-if="tier > 0">
                     <a-menu-item key="1" @click="handle(1)"><a-icon type="plus"/>同级</a-menu-item>
                     <a-menu-item key="2" :disabled="parent && parent.menuType == 'link'" @click="handle(2)"><a-icon type="plus"/>子级</a-menu-item>
-                    <a-menu-item key="3" :disabled="true" @click="handle(3)"><a-icon type="edit"/>重命名</a-menu-item>
+                    <a-menu-item key="3" @click="handle(3)"><a-icon type="edit"/>重命名</a-menu-item>
                     <a-menu-item key="4" :disabled="parent && parent.children && parent.children.length > 0" @click="handle(4)"><a-icon type="delete"/>删除</a-menu-item>
+                    <a-menu-item key="6" @click="moveUp"><a-icon type="arrow-up" />上移</a-menu-item>
+                    <a-menu-item key="7" @click="moveDown"><a-icon type="arrow-down" />下移</a-menu-item>
                 </template>
                 <template v-else>
                     <a-menu-item key="2" :disabled="parent && parent.menuType == 'link'" @click="handle(2)"><a-icon type="plus"/>新建</a-menu-item>
@@ -23,7 +25,7 @@
         >
             <template  v-if="inputable">
                 <a-input v-model="menuName" placeholder="请输入菜单名称（50字以内）" />
-                <a-row type="flex" justify="start">
+                <a-row type="flex" justify="start" v-if="! isRename">
                     <a-col :span="12">
                         菜单类型： <a-select
                                 v-model="type"
@@ -42,7 +44,7 @@
                         </a-input>
                     </a-col>
                 </a-row>
-                <a-alert :message="tip" type="info" style="margin-top: 10px"/>
+                <a-alert v-if="! isRename" :message="tip" type="info" style="margin-top: 10px"/>
             </template>
             <p v-else>{{content}}</p>
         </a-modal>
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-    import { TOPIC_MENU_CREATE, TOPIC_MENU_DELETE } from "@/components/constant/url_path";
+    import { TOPIC_MENU_CREATE, TOPIC_MENU_DELETE, TOPIC_MENU_UP_PATCH, TOPIC_MENU_DOWN_PATCH, TOPIC_MENU_RENAME_PATCH } from "@/components/constant/url_path";
 
     export default {
         name: "MenuTopicEdit",
@@ -70,7 +72,7 @@
                 menuName: undefined,
                 type: '1',
                 blogId: undefined,
-
+                isRename: false
             }
         },
         computed: {
@@ -108,6 +110,11 @@
                         _this.parentMenuId = _this.tier > 0 ? _this.parent.menuId : 0;
                         break;
                     case 3:
+                        _this.inputable = true;
+                        _this.isRename = true;
+                        _this.title = '重命名';
+                        _this.visible = true;
+                        _this.menuName = _this.parent.menuName;
                         break;
                     case 4:
                         _this.inputable = false;
@@ -128,6 +135,7 @@
                         _this.addMenu();
                         break;
                     case 3:
+                        _this.renameMenu();
                         break;
                     case 4:
                         _this.deleteMenu();
@@ -176,12 +184,64 @@
                         _this.$message.warn("当前网络不稳定，请稍后重试。");
                     })
             },
-            handleCancel() {
+            moveUp() {
                 let _this = this;
-                _this.visible = false;
-                _this.inputable = false;
-                _this.title = undefined;
-                _this.content = undefined;
+                _this.confirmLoading = true;
+                _this.$axios.patch(TOPIC_MENU_UP_PATCH.replace("{topicId}", _this.topicId).replace("{menuId}", _this.parent.menuId))
+                    .then(function (response) {
+                        _this.confirmLoading = false;
+                        let code = response.data.code;
+                        if (code == 200) {
+                            _this.clearStatus();
+                            _this.$emit('refresh');
+                        } else {
+                            _this.$message.info(response.data.message);
+                        }
+                    }).catch(function () {
+                        _this.confirmLoading = false;
+                        _this.$message.warn("当前网络不稳定，请稍后重试。");
+                    })
+            },
+            moveDown() {
+                let _this = this;
+                _this.confirmLoading = true;
+                _this.$axios.patch(TOPIC_MENU_DOWN_PATCH.replace("{topicId}", _this.topicId).replace("{menuId}", _this.parent.menuId))
+                    .then(function (response) {
+                        _this.confirmLoading = false;
+                        let code = response.data.code;
+                        if (code == 200) {
+                            _this.clearStatus();
+                            _this.$emit('refresh');
+                        } else {
+                            _this.$message.info(response.data.message);
+                        }
+                    }).catch(function () {
+                        _this.confirmLoading = false;
+                        _this.$message.warn("当前网络不稳定，请稍后重试。");
+                    })
+            },
+            renameMenu() {
+                let _this = this;
+                _this.confirmLoading = true;
+                _this.$axios.patch(TOPIC_MENU_RENAME_PATCH.replace("{topicId}", _this.topicId).replace("{menuId}", _this.parent.menuId), {
+                    menuName: _this.menuName
+                })
+                    .then(function (response) {
+                        _this.confirmLoading = false;
+                        let code = response.data.code;
+                        if (code == 200) {
+                            _this.clearStatus();
+                            _this.$emit('refresh');
+                        } else {
+                            _this.$message.info(response.data.message);
+                        }
+                    }).catch(function () {
+                    _this.confirmLoading = false;
+                    _this.$message.warn("当前网络不稳定，请稍后重试。");
+                })
+            },
+            handleCancel() {
+                this.clearStatus();
             },
             clearStatus() {
                 this.parentMenuId = undefined;
@@ -192,6 +252,7 @@
                 this.title = undefined;
                 this.content = undefined;
                 this.visible = false;
+                this.isRename = false;
             }
         }
     }

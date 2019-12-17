@@ -88,12 +88,24 @@ export const BLOG_SEARCH_HOT_WORD = "/api/blog/hotWord";
 export const TOPIC_CREATE_POST = "/api/blog/topic";
 /* 专题列表 */
 export const TOPICS_GET = "/api/blog/topic";
+/* 专题更改 */
+export const TOPIC_EDIT_PUT = "/api/blog/topic/{topicId}";
+/* 删除专题 */
+export const TOPIC_DELETE = "/api/blog/topic/{topicId}"
+/* 专题状态更改 */
+export const TOPIC_STATUS_PATCH = "/api/blog/topic/{topicId}/status";
 /* 创建菜单 */
 export const TOPIC_MENU_CREATE = "/api/blog/topic/{topicId}/menu";
 /* 专题菜单 */
 export const TOPIC_MENU_GET = "/api/blog/topic/{topicId}/menu";
 /* 菜单删除 */
-export const TOPIC_MENU_DELETE = "/api/blog/topic/{topicId}/menu/{menuId}"
+export const TOPIC_MENU_DELETE = "/api/blog/topic/{topicId}/menu/{menuId}";
+/* 菜单上移 */
+export const TOPIC_MENU_UP_PATCH = "/api/blog/topic/{topicId}/menu/{menuId}/up";
+/* 菜单下移 */
+export const TOPIC_MENU_DOWN_PATCH = "/api/blog/topic/{topicId}/menu/{menuId}/down";
+/* 菜单重命名 */
+export const TOPIC_MENU_RENAME_PATCH = "/api/blog/topic/{topicId}/menu/{menuId}";
 
 /* 获取分类树 */
 export const CATEGORY_TREE_GET = "/api/blog/category/tree";

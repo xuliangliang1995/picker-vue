@@ -180,4 +180,10 @@
     .ant-input-affix-wrapper .ant-input-suffix {
         right: 5px;
     }
+    .ant-drawer-content {
+        z-index: 1001;
+    }
+    .ant-drawer {
+        z-index: 1001;
+    }
 </style>

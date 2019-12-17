@@ -5,7 +5,7 @@
                 <a-col class="gutter-row" :span="4">
                     <slot name="sider"></slot>
                 </a-col>
-                <a-col class="gutter-row" :span="16">
+                <a-col class="gutter-row" :span="18">
                     <a-layout-content>
                         <div class="content-wrapper" id="picker-content">
                             <slot name="content"></slot>

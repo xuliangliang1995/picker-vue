@@ -30,6 +30,7 @@ import MainPage from "@/components/content/MainPage";
 import Topic from "@/components/content/topic/Topic";
 import TopicList from "@/components/content/topic/TopicList";
 import MyBlogViewPage from "@/components/content/blog/MyBlogViewPage";
+import TopicListV2 from "@/components/content/topic/TopicListV2";
 const routes = [
     {   path: '/', component: FirstPage },
     {   path: '/signUp', component: Register    },
@@ -65,7 +66,7 @@ const routes = [
             {   path: '/blog/:blogId/editor', components: {default: DraftsMd, sider: MenuLeft}, props: {default: true, sider: {selectKey: ['blog-category']}}}
         ]
     },
-    {   path: '/topic', component: TopicList },
+    {   path: '/topic', component: TopicListV2 },
     {   path: '/topic/:topicId', component: Topic, props: true },
     {   path: '/topic/:topicId/blog/:blogId', component: Topic, props: true },
     {   path: '/schedule', component: CalendarPage},
