@@ -3,8 +3,10 @@
 
     <a-layout :style="{minHeight:windowHeight}">
       <!-- 头部 -->
-      <a-layout-header :style="{minHeight: headerHeight}" id="header">
-        <slot name="header"></slot>
+      <a-layout-header :style="{minHeight: headerHeight, background: 'white'}" id="header">
+        <a-affix>
+          <slot name="header"></slot>
+        </a-affix>
       </a-layout-header>
       <router-view :style="{minHeight:contentHeight}"></router-view>
     </a-layout>
@@ -79,6 +81,12 @@
   }
   .ant-layout-footer {
     background: #000;
+  }
+  #header .ant-affix {
+    background: white;
+  }
+  #header {
+    z-index: 100;
   }
 
 </style>
