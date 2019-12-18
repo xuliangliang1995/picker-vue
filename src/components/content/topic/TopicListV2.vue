@@ -46,7 +46,11 @@
                                             <a href="#" @click.stop.prevent="routeBlog(record.topicId, record.links[0].blogId)">01 | {{record.links[0].title}}</a>
                                         </span>
                                     </a-col>
-                                    <a-col :span="8" v-if="record.links.length > 1"><span class="topic-desc">02 | {{record.links[1].title}}</span></a-col>
+                                    <a-col :span="8" v-if="record.links.length > 1">
+                                        <span class="topic-desc">
+                                            <a href="#" @click.stop.prevent="routeBlog(record.topicId, record.links[1].blogId)">02 | {{record.links[1].title}}</a>
+                                        </span>
+                                    </a-col>
                                 </a-row>
                             </template>
                             <template v-else>
@@ -54,8 +58,16 @@
                             </template>
                             <template v-if="record.links && record.links.length > 2">
                                 <a-row :style="{marginTop: '20px'}">
-                                    <a-col :span="8"><span class="topic-desc">01 | {{record.links[2].title}}</span></a-col>
-                                    <a-col :span="8" v-if="record.links.length > 3"><span class="topic-desc">02 | {{record.links[3].title}}</span></a-col>
+                                    <a-col :span="8">
+                                        <span class="topic-desc">
+                                            <a href="#" @click.stop.prevent="routeBlog(record.topicId, record.links[2].blogId)">03 | {{record.links[2].title}}</a>
+                                        </span>
+                                    </a-col>
+                                    <a-col :span="8" v-if="record.links.length > 3">
+                                        <span class="topic-desc">
+                                            <a href="#" @click.stop.prevent="routeBlog(record.topicId, record.links[3].blogId)">04 | {{record.links[3].title}}</a>
+                                        </span>
+                                    </a-col>
                                 </a-row>
                             </template>
                             <template v-else>
