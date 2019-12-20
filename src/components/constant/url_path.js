@@ -94,6 +94,9 @@ export const TOPIC_EDIT_PUT = "/api/blog/topic/{topicId}";
 export const TOPIC_DELETE = "/api/blog/topic/{topicId}"
 /* 专题状态更改 */
 export const TOPIC_STATUS_PATCH = "/api/blog/topic/{topicId}/status";
+/* 专题池 */
+export const TOPIC_POOL_GET = "/api/blog/topic/pool";
+
 /* 创建菜单 */
 export const TOPIC_MENU_CREATE = "/api/blog/topic/{topicId}/menu";
 /* 专题菜单 */

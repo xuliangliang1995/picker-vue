@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-dropdown :trigger="['contextmenu']">
+        <a-dropdown v-if="editable" :trigger="['contextmenu']">
             <slot name="content"></slot>
             <a-menu slot="overlay">
                 <template v-if="tier > 0">
@@ -16,6 +16,7 @@
                 </template>
             </a-menu>
         </a-dropdown>
+        <slot v-else name="content"></slot>
         <a-modal
                 :title="title"
                 :visible="visible"
@@ -57,7 +58,7 @@
 
     export default {
         name: "MenuTopicEdit",
-        props: ['tier', 'parent', 'topicId'],
+        props: ['tier', 'parent', 'topicId', 'editable'],
         data() {
             return {
                 eventKey: undefined,

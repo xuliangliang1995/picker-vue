@@ -1,5 +1,6 @@
 <template>
     <div>
+        <a-skeleton v-if="loading"/>
         <div v-if="data && data.length > 0" style="background-color: #f7f2f2; padding: 20px;">
             <template v-for="(item, index) in data">
                 <a-row v-if="index % 2 == 0" :key="index" :gutter="16" :style="{marginBottom: '20px'}">
@@ -113,7 +114,8 @@
                 pageNo: 1,
                 pageSize: 10,
                 data: [],
-                total: undefined
+                total: undefined,
+                loading: true
             }
         },
         computed: {
@@ -130,6 +132,7 @@
                         .concat("&pageNo=").concat(_this.pageNo)
                         .concat("&pageSize=").concat(_this.pageSize)
                 ).then(function (response) {
+                    _this.loading = false;
                     let code = response.data.code;
                     if (code == 200) {
                         _this.data = response.data.result;

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import {LocaleProvider, Layout, Menu, Row, Col, Button, Icon, Skeleton, Avatar, Divider, Input, Form, AutoComplete, Steps, Message,
 Dropdown, Drawer, Radio, notification, List, Spin, Upload, Select, Tag, Modal, InputNumber, Tree, Breadcrumb, Switch, TreeSelect,
 Affix, BackTop, Calendar, TimePicker, Carousel, Card, Comment, Tooltip, Alert, Anchor, Statistic, Pagination, Table, Tabs, Popover,
-Popconfirm, Rate} from 'ant-design-vue';
+Popconfirm, Rate, Progress} from 'ant-design-vue';
 import App from "./App";
 import router from "./router";
 import axios from 'axios';
@@ -13,6 +13,9 @@ import { CHECK_ACCESS_TOKEN } from "@/components/constant/action_types";
 import moment from 'moment';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
+//引入nprogress
+import NProgress from 'nprogress' // 进度条
+import 'nprogress/nprogress.css' //这个样式必须引入
 
 // use
 Vue.use(mavonEditor)
@@ -63,11 +66,25 @@ Vue.use(Tabs);
 Vue.use(Popover);
 Vue.use(Popconfirm);
 Vue.use(Rate);
+Vue.use(Progress);
 
 Vue.prototype.$moment = moment;
 Vue.prototype.$message = Message;
 Vue.prototype.$notification = notification;
 
+
+// 简单配置
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
+
+router.beforeEach((to,from,next) => {
+    NProgress.start()
+    next()
+})
+
+router.afterEach(() => {
+    NProgress.done()
+})
 /**
  * axios
  * @type {AxiosInstance}

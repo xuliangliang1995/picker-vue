@@ -66,7 +66,7 @@
                             },
                             {
                                 key:'blog-category',
-                                title: '博客分类',
+                                title: '文件夹',
                                 route: '/blog/category',
                                 icon: 'folder'
                             },

@@ -66,4 +66,15 @@
     .ant-menu {
         line-height: unset;
     }
+    .ant-menu-horizontal {
+        border-bottom: unset;
+    }
+    .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
+        color: #1DA57A;
+        border-top: 2px solid #1DA57A;
+        border-bottom: unset;
+    }
+    .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+        border-bottom: unset;
+    }
 </style>
