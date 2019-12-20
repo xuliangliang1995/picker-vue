@@ -4,7 +4,7 @@
             <a-menu-item key="home" @click="route('/')">
                 <a-icon type="home" />首页
             </a-menu-item>
-            <a-menu-item key="topic" @click="route('/topic')">
+            <a-menu-item key="topic" @click="routeIfLogin('/topic')">
                 <a-icon type="flag" />专题
             </a-menu-item>
             <a-menu-item key="blog" @click="routeIfLogin('/blog')">
