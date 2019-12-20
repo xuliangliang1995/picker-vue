@@ -67,6 +67,7 @@
     padding: 0px;
     box-shadow: 0 2px 8px #f0f1f2;
     background: #fff;
+    z-index: 1;
   }
 
   #footer-info {

@@ -32,12 +32,12 @@
                     </a-input>
                 </a-form-item>
 
-                <a-form-item label="博客分类" required>
+                <a-form-item label="文件夹" required>
                     <a-tree-select
                             style="width: 300px"
                             :dropdownStyle="{ maxHeight: '400px', overflow: 'auto' }"
                             :treeData="treeData"
-                            placeholder="请选择分类"
+                            placeholder="选择存储位置"
                             treeDefaultExpandAll
                             showSearch
                             v-model="blog.categoryId"

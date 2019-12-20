@@ -30,7 +30,9 @@ import MainPage from "@/components/content/MainPage";
 import Topic from "@/components/content/topic/Topic";
 import TopicList from "@/components/content/topic/TopicList";
 import MyBlogViewPage from "@/components/content/blog/MyBlogViewPage";
-import TopicListV2 from "@/components/content/topic/TopicListV2";
+import TopicListV2 from "@/components/content/topic/TopicList";
+import TopicPool from "@/components/content/topic/TopicPool";
+
 const routes = [
     {   path: '/', component: FirstPage },
     {   path: '/signUp', component: Register    },
@@ -50,7 +52,7 @@ const routes = [
             {   path: '/search', components: {default: MenuSearch, content: SearchHomePage}},
             {   path: '/search/blog', components: {default: MenuSearch, content: BlogList}, props: {default: {defaultIndex: 0}}},
             {   path: '/search/user', components: {default: MenuSearch, content: UserList}, props: {default: {defaultIndex: 1}}},
-            {   path: '/search/subject', components: {default: MenuSearch, content: NoContent}, props: {default: {defaultIndex: 2}}}
+            {   path: '/search/subject', components: {default: MenuSearch, content: TopicPool}, props: {default: {defaultIndex: 2}}}
         ]
     },
     {   path: '/blog/:blogId.html', component: PublicBlogViewPage, props: true},
@@ -73,8 +75,6 @@ const routes = [
     {   path: '/message', component: NoContent},
     {   path: '/main', component: MainPage}
 ];
-
-// const router = new VueRouter(routes);
 
 export default new VueRouter({
     routes,

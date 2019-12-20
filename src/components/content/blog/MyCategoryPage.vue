@@ -6,7 +6,7 @@
                     <a-list-item slot="renderItem" slot-scope="item, index" :style="{width:'100%'}">
                         <a-row :key="index" justify="start" align="middle">
                             <template v-if="item.parentId >= 0">
-                                <a-icon type="folder-open"/>
+                                <a-icon type="folder"/>
                                 <a @click="routeCategory(item.key)">
                                     {{item.title}}
                                 </a>
@@ -97,7 +97,7 @@
             </a-col>
         </a-row>
         <a-modal
-                title="添加分类"
+                title="新建文件夹"
                 v-model="modal.visible"
                 :confirmLoading="modal.confirmLoading"
                 :destroyOnClose="true"
@@ -107,7 +107,7 @@
             <p><a-input placeHolder="长度在 1 ~ 20 之间" v-model="modal.value" @change="categoryValueChange"/></p>
         </a-modal>
         <a-modal
-                title="修改分类名称"
+                title="重命名"
                 v-model="modal.editVisible"
                 :confirmLoading="modal.editConfirmLoading"
                 :destroyOnClose="true"

@@ -17,12 +17,13 @@
     "less-loader": "^5.0.0",
     "mavon-editor": "^2.7.6",
     "moment": "^2.24.0",
+    "nprogress": "^0.2.0",
     "qs": "^6.9.1",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.1.3",
     "vuex": "^3.1.1",
-    "webpack-aliyun-oss": "^0.2.3"
+    "webpack-aliyun-oss": "^0.2.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",
